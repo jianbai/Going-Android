@@ -16,5 +16,15 @@
     <string name="title_activity_login">Log in</string>
     <string name="action_logout">Log out</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="settings_match_preferences_textview">Match preferences</string>
+    <string name="settings_your_profile_textview">Your profile</string>
+    <string name="settings_name_textview">Name</string>
+    <string name="settings_age_textview">Age</string>
+    <string name="settings_hometown_textview">Hometown</string>
+    <string name="settings_age_spread_textview">Age spread</string>
+    <string name="settings_gender_spread_textview">Gender spread</string>
+    <string name="settings_age_spread_indicator">Surprise me!</string>
+    <string name="settings_gender_spread_indicator">Surprise me!</string>
+    <string name="settings_save_button">Save settings</string>
 
 </resources>

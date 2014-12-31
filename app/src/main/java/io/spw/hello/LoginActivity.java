@@ -32,6 +32,7 @@ public class LoginActivity extends Activity {
         Log.d(TAG, "got to login");
 
         // Check if user is logged in and connected to Facebook
+        // TODO
         ParseUser currentUser = ParseUser.getCurrentUser();
         if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
             Log.d(TAG, "user already logged in");
