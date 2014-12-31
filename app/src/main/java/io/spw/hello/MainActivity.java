@@ -8,9 +8,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.parse.Parse;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.model.GraphUser;
+import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -26,10 +33,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         Log.d(TAG, "loaded main activity");
-
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-        // TODO: Enable analytics
 
 //        ParseUser currentUser = ParseUser.getCurrentUser();
 //        if ((currentUser == null) || !ParseFacebookUtils.isLinked(currentUser)) {
@@ -47,6 +50,55 @@ public class MainActivity extends ActionBarActivity {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.commit();
         }
+
+        // Fetch Facebook user info if session is active
+        Session session = ParseFacebookUtils.getSession();
+        if (session != null && session.isOpened()) {
+            makeMeRequest();
+        }
+    }
+
+    private void makeMeRequest() {
+        Request request = Request.newMeRequest(ParseFacebookUtils.getSession(),
+                new Request.GraphUserCallback() {
+                    @Override
+                    public void onCompleted(GraphUser user, Response response) {
+                        if (user != null) {
+                            ParseUser currentUser = ParseUser.getCurrentUser();
+
+                            currentUser.put("facebookId", user.getId());
+                            currentUser.put("firstName", user.getFirstName());
+                            currentUser.put("lastName", user.getLastName());
+
+                            if (user.getProperty("gender") != null) {
+                                currentUser.put("gender",
+                                        (String) user.getProperty("gender"));
+                            }
+                            if (user.getProperty("hometown") != null) {
+                                currentUser.put("hometown", user.getProperty("hometown"));
+                            }
+                            if (user.getBirthday() != null) {
+                                currentUser.put("birthday", (String) user.getBirthday());
+                            }
+                            if (user.getProperty("email") != null) {
+                                currentUser.put("email",
+                                        (String) user.getProperty("email"));
+                            }
+
+                            // Save user info
+                            currentUser.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    Toast.makeText(MainActivity.this, "Saved!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        } else if (response.getError() != null) {
+                            Log.d(TAG, response.getError().getErrorMessage());
+                            // TODO: handle this error
+                        }
+                    }
+                });
+        request.executeAsync();
     }
 
     @Override

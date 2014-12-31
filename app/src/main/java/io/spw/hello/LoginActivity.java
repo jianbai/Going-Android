@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by scottwang on 12/26/14.
  * ga0RGNYHvNM5d0SLGQfpQWAPGJ8=
+ * n+xcAaOIG1e1XpxStAc4PkDDnXM
  */
 
 public class LoginActivity extends Activity {
@@ -48,7 +49,7 @@ public class LoginActivity extends Activity {
     public void onLoginButtonClicked(View v) {
         // TODO: show some progress dialog
 
-        List<String> permissions = Arrays.asList("public_profile", "email");
+        List<String> permissions = Arrays.asList("public_profile", "user_hometown", "user_birthday", "email");
 
         ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
             @Override
@@ -59,6 +60,7 @@ public class LoginActivity extends Activity {
                 // Handle callback
                 if (parseUser == null) {
                     Log.d(TAG, "User cancelled Facebook login :(");
+                    Log.d(TAG, e.getLocalizedMessage());
                 } else if (parseUser.isNew()) {
                     Log.d(TAG, "User signed up AND logged in through Facebook :)");
                     navigateToMain();
