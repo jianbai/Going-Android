@@ -23,8 +23,14 @@
     <string name="settings_hometown_textview">Hometown</string>
     <string name="settings_age_spread_textview">Age spread</string>
     <string name="settings_gender_spread_textview">Gender spread</string>
-    <string name="settings_age_spread_indicator">Surprise me!</string>
-    <string name="settings_gender_spread_indicator">Surprise me!</string>
+    <string name="settings_age_spread_default">Surprise me!</string>
+    <string name="settings_gender_spread_default">Surprise me!</string>
     <string name="settings_save_button">Save settings</string>
+    <string name="settings_age_spread_1">8 years</string>
+    <string name="settings_age_spread_2">7 years</string>
+    <string name="settings_age_spread_3">6 years</string>
+    <string name="settings_age_spread_4">5 years</string>
+    <string name="settings_gender_spread_1">Co-ed (2 and 2)</string>
+    <string name="settings_gender_spread_2">Single-sex</string>
 
 </resources>

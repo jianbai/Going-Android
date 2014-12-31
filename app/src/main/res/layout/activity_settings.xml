@@ -61,7 +61,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings_age_spread_indicator"
+        android:text="@string/settings_age_spread_default"
         android:id="@+id/settings_age_spread_indicator"
         android:layout_marginLeft="@dimen/activity_indent_horizontal_margin"
         android:textSize="@dimen/abc_text_size_headline_material" />
@@ -69,7 +69,8 @@
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar" />
+        android:id="@+id/settings_age_seek_bar"
+        android:max="4" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,7 +84,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings_gender_spread_indicator"
+        android:text="@string/settings_gender_spread_default"
         android:id="@+id/settings_gender_spread_indicator"
         android:layout_marginLeft="@dimen/activity_indent_horizontal_margin"
         android:textSize="@dimen/abc_text_size_headline_material" />
@@ -91,7 +92,8 @@
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar2" />
+        android:id="@+id/settings_gender_seek_bar"
+        android:max="2" />
 
     <Button
         android:layout_width="wrap_content"
