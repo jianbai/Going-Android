@@ -19,6 +19,11 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -78,7 +83,16 @@ public class MainActivity extends ActionBarActivity {
                                 currentUser.put("hometown", user.getProperty("hometown"));
                             }
                             if (user.getBirthday() != null) {
-                                currentUser.put("birthday", (String) user.getBirthday());
+                                String birthday = (String) user.getBirthday();
+                                currentUser.put("birthday", birthday);
+
+                                try {
+                                    String age = calculateAge(birthday);
+                                    currentUser.put("age", age);
+                                } catch (java.text.ParseException e) {
+                                    e.printStackTrace();
+                                }
+
                             }
                             if (user.getProperty("email") != null) {
                                 currentUser.put("email",
@@ -124,6 +138,28 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return true;
+    }
+
+    private String calculateAge(String birthday) throws java.text.ParseException {
+        int age;
+
+        Date date = new SimpleDateFormat("MM/dd/yyyy").parse(birthday);
+        Date now = new Date();
+
+        GregorianCalendar cal1 = new GregorianCalendar();
+        GregorianCalendar cal2 = new GregorianCalendar();
+        cal1.setTime(date);
+        cal2.setTime(now);
+
+        int factor = 0;
+
+        if (cal2.get(Calendar.DAY_OF_YEAR) < cal1.get(Calendar.DAY_OF_YEAR)) {
+            factor = -1;
+        }
+
+        age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
+
+        return String.valueOf(age);
     }
 
     private void navigateToLogin() {
