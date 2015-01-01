@@ -19,6 +19,9 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,10 +35,13 @@ public class MainActivity extends ActionBarActivity {
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
 
+    private ParseUser currentUser;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        currentUser = ParseUser.getCurrentUser();
 
         Log.d(TAG, "loaded main activity");
 
@@ -69,8 +75,6 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onCompleted(GraphUser user, Response response) {
                         if (user != null) {
-                            ParseUser currentUser = ParseUser.getCurrentUser();
-
                             currentUser.put("facebookId", user.getId());
                             currentUser.put("firstName", user.getFirstName());
                             currentUser.put("lastName", user.getLastName());
@@ -80,7 +84,14 @@ public class MainActivity extends ActionBarActivity {
                                         (String) user.getProperty("gender"));
                             }
                             if (user.getProperty("hometown") != null) {
-                                currentUser.put("hometown", user.getProperty("hometown"));
+                                JSONObject h = (JSONObject) user.getProperty("hometown");
+
+                                try {
+                                    currentUser.put("hometown", h.getString("name"));
+                                } catch (JSONException e) {
+                                    Log.d(TAG, e.getLocalizedMessage());
+                                }
+
                             }
                             if (user.getBirthday() != null) {
                                 String birthday = (String) user.getBirthday();
@@ -90,7 +101,7 @@ public class MainActivity extends ActionBarActivity {
                                     String age = calculateAge(birthday);
                                     currentUser.put("age", age);
                                 } catch (java.text.ParseException e) {
-                                    e.printStackTrace();
+                                    Log.d(TAG, e.getLocalizedMessage());
                                 }
 
                             }
@@ -104,6 +115,9 @@ public class MainActivity extends ActionBarActivity {
                                 @Override
                                 public void done(ParseException e) {
                                     Toast.makeText(MainActivity.this, "Saved!", Toast.LENGTH_LONG).show();
+
+                                    // Check for required info
+                                    checkUserInfo();
                                 }
                             });
                         } else if (response.getError() != null) {
@@ -113,6 +127,20 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
         request.executeAsync();
+    }
+
+    private void checkUserInfo() {
+        Boolean noGender = currentUser.getString("gender") == null;
+        Boolean noAge = currentUser.getString("age") == null;
+        Boolean noHometown = currentUser.getString("hometown") == null;
+
+        if (noGender || noAge || noHometown) {
+            Intent intent = new Intent(this, SetProfileActivity.class);
+            intent.putExtra("noGender", noGender);
+            intent.putExtra("noAge", noAge);
+            intent.putExtra("noHometown", noHometown);
+            startActivity(intent);
+        }
     }
 
     @Override

@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import com.parse.ParseUser;
 
-import org.json.JSONException;
-
 /**
  * Created by scottwang on 12/29/14.
  */
@@ -39,15 +37,7 @@ public class SettingsActivity extends ActionBarActivity {
         settingsAge.setText(currentUser.getString("age"));
 
         settingsHometown = (TextView) findViewById(R.id.settings_hometown_textview);
-        String hometown = "";
-        try {
-            if (currentUser.getJSONObject("hometown") != null) {
-                hometown = currentUser.getJSONObject("hometown").getString("name");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        settingsHometown.setText(hometown);
+        settingsHometown.setText(currentUser.getString("hometown"));
 
         // Set up seek bars
         settingsAgeSeekBar = (SeekBar) findViewById(R.id.settings_age_seek_bar);

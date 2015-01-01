@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/hello_white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_profile_textview"
+        android:id="@+id/set_profile_textview"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_marginLeft="@dimen/activity_indent_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_indent_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_indent_horizontal_margin" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/set_profile_gender_edittext"
+        android:layout_marginLeft="@dimen/activity_indent_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_indent_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_indent_horizontal_margin"
+        android:hint="@string/set_profile_gender_hint"
+        android:visibility="gone" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/set_profile_birthday_edittext"
+        android:layout_marginLeft="@dimen/activity_indent_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_indent_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:hint="@string/set_profile_birthday_hint"
+        android:visibility="gone" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/set_profile_hometown_edittext"
+        android:layout_marginLeft="@dimen/activity_indent_horizontal_margin"
+        android:inputType="text"
+        android:layout_marginRight="@dimen/activity_indent_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:hint="@string/set_profile_hometown_hint"
+        android:visibility="gone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_profile_save_button"
+        android:id="@+id/set_profile_save_button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_indent_horizontal_margin" />
+
+</LinearLayout>
