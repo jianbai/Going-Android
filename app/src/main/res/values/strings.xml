@@ -44,6 +44,8 @@
     <string name="set_profile_incomplete_title">Oops!</string>
     <string name="set_profile_invalid_age_message">The birthday you entered is not working. Please enter a valid birthday!</string>
     <string name="set_profile_invalid_age_title">Ouch!</string>
+    <string name="login_failed_message">Something went wrong :( That\'s okay, make sure your network connection is ok and try again!</string>
+    <string name="login_failed_title">Rats!</string>
 
     <string-array name="gender_array">
         <item>Female</item>

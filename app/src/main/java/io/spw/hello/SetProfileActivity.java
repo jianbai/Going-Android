@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -55,36 +54,39 @@ public class SetProfileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_set_profile);
         currentUser = ParseUser.getCurrentUser();
 
-        mGenderEditText = (EditText) findViewById(R.id.set_profile_gender_edittext);
-        mBirthdayEditText = (EditText) findViewById(R.id.set_profile_birthday_edittext);
-        mHometownEditText = (EditText) findViewById(R.id.set_profile_hometown_edittext);
-
-        Intent intent = getIntent();
-        noGender = intent.getExtras().getBoolean("noGender");
-        noAge = intent.getExtras().getBoolean("noAge");
-        noHometown = intent.getExtras().getBoolean("noHometown");
+        findViews();
+        initializeBooleans();
 
         if (noGender) {
-            Log.d(TAG, "No Gender");
-            mGenderEditText.setVisibility(View.VISIBLE);
             setUpGender();
         }
 
         if (noAge) {
-            Log.d(TAG, "No Age");
-            mBirthdayEditText.setVisibility(View.VISIBLE);
             setUpAge();
         }
 
         if (noHometown) {
-            Log.d(TAG, "No Hometown");
-            mHometownEditText.setVisibility(View.VISIBLE);
+            setUpHometown();
         }
 
         setUpSaveButton();
     }
 
+    private void findViews() {
+        mGenderEditText = (EditText) findViewById(R.id.set_profile_gender_edittext);
+        mBirthdayEditText = (EditText) findViewById(R.id.set_profile_birthday_edittext);
+        mHometownEditText = (EditText) findViewById(R.id.set_profile_hometown_edittext);
+    }
+
+    private void initializeBooleans() {
+        Intent intent = getIntent();
+        noGender = intent.getExtras().getBoolean("noGender");
+        noAge = intent.getExtras().getBoolean("noAge");
+        noHometown = intent.getExtras().getBoolean("noHometown");
+    }
+
     private void setUpGender() {
+        mGenderEditText.setVisibility(View.VISIBLE);
         mGenderEditText.setInputType(InputType.TYPE_NULL);
 
         initializeGenderDialog();
@@ -118,6 +120,7 @@ public class SetProfileActivity extends ActionBarActivity {
     }
 
     private void setUpAge() {
+        mBirthdayEditText.setVisibility(View.VISIBLE);
         mBirthdayEditText.setInputType(InputType.TYPE_NULL);
         mDateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.CANADA);
 
@@ -142,6 +145,10 @@ public class SetProfileActivity extends ActionBarActivity {
                 mBirthdayEditText.setText(mDateFormatter.format(date.getTime()));
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void setUpHometown() {
+        mHometownEditText.setVisibility(View.VISIBLE);
     }
 
     private void setUpSaveButton() {
@@ -219,23 +226,23 @@ public class SetProfileActivity extends ActionBarActivity {
 
     private void updateUserGender() {
         String gender = mGenderEditText.getText().toString();
-        currentUser.put("gender", gender);
+        currentUser.put(ParseConstants.KEY_GENDER, gender);
     }
 
     private void updateUserAge() {
         String birthday = mBirthdayEditText.getText().toString();
         try {
             String age = calculateAge(birthday);
-            currentUser.put("age", age);
+            currentUser.put(ParseConstants.KEY_AGE, age);
         } catch (ParseException e) {
             showInvalidAgeDialog();
         }
-        currentUser.put("birthday", birthday);
+        currentUser.put(ParseConstants.KEY_BIRTHDAY, birthday);
     }
 
     private void updateUserHometown() {
         String hometown = mHometownEditText.getText().toString();
-        currentUser.put("hometown", hometown);
+        currentUser.put(ParseConstants.KEY_HOMETOWN, hometown);
     }
 
     private void saveToParse() {

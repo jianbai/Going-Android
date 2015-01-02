@@ -32,6 +32,7 @@
         <activity
             android:name=".SetProfileActivity"
             android:label="@string/title_set_profile"
+            android:theme="@style/CustomActionBarTheme"
             android:screenOrientation="portrait" >
         </activity>
         <activity

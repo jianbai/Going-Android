@@ -8,24 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.model.GraphUser;
-import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -45,11 +29,6 @@ public class MainActivity extends ActionBarActivity {
 
         Log.d(TAG, "loaded main activity");
 
-//        ParseUser currentUser = ParseUser.getCurrentUser();
-//        if ((currentUser == null) || !ParseFacebookUtils.isLinked(currentUser)) {
-//            navigateToLogin();
-//        }
-
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.setAdapter(new SectionsPagerAdapter(this, getSupportFragmentManager()));
 
@@ -60,86 +39,6 @@ public class MainActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.commit();
-        }
-
-        // Fetch Facebook user info if session is active
-        Session session = ParseFacebookUtils.getSession();
-        if (session != null && session.isOpened()) {
-            makeMeRequest();
-        }
-    }
-
-    private void makeMeRequest() {
-        Request request = Request.newMeRequest(ParseFacebookUtils.getSession(),
-                new Request.GraphUserCallback() {
-                    @Override
-                    public void onCompleted(GraphUser user, Response response) {
-                        if (user != null) {
-                            currentUser.put("facebookId", user.getId());
-                            currentUser.put("firstName", user.getFirstName());
-                            currentUser.put("lastName", user.getLastName());
-
-                            if (user.getProperty("gender") != null) {
-                                currentUser.put("gender",
-                                        (String) user.getProperty("gender"));
-                            }
-                            if (user.getProperty("hometown") != null) {
-                                JSONObject h = (JSONObject) user.getProperty("hometown");
-
-                                try {
-                                    currentUser.put("hometown", h.getString("name"));
-                                } catch (JSONException e) {
-                                    Log.d(TAG, e.getLocalizedMessage());
-                                }
-
-                            }
-                            if (user.getBirthday() != null) {
-                                String birthday = (String) user.getBirthday();
-                                currentUser.put("birthday", birthday);
-
-                                try {
-                                    String age = calculateAge(birthday);
-                                    currentUser.put("age", age);
-                                } catch (java.text.ParseException e) {
-                                    Log.d(TAG, e.getLocalizedMessage());
-                                }
-
-                            }
-                            if (user.getProperty("email") != null) {
-                                currentUser.put("email",
-                                        (String) user.getProperty("email"));
-                            }
-
-                            // Save user info
-                            currentUser.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    Toast.makeText(MainActivity.this, "Saved!", Toast.LENGTH_LONG).show();
-
-                                    // Check for required info
-                                    checkUserInfo();
-                                }
-                            });
-                        } else if (response.getError() != null) {
-                            Log.d(TAG, response.getError().getErrorMessage());
-                            // TODO: handle this error
-                        }
-                    }
-                });
-        request.executeAsync();
-    }
-
-    private void checkUserInfo() {
-        Boolean noGender = currentUser.getString("gender") == null;
-        Boolean noAge = currentUser.getString("age") == null;
-        Boolean noHometown = currentUser.getString("hometown") == null;
-
-        if (noGender || noAge || noHometown) {
-            Intent intent = new Intent(this, SetProfileActivity.class);
-            intent.putExtra("noGender", noGender);
-            intent.putExtra("noAge", noAge);
-            intent.putExtra("noHometown", noHometown);
-            startActivity(intent);
         }
     }
 
@@ -156,7 +55,6 @@ public class MainActivity extends ActionBarActivity {
 
         switch (id) {
             case R.id.action_logout:
-                //ParseFacebookUtils.getSession().closeAndClearTokenInformation();
                 ParseUser.logOut();
                 navigateToLogin();
                 break;
@@ -166,28 +64,6 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return true;
-    }
-
-    private String calculateAge(String birthday) throws java.text.ParseException {
-        int age;
-
-        Date date = new SimpleDateFormat("MM/dd/yyyy").parse(birthday);
-        Date now = new Date();
-
-        GregorianCalendar cal1 = new GregorianCalendar();
-        GregorianCalendar cal2 = new GregorianCalendar();
-        cal1.setTime(date);
-        cal2.setTime(now);
-
-        int factor = 0;
-
-        if (cal2.get(Calendar.DAY_OF_YEAR) < cal1.get(Calendar.DAY_OF_YEAR)) {
-            factor = -1;
-        }
-
-        age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
-
-        return String.valueOf(age);
     }
 
     private void navigateToLogin() {
