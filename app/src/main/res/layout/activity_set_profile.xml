@@ -54,4 +54,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_indent_horizontal_margin" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_indent_horizontal_margin"
+        style="@android:style/Widget.Holo.ProgressBar.Large"
+        android:id="@+id/set_profile_progress_spinner"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
+
 </LinearLayout>

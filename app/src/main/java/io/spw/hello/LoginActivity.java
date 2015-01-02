@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -38,6 +39,9 @@ public class LoginActivity extends Activity {
 
     public static final String TAG = LoginActivity.class.getSimpleName();
 
+    private ProgressBar mProgressSpinner;
+    private Button mLoginButton;
+
     private ParseUser currentUser;
     private Boolean noGender;
     private Boolean noAge;
@@ -46,8 +50,10 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_login);
+
+        mProgressSpinner = (ProgressBar) findViewById(R.id.login_progress_spinner);
+        mLoginButton = (Button) findViewById(R.id.button_facebook_login);
 
         Log.d(TAG, "got to login");
 
@@ -66,27 +72,23 @@ public class LoginActivity extends Activity {
     }
 
     public void onLoginButtonClicked(View v) {
-        setProgressBarIndeterminateVisibility(true);
+        showProgressSpinner();
 
         List<String> permissions = Arrays.asList("public_profile", "user_hometown", "user_birthday", "email");
 
         ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
-                // TODO: dismiss progress
-                // some code
-
-                // Handle callback
                 if (parseUser == null) {
-                    setProgressBarIndeterminateVisibility(false);
                     Log.d(TAG, "User cancelled Facebook login :(");
                     Log.d(TAG, e.getLocalizedMessage());
+                    hideProgressSpinner();
                 } else if (parseUser.isNew()) {
                     Log.d(TAG, "User signed up AND logged in through Facebook :)");
                     fetchFacebookData();
                 } else {
-                    setProgressBarIndeterminateVisibility(false);
                     Log.d(TAG, "User logged in through Facebook :)");
+                    hideProgressSpinner();
                     navigateToMain();
                 }
             }
@@ -115,7 +117,7 @@ public class LoginActivity extends Activity {
                             currentUser.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
-                                    setProgressBarIndeterminateVisibility(false);
+                                    hideProgressSpinner();
                                     initializeBooleans();
 
                                     if (isUserProfileIncomplete()) {
@@ -237,5 +239,15 @@ public class LoginActivity extends Activity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void showProgressSpinner() {
+        mLoginButton.setVisibility(View.GONE);
+        mProgressSpinner.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressSpinner() {
+        mProgressSpinner.setVisibility(View.GONE);
+        mLoginButton.setVisibility(View.VISIBLE);
     }
 }

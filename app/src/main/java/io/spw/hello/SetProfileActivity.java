@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -47,6 +47,7 @@ public class SetProfileActivity extends ActionBarActivity {
 
     private Button mSaveButton;
     private AlertDialog mIncompleteDialog;
+    private ProgressBar mProgressSpinner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,8 @@ public class SetProfileActivity extends ActionBarActivity {
         mGenderEditText = (EditText) findViewById(R.id.set_profile_gender_edittext);
         mBirthdayEditText = (EditText) findViewById(R.id.set_profile_birthday_edittext);
         mHometownEditText = (EditText) findViewById(R.id.set_profile_hometown_edittext);
+        mSaveButton = (Button) findViewById(R.id.set_profile_save_button);
+        mProgressSpinner = (ProgressBar) findViewById(R.id.set_profile_progress_spinner);
     }
 
     private void initializeBooleans() {
@@ -152,18 +155,20 @@ public class SetProfileActivity extends ActionBarActivity {
     }
 
     private void setUpSaveButton() {
-        mSaveButton = (Button) findViewById(R.id.set_profile_save_button);
         initializeIncompleteDialog();
 
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showProgressSpinner();
+
                 Boolean emptyGender = noGender && mGenderEditText.getText().toString().matches("");
                 Boolean emptyBirthday = noAge && mBirthdayEditText.getText().toString().matches("");
                 Boolean emptyHometown = noHometown && mHometownEditText.getText().toString().matches("");
 
                 if (emptyGender || emptyBirthday || emptyHometown) {
                     mIncompleteDialog.show();
+                    hideProgressSpinner();
                 } else {
                     if (noGender) {
                         updateUserGender();
@@ -249,8 +254,7 @@ public class SetProfileActivity extends ActionBarActivity {
         currentUser.saveInBackground(new SaveCallback() {
             @Override
             public void done(com.parse.ParseException e) {
-                Toast.makeText(SetProfileActivity.this, "Saved!!!", Toast.LENGTH_LONG).show();
-
+                hideProgressSpinner();
                 navigateToMain();
             }
         });
@@ -259,6 +263,16 @@ public class SetProfileActivity extends ActionBarActivity {
     private void navigateToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void showProgressSpinner() {
+        mSaveButton.setVisibility(View.GONE);
+        mProgressSpinner.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressSpinner() {
+        mProgressSpinner.setVisibility(View.GONE);
+        mSaveButton.setVisibility(View.VISIBLE);
     }
 
 }

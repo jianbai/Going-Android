@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -35,11 +35,11 @@ public class SettingsActivity extends ActionBarActivity {
     private int genderSpread;
 
     private Button mSaveButton;
+    private ProgressBar mProgressSpinner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_settings);
         currentUser = ParseUser.getCurrentUser();
         ageSpread = currentUser.getInt(ParseConstants.KEY_AGE_SPREAD);
@@ -77,6 +77,7 @@ public class SettingsActivity extends ActionBarActivity {
         mGenderSeekBar = (SeekBar) findViewById(R.id.settings_gender_seek_bar);
 
         mSaveButton = (Button) findViewById(R.id.settings_save_button);
+        mProgressSpinner = (ProgressBar) findViewById(R.id.settings_progress_spinner);
     }
 
     private void setTextViews() {
@@ -216,15 +217,16 @@ public class SettingsActivity extends ActionBarActivity {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setProgressBarIndeterminateVisibility(true);
+                showProgressSpinner();
+
                 currentUser.put(ParseConstants.KEY_AGE_SPREAD, ageSpread);
                 currentUser.put(ParseConstants.KEY_GENDER_SPREAD, genderSpread);
 
                 currentUser.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        setProgressBarIndeterminateVisibility(false);
                         Log.d(TAG, "Saved!");
+                        hideProgressSpinner();
                         navigateToMain();
                     }
                 });
@@ -235,5 +237,15 @@ public class SettingsActivity extends ActionBarActivity {
     private void navigateToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void showProgressSpinner() {
+        mSaveButton.setVisibility(View.GONE);
+        mProgressSpinner.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressSpinner() {
+        mProgressSpinner.setVisibility(View.GONE);
+        mSaveButton.setVisibility(View.VISIBLE);
     }
 }
