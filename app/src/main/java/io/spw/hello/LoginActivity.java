@@ -52,11 +52,14 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // TODO: Refactor?
         mProgressSpinner = (ProgressBar) findViewById(R.id.login_progress_spinner);
         mLoginButton = (Button) findViewById(R.id.button_facebook_login);
 
+        // TODO: Delete
         Log.d(TAG, "got to login");
 
+        // TODO: Delete
         currentUser = ParseUser.getCurrentUser();
         if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
             Log.d(TAG, "user already logged in");
@@ -65,12 +68,14 @@ public class LoginActivity extends Activity {
         }
     }
 
+    // TODO: Comment?
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
     }
 
+    // TODO: Comment?
     public void onLoginButtonClicked(View v) {
         showProgressSpinner();
 
@@ -88,13 +93,13 @@ public class LoginActivity extends Activity {
                     fetchFacebookData();
                 } else {
                     Log.d(TAG, "User logged in through Facebook :)");
-                    hideProgressSpinner();
                     navigateToMain();
                 }
             }
         });
     }
 
+    // TODO: Comment?
     private void fetchFacebookData() {
         Session session = ParseFacebookUtils.getSession();
         if (session != null && session.isOpened()) {
@@ -102,6 +107,7 @@ public class LoginActivity extends Activity {
         }
     }
 
+    // TODO: Comment?
     private void makeMeRequest() {
         Request request = Request.newMeRequest(ParseFacebookUtils.getSession(),
                 new Request.GraphUserCallback() {
@@ -117,7 +123,6 @@ public class LoginActivity extends Activity {
                             currentUser.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
-                                    hideProgressSpinner();
                                     initializeBooleans();
 
                                     if (isUserProfileIncomplete()) {
@@ -130,12 +135,14 @@ public class LoginActivity extends Activity {
                         } else if (response.getError() != null) {
                             Log.d(TAG, response.getError().getErrorMessage());
                             showLoginFailedDialog();
+                            hideProgressSpinner();
                         }
                     }
                 });
         request.executeAsync();
     }
 
+    // TODO: Comment?
     private void updateUserHometown(GraphUser user) {
         if (user.getProperty(ParseConstants.KEY_HOMETOWN) != null) {
             JSONObject h =
@@ -151,6 +158,7 @@ public class LoginActivity extends Activity {
         }
     }
 
+    // TODO: Comment?
     private void updateUserBasicProperties(GraphUser user) {
         currentUser.put(ParseConstants.KEY_FACEBOOK_ID, user.getId());
         currentUser.put(ParseConstants.KEY_FIRST_NAME, user.getFirstName());
@@ -164,6 +172,7 @@ public class LoginActivity extends Activity {
         }
     }
 
+    // TODO: Comment?
     private void updateUserGender(GraphUser user) {
         if (user.getProperty(ParseConstants.KEY_GENDER) != null) {
             currentUser.put(ParseConstants.KEY_GENDER,
@@ -171,6 +180,7 @@ public class LoginActivity extends Activity {
         }
     }
 
+    // TODO: Comment?
     private void updateUserAge(GraphUser user) {
         if (user.getBirthday() != null) {
             String birthday = (String) user.getBirthday();
@@ -186,6 +196,7 @@ public class LoginActivity extends Activity {
         }
     }
 
+    // TODO: Comment?
     private String calculateAge(String birthday) throws java.text.ParseException {
         int age;
 
@@ -208,16 +219,19 @@ public class LoginActivity extends Activity {
         return String.valueOf(age);
     }
 
+    // TODO: Comment?
     private void initializeBooleans() {
         noGender = currentUser.getString(ParseConstants.KEY_GENDER) == null;
         noAge = currentUser.getString(ParseConstants.KEY_AGE) == null;
         noHometown = currentUser.getString(ParseConstants.KEY_HOMETOWN) == null;
     }
 
+    // TODO: Comment?
     private Boolean isUserProfileIncomplete() {
         return (noGender || noAge || noHometown);
     }
 
+    // TODO: Comment?
     private void navigateToSetProfile() {
         Intent intent = new Intent(this, SetProfileActivity.class);
         intent.putExtra("noGender", noGender);
@@ -226,11 +240,13 @@ public class LoginActivity extends Activity {
         startActivity(intent);
     }
 
+    // TODO: Comment?
     private void navigateToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    // TODO: Comment?
     private void showLoginFailedDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.login_failed_message)
@@ -241,11 +257,13 @@ public class LoginActivity extends Activity {
         dialog.show();
     }
 
+    // TODO: Comment?
     private void showProgressSpinner() {
         mLoginButton.setVisibility(View.GONE);
         mProgressSpinner.setVisibility(View.VISIBLE);
     }
 
+    // TODO: Comment?
     private void hideProgressSpinner() {
         mProgressSpinner.setVisibility(View.GONE);
         mLoginButton.setVisibility(View.VISIBLE);

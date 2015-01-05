@@ -46,6 +46,7 @@
     <string name="set_profile_invalid_age_title">Ouch!</string>
     <string name="login_failed_message">Something went wrong :( That\'s okay, make sure your network connection is ok and try again!</string>
     <string name="login_failed_title">Rats!</string>
+    <string name="toast_save_successful">Save successful!</string>
 
     <string-array name="gender_array">
         <item>Female</item>

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -226,7 +227,7 @@ public class SettingsActivity extends ActionBarActivity {
                     @Override
                     public void done(ParseException e) {
                         Log.d(TAG, "Saved!");
-                        hideProgressSpinner();
+                        showSaveSuccessfulToast();
                         navigateToMain();
                     }
                 });
@@ -244,8 +245,7 @@ public class SettingsActivity extends ActionBarActivity {
         mProgressSpinner.setVisibility(View.VISIBLE);
     }
 
-    private void hideProgressSpinner() {
-        mProgressSpinner.setVisibility(View.GONE);
-        mSaveButton.setVisibility(View.VISIBLE);
+    private void showSaveSuccessfulToast() {
+        Toast.makeText(SettingsActivity.this, R.string.toast_save_successful, Toast.LENGTH_SHORT).show();
     }
 }
