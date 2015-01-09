@@ -1,5 +1,6 @@
 package io.spw.hello;
 
+import com.firebase.client.Firebase;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 
@@ -23,8 +24,9 @@ public class Application extends android.app.Application {
         Parse.enableLocalDatastore(this);
 
         // TODO: Enable analytics
+
+        // Initialize Firebase library with Android context
+        Firebase.setAndroidContext(this);
     }
-
-
 
 }

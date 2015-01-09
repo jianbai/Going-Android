@@ -4,13 +4,16 @@
     <string name="app_name">hello</string>
     <string name="facebook_app_id">748438291904311</string>
     <string name="parse_app_id">BgVWp9cm22GjjGzt6Qj9v9TDYaAQaCIYR6Fe8y2j</string>
+    <string name="login_bullet_1_textview">Find a group of 4 to go out with this weekend</string>
+    <string name="login_bullet_2_textview">After meeting, decide who to keep in your friends list</string>
+    <string name="login_bullet_3_textview">Go out again next weekend to grow your friends list!</string>
     <string name="action_settings">Settings</string>
     <string name="title_section1">This Weekend</string>
     <string name="title_section2">Friends</string>
-    <string name="textview_free_this_weekend">Free this weekend?</string>
-    <string name="textview_bullet_1">Find a group of 4 to go out with this weekend</string>
-    <string name="textview_bullet_2">After meeting, decide who to keep in your friends list</string>
-    <string name="textview_bullet_3">Go out again next weekend to grow your friends list!</string>
+    <string name="this_weekend_free_textview">Free this weekend?</string>
+    <string name="this_weekend_bullet_1_textview">Find a group of 4 to go out with this weekend</string>
+    <string name="this_weekend_bullet_2_textview">After meeting, decide who to keep in your friends list</string>
+    <string name="this_weekend_bullet_3_textview">Go out again next weekend to grow your friends list!</string>
     <string name="button_discover">Say hello</string>
     <string name="label_empty_friends">No friends yet : ( Say hello this weekend!</string>
     <string name="title_activity_login">Log in</string>
@@ -47,6 +50,7 @@
     <string name="login_failed_message">Something went wrong :( That\'s okay, make sure your network connection is ok and try again!</string>
     <string name="login_failed_title">Rats!</string>
     <string name="toast_save_successful">Save successful!</string>
+    <string name="this_weekend_searching_textview">Searching…</string>
 
     <string-array name="gender_array">
         <item>Female</item>

@@ -13,6 +13,7 @@ import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
+import com.firebase.client.Firebase;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
@@ -47,6 +48,8 @@ public class LoginActivity extends Activity {
     private Boolean noAge;
     private Boolean noHometown;
 
+    private Firebase rootRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,16 +59,7 @@ public class LoginActivity extends Activity {
         mProgressSpinner = (ProgressBar) findViewById(R.id.login_progress_spinner);
         mLoginButton = (Button) findViewById(R.id.button_facebook_login);
 
-        // TODO: Delete
-        Log.d(TAG, "got to login");
-
-        // TODO: Delete
-        currentUser = ParseUser.getCurrentUser();
-        if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
-            Log.d(TAG, "user already logged in");
-        } else {
-            Log.d(TAG, "user logged out");
-        }
+        rootRef = new Firebase(FirebaseConstants.URL_ROOT);
     }
 
     // TODO: Comment?
@@ -84,15 +78,18 @@ public class LoginActivity extends Activity {
         ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
+                currentUser = ParseUser.getCurrentUser();
+
                 if (parseUser == null) {
                     Log.d(TAG, "User cancelled Facebook login :(");
                     Log.d(TAG, e.getLocalizedMessage());
-                    hideProgressSpinner();
+                        hideProgressSpinner();
                 } else if (parseUser.isNew()) {
                     Log.d(TAG, "User signed up AND logged in through Facebook :)");
                     fetchFacebookData();
                 } else {
                     Log.d(TAG, "User logged in through Facebook :)");
+                    saveUserToFirebase();
                     navigateToMain();
                 }
             }
@@ -123,8 +120,10 @@ public class LoginActivity extends Activity {
                             currentUser.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
-                                    initializeBooleans();
+                                    // Hook user up to Firebase
+                                    saveUserToFirebase();
 
+                                    // Check if user profile is complete, navigate accordingly
                                     if (isUserProfileIncomplete()) {
                                         navigateToSetProfile();
                                     } else {
@@ -219,15 +218,24 @@ public class LoginActivity extends Activity {
         return String.valueOf(age);
     }
 
-    // TODO: Comment?
-    private void initializeBooleans() {
-        noGender = currentUser.getString(ParseConstants.KEY_GENDER) == null;
-        noAge = currentUser.getString(ParseConstants.KEY_AGE) == null;
-        noHometown = currentUser.getString(ParseConstants.KEY_HOMETOWN) == null;
+    // TODO: Comment
+    private void saveUserToFirebase() {
+        Firebase usersRef = rootRef.child("users");
+
+        String parseId = currentUser.getObjectId();
+        String fullName = currentUser.getString(ParseConstants.KEY_FIRST_NAME)
+                + " " + currentUser.getString(ParseConstants.KEY_LAST_NAME);
+
+        usersRef.child(parseId).child(FirebaseConstants.KEY_FULL_NAME).setValue(fullName);
+        usersRef.child(parseId).child(FirebaseConstants.KEY_MATCHED).setValue(false);
     }
 
     // TODO: Comment?
     private Boolean isUserProfileIncomplete() {
+        noGender = currentUser.getString(ParseConstants.KEY_GENDER) == null;
+        noAge = currentUser.getString(ParseConstants.KEY_AGE) == null;
+        noHometown = currentUser.getString(ParseConstants.KEY_HOMETOWN) == null;
+
         return (noGender || noAge || noHometown);
     }
 

@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textview_bullet_1"
+        android:text="@string/login_bullet_1_textview"
         android:id="@+id/textView5"
         android:layout_gravity="center"
         android:layout_marginTop="60dp" />
@@ -33,7 +33,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textview_bullet_2"
+        android:text="@string/login_bullet_2_textview"
         android:id="@+id/textView6"
         android:layout_gravity="center"
         android:layout_marginTop="20dp" />
@@ -41,7 +41,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textview_bullet_3"
+        android:text="@string/login_bullet_3_textview"
         android:id="@+id/textView7"
         android:layout_gravity="center"
         android:layout_marginTop="20dp" />

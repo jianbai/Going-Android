@@ -3,6 +3,7 @@ package io.spw.hello;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -19,13 +20,10 @@ public class MainActivity extends ActionBarActivity {
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
 
-    private ParseUser currentUser;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        currentUser = ParseUser.getCurrentUser();
 
         Log.d(TAG, "loaded main activity");
 
@@ -76,6 +74,10 @@ public class MainActivity extends ActionBarActivity {
     private void navigateToSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+    }
+
+    public PagerAdapter getAdapter() {
+        return mViewPager.getAdapter();
     }
 
 }
