@@ -88,7 +88,6 @@ public class ThisWeekendFragment extends Fragment {
                 currentUser.put(ParseConstants.KEY_IS_SEARCHING, true);
                 currentUser.saveInBackground();
 
-
                 showProgressSpinner();
 
                 childEventListener = new ChildEventListener() {

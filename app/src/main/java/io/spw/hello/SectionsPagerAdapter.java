@@ -67,7 +67,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                         mFirstFragment = new ThisWeekendFragment(new ThisWeekendFragmentListener() {
                             @Override
                             public void onSwitchToGroupChat() {
-                                mFragmentManager.beginTransaction().remove(mFirstFragment).commit();
+                                mFragmentManager.beginTransaction().remove(mFirstFragment).commitAllowingStateLoss();
                                 mFirstFragment = new GroupChatFragment();
                                 notifyDataSetChanged();
                             }

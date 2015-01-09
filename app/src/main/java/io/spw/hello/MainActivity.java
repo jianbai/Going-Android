@@ -27,10 +27,9 @@ public class MainActivity extends ActionBarActivity {
 
         Log.d(TAG, "loaded main activity");
 
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new SectionsPagerAdapter(this, getSupportFragmentManager()));
+        findViews();
 
-        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        mViewPager.setAdapter(new SectionsPagerAdapter(this, getSupportFragmentManager()));
         mSlidingTabLayout.setCustomTabView(R.layout.custom_tab, R.id.tab_title);
         mSlidingTabLayout.setViewPager(mViewPager);
 
@@ -38,6 +37,16 @@ public class MainActivity extends ActionBarActivity {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.commit();
         }
+    }
+
+    private void findViews() {
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

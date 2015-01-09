@@ -1,7 +1,7 @@
 package io.spw.hello;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -236,8 +236,10 @@ public class SettingsActivity extends ActionBarActivity {
     }
 
     private void navigateToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
+
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     private void showProgressSpinner() {
