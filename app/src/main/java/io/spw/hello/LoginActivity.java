@@ -89,7 +89,6 @@ public class LoginActivity extends Activity {
                     fetchFacebookData();
                 } else {
                     Log.d(TAG, "User logged in through Facebook :)");
-                    saveUserToFirebase();
                     navigateToMain();
                 }
             }

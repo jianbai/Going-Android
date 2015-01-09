@@ -33,6 +33,7 @@ public class ThisWeekendFragment extends Fragment {
     private ProgressBar mProgressSpinner;
 
     private ParseUser currentUser;
+    private Boolean isSearching;
     private Firebase currentUserRef;
     private ChildEventListener childEventListener;
 
@@ -45,13 +46,20 @@ public class ThisWeekendFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_this_weekend, container, false);
         currentUser = ParseUser.getCurrentUser();
+        isSearching = currentUser.getBoolean(ParseConstants.KEY_IS_SEARCHING);
         Firebase usersRef = new Firebase(FirebaseConstants.URL_USERS);
         currentUserRef = usersRef.child(currentUser.getObjectId());
 
         findViews(rootView);
-        setUpHelloButton();
+        setUpViews();
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUpViews();
     }
 
     private void findViews(View rootView) {
@@ -62,6 +70,15 @@ public class ThisWeekendFragment extends Fragment {
         mHelloButton = (Button) rootView.findViewById(R.id.this_weekend_hello_button);
         mSearchingTextView = (TextView) rootView.findViewById(R.id.this_weekend_searching_textview);
         mProgressSpinner = (ProgressBar) rootView.findViewById(R.id.this_weekend_progress_spinner);
+    }
+
+    private void setUpViews() {
+        if (isSearching) {
+            showProgressSpinner();
+        } else {
+            hideProgressSpinner();
+            setUpHelloButton();
+        }
     }
 
     private void setUpHelloButton() {
@@ -83,6 +100,9 @@ public class ThisWeekendFragment extends Fragment {
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                         listener.onSwitchToGroupChat();
+                        currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
+                        currentUser.put(ParseConstants.KEY_IS_MATCHED, true);
+                        currentUser.saveInBackground();
                         currentUserRef.removeEventListener(childEventListener);
                     }
 
@@ -117,5 +137,14 @@ public class ThisWeekendFragment extends Fragment {
         mProgressSpinner.setVisibility(View.VISIBLE);
     }
 
+    private void hideProgressSpinner() {
+        mFreeTextView.setVisibility(View.VISIBLE);
+        mBullet1TextView.setVisibility(View.VISIBLE);
+        mBullet2TextView.setVisibility(View.VISIBLE);
+        mBullet3TextView.setVisibility(View.VISIBLE);
+        mHelloButton.setVisibility(View.VISIBLE);
+        mSearchingTextView.setVisibility(View.GONE);
+        mProgressSpinner.setVisibility(View.GONE);
+    }
 
 }

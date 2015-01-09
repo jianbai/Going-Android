@@ -61,14 +61,18 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 if (mFirstFragment == null) {
-                    mFirstFragment = new ThisWeekendFragment(new ThisWeekendFragmentListener() {
-                        @Override
-                        public void onSwitchToGroupChat() {
-                            mFragmentManager.beginTransaction().remove(mFirstFragment).commit();
-                            mFirstFragment = new GroupChatFragment();
-                            notifyDataSetChanged();
-                        }
-                    });
+                    if (isMatched) {
+                        mFirstFragment = new GroupChatFragment();
+                    } else {
+                        mFirstFragment = new ThisWeekendFragment(new ThisWeekendFragmentListener() {
+                            @Override
+                            public void onSwitchToGroupChat() {
+                                mFragmentManager.beginTransaction().remove(mFirstFragment).commit();
+                                mFirstFragment = new GroupChatFragment();
+                                notifyDataSetChanged();
+                            }
+                        });
+                    }
                 }
                 return mFirstFragment;
             case 1:
