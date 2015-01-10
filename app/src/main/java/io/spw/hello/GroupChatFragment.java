@@ -66,8 +66,6 @@ public class GroupChatFragment extends ListFragment {
 
                     parseGroup = group;
 
-                    mFirebaseRef = new Firebase(FirebaseConstants.URL_ROOT).child(group.getObjectId());
-
                     groupMemberIds = (ArrayList<String>) group.get(ParseConstants.KEY_MEMBER_IDS);
 
                     for (String memberId : groupMemberIds) {
@@ -131,16 +129,21 @@ public class GroupChatFragment extends ListFragment {
         super.onStart();
         // Setup view and list adapter
         final ListView listView = getListView();
-        mChatListAdapter = new ChatListAdapter(mFirebaseRef.limitToLast(50),
-                getActivity(), R.layout.chat_message, mUsername);
-        listView.setAdapter(mChatListAdapter);
-        mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                listView.setSelection(mChatListAdapter.getCount() - 1);
-            }
-        });
+
+        if (mFirebaseRef == null) {
+            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(ParseConstants.CLASS_GROUPS);
+            query.whereEqualTo(ParseConstants.KEY_MEMBER_IDS, currentUser.getObjectId());
+            query.getFirstInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject group, ParseException e) {
+                    mFirebaseRef = new Firebase(FirebaseConstants.URL_GROUP_CHATS)
+                            .child(group.getObjectId());
+                    setUpListView(listView);
+                }
+            });
+        } else {
+            setUpListView(listView);
+        }
     }
 
     @Override
@@ -158,11 +161,22 @@ public class GroupChatFragment extends ListFragment {
         }
     }
 
-
+    private void setUpListView(final ListView listView) {
+        mChatListAdapter = new ChatListAdapter(mFirebaseRef.limitToLast(50),
+                getActivity(), R.layout.chat_message, mUsername);
+        listView.setAdapter(mChatListAdapter);
+        mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                listView.setSelection(mChatListAdapter.getCount() - 1);
+            }
+        });
+    }
     private void findViews(View rootView) {
-        mUser1TextView = (TextView) rootView.findViewById(R.id.group_chat_member_1);
-        mUser2TextView = (TextView) rootView.findViewById(R.id.group_chat_member_2);
-        mUser3TextView = (TextView) rootView.findViewById(R.id.group_chat_member_3);
+//        mUser1TextView = (TextView) rootView.findViewById(R.id.group_chat_member_1);
+//        mUser2TextView = (TextView) rootView.findViewById(R.id.group_chat_member_2);
+//        mUser3TextView = (TextView) rootView.findViewById(R.id.group_chat_member_3);
 
         mInputText = (EditText) rootView.findViewById(R.id.group_chat_message_input);
         mSendButton = (ImageButton) rootView.findViewById(R.id.group_chat_send_button);

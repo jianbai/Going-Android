@@ -13,7 +13,11 @@ import android.view.MenuItem;
 import com.parse.ParseUser;
 
 // TODO: fix lifecycle methods
-// TODO: fix commit with state change
+// TODO: fix commit with state change THIS IS CRASHING
+// TODO: use preferences api
+// TODO: friends relations
+// TODO: time :: keeping friends
+// TODO: location :: restrict to Vancouver
 
 public class MainActivity extends ActionBarActivity {
 

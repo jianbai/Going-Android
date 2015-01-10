@@ -51,6 +51,7 @@
     <string name="login_failed_title">Rats!</string>
     <string name="toast_save_successful">Save successful!</string>
     <string name="this_weekend_searching_textview">Searching…</string>
+    <string name="chat_say_hello_hint">Say hello!</string>
 
     <string-array name="gender_array">
         <item>Female</item>
