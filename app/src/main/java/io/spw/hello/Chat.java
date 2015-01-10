@@ -1,7 +1,8 @@
 package io.spw.hello;
 
 /**
- * Created by scottwang on 1/9/15.
+ * @author greg
+ * @since 6/21/13
  */
 public class Chat {
 
