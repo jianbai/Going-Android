@@ -66,9 +66,23 @@ public class GroupChatFragment extends Fragment {
                         }
                     }
 
-                    mUser1TextView.setText(groupMembers.get(0).getString(ParseConstants.KEY_FIRST_NAME));
-                    mUser2TextView.setText(groupMembers.get(1).getString(ParseConstants.KEY_FIRST_NAME));
-                    mUser3TextView.setText(groupMembers.get(2).getString(ParseConstants.KEY_FIRST_NAME));
+                    ParseUser user1 = groupMembers.get(0);
+                    ParseUser user2 = groupMembers.get(1);
+                    ParseUser user3 = groupMembers.get(2);
+
+                    String user1Info = user1.getString(ParseConstants.KEY_FIRST_NAME)
+                            + ", " + user1.getString(ParseConstants.KEY_AGE)
+                            + ", " + user1.getString(ParseConstants.KEY_HOMETOWN);
+                    String user2Info = user2.getString(ParseConstants.KEY_FIRST_NAME)
+                            + ", " + user2.getString(ParseConstants.KEY_AGE)
+                            + ", " + user2.getString(ParseConstants.KEY_HOMETOWN);
+                    String user3Info = user3.getString(ParseConstants.KEY_FIRST_NAME)
+                            + ", " + user3.getString(ParseConstants.KEY_AGE)
+                            + ", " + user3.getString(ParseConstants.KEY_HOMETOWN);
+
+                    mUser1TextView.setText(user1Info);
+                    mUser2TextView.setText(user2Info);
+                    mUser3TextView.setText(user3Info);
                 }
             }
         });

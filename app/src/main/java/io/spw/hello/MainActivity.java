@@ -12,6 +12,8 @@ import android.view.MenuItem;
 
 import com.parse.ParseUser;
 
+// TODO: fix lifecycle methods
+// TODO: fix commit with state change
 
 public class MainActivity extends ActionBarActivity {
 

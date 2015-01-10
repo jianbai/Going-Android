@@ -75,6 +75,37 @@ public class ThisWeekendFragment extends Fragment {
     private void setUpViews() {
         if (isSearching) {
             showProgressSpinner();
+//            childEventListener = new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//                    listener.onSwitchToGroupChat();
+//                    currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
+//                    currentUser.put(ParseConstants.KEY_IS_MATCHED, true);
+//                    currentUser.saveInBackground();
+//                    currentUserRef.removeEventListener(childEventListener);
+//                }
+//
+//                @Override
+//                public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(FirebaseError firebaseError) {
+//
+//                }
+//            };
+//            currentUserRef.addChildEventListener(childEventListener);
         } else {
             hideProgressSpinner();
             setUpHelloButton();
@@ -120,7 +151,6 @@ public class ThisWeekendFragment extends Fragment {
 
                     }
                 };
-
                 currentUserRef.addChildEventListener(childEventListener);
             }
         });

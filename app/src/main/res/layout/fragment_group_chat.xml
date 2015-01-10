@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/hello_orange"
-    android:gravity="center">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
 
-    <TextView
-        android:layout_width="wrap_content"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/group_chat_messages_list"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User 1"
-        android:id="@+id/group_chat_member_1"
-        android:layout_gravity="center_horizontal" />
+        android:layout_above="@+id/group_chat_list_footer"
+        android:layout_alignParentTop="true"
+        android:transcriptMode="alwaysScroll" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/group_chat_list_footer"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User 2"
-        android:id="@+id/group_chat_member_2"
-        android:layout_gravity="center_horizontal" />
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="bottom">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User 3"
-        android:id="@+id/group_chat_member_3" />
+        <EditText
+            android:id="@+id/group_chat_message_input"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="textShortMessage"
+            android:lines="1"
+            android:singleLine="true" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/imageView"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/hello_white" />
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/group_chat_send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_send" />
+    </LinearLayout>
+
+
+</RelativeLayout>
