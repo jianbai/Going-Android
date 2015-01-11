@@ -2,4 +2,5 @@
 <resources>
     <color name="hello_orange">#fffda942</color>
     <color name="hello_white">#fff6f6ef</color>
+    <color name="hello_grey">#ffe9e9e9</color>
 </resources>

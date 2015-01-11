@@ -163,6 +163,8 @@ public class LoginActivity extends Activity {
         currentUser.put(ParseConstants.KEY_LAST_NAME, user.getLastName());
         currentUser.put(ParseConstants.KEY_AGE_SPREAD, 0);
         currentUser.put(ParseConstants.KEY_GENDER_SPREAD, 0);
+        currentUser.put(ParseConstants.KEY_IS_MATCHED, false);
+        currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
 
         if (user.getProperty(ParseConstants.KEY_EMAIL) != null) {
             currentUser.put(ParseConstants.KEY_EMAIL,

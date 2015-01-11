@@ -13,7 +13,9 @@
         android:layout_above="@+id/group_chat_list_footer"
         android:layout_alignParentTop="true"
         android:transcriptMode="alwaysScroll"
-        android:background="@color/hello_white" />
+        android:background="@color/hello_white"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
 
     <LinearLayout
         android:id="@+id/group_chat_list_footer"
@@ -23,7 +25,10 @@
         android:orientation="horizontal"
         android:gravity="bottom"
         android:background="@color/hello_orange"
-        android:padding="@dimen/abc_action_bar_default_padding_material">
+        android:paddingLeft="@dimen/group_chat_padding"
+        android:paddingTop="@dimen/group_chat_padding"
+        android:paddingBottom="@dimen/group_chat_padding"
+        android:paddingRight="@dimen/abc_action_bar_default_padding_material">
 
         <EditText
             android:id="@+id/group_chat_message_input"
@@ -35,14 +40,18 @@
             android:lines="2"
             android:maxLines="6"
             android:scrollbars="vertical"
-            android:background="@color/hello_white"
-            android:hint="@string/chat_say_hello_hint" />
+            android:background="@drawable/rounded_edittext"
+            android:hint="@string/chat_say_hello_hint"
+            android:layout_marginRight="@dimen/abc_action_bar_default_padding_material"
+            android:padding="@dimen/abc_action_bar_default_padding_material" />
 
         <ImageButton
             android:id="@+id/group_chat_send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_send" />
+            android:src="@android:drawable/ic_menu_send"
+            android:background="@color/hello_orange"
+            android:padding="@dimen/abc_action_bar_default_padding_material" />
     </LinearLayout>
 
 

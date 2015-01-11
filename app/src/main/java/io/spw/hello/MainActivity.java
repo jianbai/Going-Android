@@ -12,9 +12,10 @@ import android.view.MenuItem;
 
 import com.parse.ParseUser;
 
-// TODO: fix lifecycle methods
+// TODO: make chat pretty
+// TODO: fix lifecycle methods, destroy some activities
 // TODO: fix commit with state change THIS IS CRASHING
-// TODO: use preferences api
+// TODO: use preferences api, get rid of sliders
 // TODO: friends relations
 // TODO: time :: keeping friends
 // TODO: location :: restrict to Vancouver
