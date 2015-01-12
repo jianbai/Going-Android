@@ -52,10 +52,35 @@
     <string name="toast_save_successful">Save successful!</string>
     <string name="this_weekend_searching_textview">Searching…</string>
     <string name="chat_say_hello_hint">Write a message</string>
+    <string name="title_default">hello: Vancouver</string>
+    <string name="title_section0">Settings</string>
+    <string name="settings_age">Age preferences</string>
+    <string name="settings_gender">Gender preferences</string>
+    <string name="settings_logout">Log out</string>
+    <string name="settings_faq">FAQ</string>
+    <string name="settings_bug">Report a bug (Please do!)</string>
+    <string name="settings_contact">Get in touch (We\'d love to hear from you!)</string>
+    <string name="settings_age_title">Match me with ages:</string>
+    <string name="settings_gender_title">Match me in groups by gender:</string>
+    <string name="match_made_title">Say hello</string>
+    <string name="say_hello">Say hello</string>
 
     <string-array name="gender_array">
         <item>Female</item>
         <item>Male</item>
+    </string-array>
+
+    <string-array name="settings_age">
+        <item>Ageism is lame!</item>
+        <item>20\'s</item>
+        <item>30\'s</item>
+        <item>40\'s</item>
+    </string-array>
+
+    <string-array name="settings_gender">
+        <item>I don\'t discriminate!</item>
+        <item>Co-ed (2 and 2)</item>
+        <item>Single sex</item>
     </string-array>
     
 </resources>

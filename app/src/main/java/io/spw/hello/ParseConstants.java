@@ -24,6 +24,11 @@ public final class ParseConstants {
     public static final String KEY_IS_SEARCHING = "isSearching";
     public static final String KEY_GROUP_ID = "groupId";
     public static final String KEY_MEMBER_IDS = "memberIds";
+    public static final String KEY_AGE_SETTINGS_0 = "ageSettings0";
+    public static final String KEY_AGE_SETTINGS_20 = "ageSettings20";
+    public static final String KEY_AGE_SETTINGS_30 = "ageSettings30";
+    public static final String KEY_AGE_SETTINGS_40 = "ageSettings40";
+    public static final String KEY_GENDER_SETTINGS = "genderSettings";
 
     // Misc values
 }

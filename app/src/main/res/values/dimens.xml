@@ -6,4 +6,6 @@
     <dimen name="group_chat_padding">8dp</dimen>
     <dimen name="group_chat_margin_left">12dp</dimen>
     <dimen name="group_chat_margin_right">36dp</dimen>
+    <dimen name="preference_height">60dp</dimen>
+    <dimen name="profile_height">108dp</dimen>
 </resources>

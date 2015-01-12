@@ -1,30 +1,54 @@
 package io.spw.hello;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.Dialog;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
-import java.util.Locale;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by scottwang on 12/21/14.
+ * Settings and Friends icons, made by Freepik from www.flaticon.com, is licensed under CC BY 3.0
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    static final int NUM_ITEMS = 2;
-    private Context mContext;
+    public static final String TAG = SectionsPagerAdapter.class.getSimpleName();
+
+    static final int NUM_ITEMS = 3;
+    private Activity mActivity;
     private final FragmentManager mFragmentManager;
     private static Fragment mFirstFragment;
     private Boolean isMatched;
+    private static final int[] imageResId = {
+            R.drawable.ic_settings_icon,
+            R.drawable.ic_this_weekend_icon,
+            R.drawable.ic_friends_icon
+    };
 
-    public SectionsPagerAdapter(Context c, FragmentManager fm) {
+    private ParseUser currentUser;
+
+    public SectionsPagerAdapter(Activity a, FragmentManager fm) {
         super(fm);
-        mContext = c;
+        mActivity = a;
         mFragmentManager = fm;
-        isMatched = ParseUser.getCurrentUser().getBoolean(ParseConstants.KEY_IS_MATCHED);
+        currentUser = MainActivity.currentUser;
+        isMatched = currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED);
     }
 
     @Override
@@ -44,38 +68,84 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        Locale l = Locale.getDefault();
-
-        switch (position) {
-            case 0:
-                return mContext.getString(R.string.title_section1).toUpperCase(l);
-            case 1:
-                return mContext.getString(R.string.title_section2).toUpperCase(l);
-        }
-
-        return null;
+        Drawable image = mActivity.getResources().getDrawable(imageResId[position]);
+        image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicWidth());
+        SpannableString ss = new SpannableString(" ");
+        ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+        ss.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return ss;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
+                return new SettingsFragment(mActivity);
+            case 1:
                 if (mFirstFragment == null) {
                     if (isMatched) {
                         mFirstFragment = new GroupChatFragment();
                     } else {
                         mFirstFragment = new ThisWeekendFragment(new ThisWeekendFragmentListener() {
                             @Override
-                            public void onSwitchToGroupChat() {
-                                mFragmentManager.beginTransaction().remove(mFirstFragment).commitAllowingStateLoss();
-                                mFirstFragment = new GroupChatFragment();
-                                notifyDataSetChanged();
+                            public void onMatchMade() throws JSONException, ParseException {
+                                final Dialog dialog = new Dialog(mActivity);
+                                dialog.setContentView(R.layout.dialog_match_made);
+                                dialog.setTitle("An introduction is the essence of possibility");
+
+                                // find views
+                                TextView userName0 = (TextView) dialog.findViewById(R.id.userName0);
+                                TextView userInfo0 = (TextView) dialog.findViewById(R.id.userInfo0);
+                                TextView userName1 = (TextView) dialog.findViewById(R.id.userName1);
+                                TextView userInfo1 = (TextView) dialog.findViewById(R.id.userInfo1);
+                                TextView userName2 = (TextView) dialog.findViewById(R.id.userName2);
+                                TextView userInfo2 = (TextView) dialog.findViewById(R.id.userInfo2);
+                                Button helloButton = (Button) dialog.findViewById(R.id.dialog_hello_button);
+
+                                // get member users
+                                JSONArray userIds = currentUser.getJSONArray(ParseConstants.KEY_MEMBER_IDS);
+                                List<ParseUser> users = new ArrayList<>();
+                                for (int i=0; i<userIds.length(); i++) {
+                                    if (!currentUser.getObjectId().equals(userIds.getString(i))) {
+                                        users.add(ParseUser.getQuery().get(userIds.getString(i)));
+                                    }
+                                }
+
+                                // set text
+                                userName0.setText(users.get(0).getString(ParseConstants.KEY_FIRST_NAME));
+                                userInfo0.setText(users.get(0).getString(ParseConstants.KEY_AGE) +
+                                                    " // " +
+                                                    (users.get(0).getString(ParseConstants.KEY_HOMETOWN)));
+
+                                userName1.setText(users.get(1).getString(ParseConstants.KEY_FIRST_NAME));
+                                userInfo1.setText(users.get(1).getString(ParseConstants.KEY_AGE) +
+                                        " // " +
+                                        (users.get(1).getString(ParseConstants.KEY_HOMETOWN)));
+
+                                userName2.setText(users.get(2).getString(ParseConstants.KEY_FIRST_NAME));
+                                userInfo2.setText(users.get(2).getString(ParseConstants.KEY_AGE) +
+                                        " // " +
+                                        (users.get(2).getString(ParseConstants.KEY_HOMETOWN)));
+
+                                // set button
+                                helloButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                        mFragmentManager.beginTransaction().remove(mFirstFragment).commit();
+                                        mFirstFragment = new GroupChatFragment();
+                                        notifyDataSetChanged();
+                                    }
+                                });
+
+                                dialog.show();
+
                             }
                         });
                     }
                 }
                 return mFirstFragment;
-            case 1:
+            case 2:
                 return new FriendsFragment();
             default:
                 return null;
@@ -83,7 +153,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 
     public interface ThisWeekendFragmentListener {
-        void onSwitchToGroupChat();
+        void onMatchMade() throws JSONException, ParseException;
     }
 
 }

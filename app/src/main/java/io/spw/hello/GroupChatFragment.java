@@ -22,9 +22,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * Created by scottwang on 1/8/15.
@@ -38,16 +36,10 @@ public class GroupChatFragment extends ListFragment {
     private Firebase mFirebaseRef;
     private ChatListAdapter mChatListAdapter;
 
-    private TextView mUser1TextView;
-    private TextView mUser2TextView;
-    private TextView mUser3TextView;
     private EditText mInputText;
     private ImageButton mSendButton;
 
     private ParseUser currentUser;
-    private ParseObject parseGroup;
-    private List<String> groupMemberIds;
-    private List<ParseUser> groupMembers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,57 +48,9 @@ public class GroupChatFragment extends ListFragment {
 
         findViews(rootView);
         mContext = getActivity();
-        currentUser = ParseUser.getCurrentUser();
+        currentUser = MainActivity.currentUser;
 
         setUpUsername();
-
-        groupMembers = new ArrayList<ParseUser>();
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(ParseConstants.CLASS_GROUPS);
-        query.whereEqualTo(ParseConstants.KEY_MEMBER_IDS, currentUser.getObjectId());
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject group, ParseException e) {
-                if (e == null) {
-
-                    parseGroup = group;
-
-                    groupMemberIds = (ArrayList<String>) group.get(ParseConstants.KEY_MEMBER_IDS);
-
-                    for (String memberId : groupMemberIds) {
-                        if (!memberId.equals(currentUser.getObjectId())) {
-                            ParseUser groupMember = null;
-
-                            ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
-                            try {
-                                groupMember = userQuery.get(memberId);
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                            }
-
-                            groupMembers.add(groupMember);
-                        }
-                    }
-
-                    ParseUser user1 = groupMembers.get(0);
-                    ParseUser user2 = groupMembers.get(1);
-                    ParseUser user3 = groupMembers.get(2);
-
-//                    String user1Info = user1.getString(ParseConstants.KEY_FIRST_NAME)
-//                            + ", " + user1.getString(ParseConstants.KEY_AGE)
-//                            + ", " + user1.getString(ParseConstants.KEY_HOMETOWN);
-//                    String user2Info = user2.getString(ParseConstants.KEY_FIRST_NAME)
-//                            + ", " + user2.getString(ParseConstants.KEY_AGE)
-//                            + ", " + user2.getString(ParseConstants.KEY_HOMETOWN);
-//                    String user3Info = user3.getString(ParseConstants.KEY_FIRST_NAME)
-//                            + ", " + user3.getString(ParseConstants.KEY_AGE)
-//                            + ", " + user3.getString(ParseConstants.KEY_HOMETOWN);
-//
-//                    mUser1TextView.setText(user1Info);
-//                    mUser2TextView.setText(user2Info);
-//                    mUser3TextView.setText(user3Info);
-                }
-            }
-        });
 
         mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

@@ -1,28 +1,28 @@
 package io.spw.hello;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.parse.ParseUser;
 
-// TODO: make chat pretty
-// TODO: fix lifecycle methods, destroy some activities
+// DONE: make chat pretty
+// DONE: replace fragment transaction with a dialog
+// TODO: fix lifecycle methods
+// DONE: destroy some activities
 // TODO: fix commit with state change THIS IS CRASHING
-// TODO: use preferences api, get rid of sliders
+// DONE: use preferences api, get rid of sliders
 // TODO: friends relations
 // TODO: time :: keeping friends
 // TODO: location :: restrict to Vancouver
+// TODO: push notifications
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
-    public final static String TAG = MainActivity.class.getSimpleName();
+    public static final String TAG = MainActivity.class.getSimpleName();
+
+    protected static final ParseUser currentUser = ParseUser.getCurrentUser();
 
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
@@ -32,13 +32,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "loaded main activity");
-
         findViews();
-
-        mViewPager.setAdapter(new SectionsPagerAdapter(this, getSupportFragmentManager()));
-        mSlidingTabLayout.setCustomTabView(R.layout.custom_tab, R.id.tab_title);
-        mSlidingTabLayout.setViewPager(mViewPager);
+        setUpSlidingTabLayout();
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -51,49 +46,42 @@ public class MainActivity extends ActionBarActivity {
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void setUpSlidingTabLayout() {
+        mViewPager.setAdapter(new SectionsPagerAdapter(this, getSupportFragmentManager()));
+        mViewPager.setCurrentItem(1);
+        mSlidingTabLayout.setCustomTabView(R.layout.custom_tab, R.id.tab_title);
+        mSlidingTabLayout.setOnPageChangeListener(this);
+        mSlidingTabLayout.setViewPager(mViewPager);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public void onPageSelected(int position) {
+        String title = getString(R.string.title_default);
 
-        switch (id) {
-            case R.id.action_logout:
-                ParseUser.logOut();
-                navigateToLogin();
+        switch (position) {
+            case 0:
+                title = getString(R.string.title_section0);
                 break;
-            case R.id.action_settings:
-                navigateToSettings();
+            case 1:
+                title = getString(R.string.title_section1);
+                break;
+            case 2:
+                title = getString(R.string.title_section2);
+                break;
+            default:
                 break;
         }
 
-        return true;
+        setTitle(title);
     }
 
-    private void navigateToLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
-    private void navigateToSettings() {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
     }
-
-    public PagerAdapter getAdapter() {
-        return mViewPager.getAdapter();
-    }
-
 }

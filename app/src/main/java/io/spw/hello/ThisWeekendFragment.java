@@ -2,6 +2,7 @@ package io.spw.hello;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,10 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+
+import org.json.JSONException;
 
 /**
  * Created by scottwang on 12/20/14.
@@ -45,7 +49,7 @@ public class ThisWeekendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_this_weekend, container, false);
-        currentUser = ParseUser.getCurrentUser();
+        currentUser = MainActivity.currentUser;
         isSearching = currentUser.getBoolean(ParseConstants.KEY_IS_SEARCHING);
         Firebase usersRef = new Firebase(FirebaseConstants.URL_USERS);
         currentUserRef = usersRef.child(currentUser.getObjectId());
@@ -75,37 +79,6 @@ public class ThisWeekendFragment extends Fragment {
     private void setUpViews() {
         if (isSearching) {
             showProgressSpinner();
-//            childEventListener = new ChildEventListener() {
-//                @Override
-//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//
-//                }
-//
-//                @Override
-//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                    listener.onSwitchToGroupChat();
-//                    currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
-//                    currentUser.put(ParseConstants.KEY_IS_MATCHED, true);
-//                    currentUser.saveInBackground();
-//                    currentUserRef.removeEventListener(childEventListener);
-//                }
-//
-//                @Override
-//                public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//                }
-//
-//                @Override
-//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(FirebaseError firebaseError) {
-//
-//                }
-//            };
-//            currentUserRef.addChildEventListener(childEventListener);
         } else {
             hideProgressSpinner();
             setUpHelloButton();
@@ -129,7 +102,13 @@ public class ThisWeekendFragment extends Fragment {
 
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                        listener.onSwitchToGroupChat();
+                        try {
+                            listener.onMatchMade();
+                        } catch (JSONException e) {
+                            Log.d(TAG, e.getLocalizedMessage());
+                        } catch (ParseException e) {
+                            Log.d(TAG, e.getLocalizedMessage());
+                        }
                         currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
                         currentUser.put(ParseConstants.KEY_IS_MATCHED, true);
                         currentUser.saveInBackground();

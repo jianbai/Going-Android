@@ -82,8 +82,7 @@ public class LoginActivity extends Activity {
 
                 if (parseUser == null) {
                     Log.d(TAG, "User cancelled Facebook login :(");
-                    Log.d(TAG, e.getLocalizedMessage());
-                        hideProgressSpinner();
+                    hideProgressSpinner();
                 } else if (parseUser.isNew()) {
                     Log.d(TAG, "User signed up AND logged in through Facebook :)");
                     fetchFacebookData();
@@ -247,12 +246,14 @@ public class LoginActivity extends Activity {
         intent.putExtra("noAge", noAge);
         intent.putExtra("noHometown", noHometown);
         startActivity(intent);
+        finish();
     }
 
     // TODO: Comment?
     private void navigateToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     // TODO: Comment?
