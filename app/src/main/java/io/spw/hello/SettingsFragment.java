@@ -198,6 +198,7 @@ public class SettingsFragment extends Fragment {
 
     private void navigateToLogin() {
         Intent intent = new Intent(mainActivity, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         mainActivity.finish();
     }

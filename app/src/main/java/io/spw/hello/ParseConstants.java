@@ -8,7 +8,6 @@ public final class ParseConstants {
     public static final String CLASS_GROUPS = "Groups";
 
     // Field names
-    public static final String KEY_OBJECT_ID = "objectId";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_AGE = "age";
     public static final String KEY_BIRTHDAY = "birthday";
@@ -29,6 +28,9 @@ public final class ParseConstants {
     public static final String KEY_AGE_SETTINGS_30 = "ageSettings30";
     public static final String KEY_AGE_SETTINGS_40 = "ageSettings40";
     public static final String KEY_GENDER_SETTINGS = "genderSettings";
+    public static final String KEY_FRIENDS_RELATION = "friendsRelation";
+    public static final String KEY_MATCH_DIALOG_SEEN = "matchDialogSeen";
+    public static final String KEY_GROUP_MEMBERS_RELATION = "groupMembersRelation";
 
     // Misc values
 }

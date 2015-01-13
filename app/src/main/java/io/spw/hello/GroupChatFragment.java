@@ -1,6 +1,8 @@
 package io.spw.hello;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -14,15 +16,21 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created by scottwang on 1/8/15.
@@ -31,7 +39,9 @@ public class GroupChatFragment extends ListFragment {
 
     public static final String TAG = GroupChatFragment.class.getSimpleName();
 
-    private Context mContext;
+    private SectionsPagerAdapter.GroupChatFragmentListener listener;
+
+    private Activity mainActivity;
     private String mUsername;
     private Firebase mFirebaseRef;
     private ChatListAdapter mChatListAdapter;
@@ -40,6 +50,17 @@ public class GroupChatFragment extends ListFragment {
     private ImageButton mSendButton;
 
     private ParseUser currentUser;
+    private ParseRelation<ParseUser> mFriendsRelation;
+    private List<ParseUser> groupMembers;
+
+    private static boolean[] mFriendsToKeep = {
+            false, false, false
+    };
+
+    public GroupChatFragment(Activity a, SectionsPagerAdapter.GroupChatFragmentListener listener) {
+        mainActivity = a;
+        this.listener = listener;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,10 +68,13 @@ public class GroupChatFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_group_chat, container, false);
 
         findViews(rootView);
-        mContext = getActivity();
         currentUser = MainActivity.currentUser;
+        mFriendsRelation = currentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
 
         setUpUsername();
+        if (currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED)) {
+            setUpSingleEventListener();
+        }
 
         mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -94,6 +118,31 @@ public class GroupChatFragment extends ListFragment {
         }
     }
 
+    private void setUpSingleEventListener() {
+        MainActivity.currentUserRef.child(FirebaseConstants.KEY_MATCHED)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Boolean isMatched;
+
+                        try {
+                            isMatched = (Boolean) dataSnapshot.getValue();
+                        } catch (ClassCastException e) {
+                            isMatched = true;
+                        }
+
+                        if (!isMatched) {
+                            showPickFriendsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+
+                    }
+                });
+    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -111,7 +160,7 @@ public class GroupChatFragment extends ListFragment {
 
     private void setUpListView(final ListView listView) {
         mChatListAdapter = new ChatListAdapter(mFirebaseRef.limitToLast(50),
-                getActivity(), R.layout.chat_message, mUsername, mContext);
+                getActivity(), R.layout.chat_message, mUsername, mainActivity);
         listView.setAdapter(mChatListAdapter);
         mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -140,6 +189,58 @@ public class GroupChatFragment extends ListFragment {
             mFirebaseRef.push().setValue(chat);
             mInputText.setText("");
         }
+    }
+
+    private void showPickFriendsDialog() {
+        ParseRelation<ParseUser> groupMembersRelation =
+                currentUser.getRelation(ParseConstants.KEY_GROUP_MEMBERS_RELATION);
+
+        ParseQuery<ParseUser> query = groupMembersRelation.getQuery();
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> parseUsers, ParseException e) {
+                if (e == null) {
+                    groupMembers = parseUsers;
+
+                    String[] names = new String[groupMembers.size()];
+                    for (int i=0; i<groupMembers.size(); i++) {
+                        if (!groupMembers.get(i).getObjectId()
+                                .equals(currentUser.getObjectId())) {
+                            names[i] = groupMembers.get(i).getString(ParseConstants.KEY_FIRST_NAME);
+                        }
+                    }
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+                    builder.setTitle(getString(R.string.dialog_pick_friends_title))
+                            .setMultiChoiceItems(names, mFriendsToKeep,
+                                    new DialogInterface.OnMultiChoiceClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which,
+                                                            boolean isChecked) {
+                                            mFriendsToKeep[which] = isChecked;
+                                        }
+                                    })
+                            .setPositiveButton(getString(R.string.dialog_pick_friends_button),
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            for (int i=0; i<groupMembers.size(); i++) {
+                                                if (mFriendsToKeep[i]) {
+                                                    mFriendsRelation.add(groupMembers.get(i));
+                                                }
+                                            }
+                                            currentUser.put(ParseConstants.KEY_IS_MATCHED, false);
+                                            currentUser.put(ParseConstants.KEY_MATCH_DIALOG_SEEN, false);
+                                            currentUser.saveInBackground();
+                                            listener.onFriendsPicked();
+                                        }
+                                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        });
     }
 
 }

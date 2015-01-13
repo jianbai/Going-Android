@@ -64,6 +64,8 @@
     <string name="settings_gender_title">Match me in groups by gender:</string>
     <string name="match_made_title">Say hello</string>
     <string name="say_hello">Say hello</string>
+    <string name="dialog_pick_friends_title">Keep your friends close, and your enemies even closer</string>
+    <string name="dialog_pick_friends_button">Add to friends</string>
 
     <string-array name="gender_array">
         <item>Female</item>

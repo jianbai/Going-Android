@@ -4,17 +4,24 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 
+import com.firebase.client.Firebase;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+
+import org.json.JSONException;
 
 // DONE: make chat pretty
 // DONE: replace fragment transaction with a dialog
-// TODO: fix lifecycle methods
+// TODO: HALF DONE fix lifecycle methods
 // DONE: destroy some activities
-// TODO: fix commit with state change THIS IS CRASHING
+// DONE: fix commit with state change THIS IS CRASHING
 // DONE: use preferences api, get rid of sliders
-// TODO: friends relations
-// TODO: time :: keeping friends
+// DONE: friends relations
+// DONE: time :: keeping friends
+// TODO: friend chat
+// TODO: friend management / profile views
 // TODO: location :: restrict to Vancouver
 // TODO: push notifications
 
@@ -23,14 +30,22 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     public static final String TAG = MainActivity.class.getSimpleName();
 
     protected static final ParseUser currentUser = ParseUser.getCurrentUser();
+    protected static final Firebase currentUserRef = new Firebase(FirebaseConstants.URL_USERS).child(currentUser.getObjectId());
+
+    public static boolean active = false;
+    public boolean matchDialogSeen;
 
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "CREATED");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        matchDialogSeen = currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
 
         findViews();
         setUpSlidingTabLayout();
@@ -38,7 +53,51 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.commit();
+            Log.d(TAG, "Transaction COMMITTED");
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "DESTROYED");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "PAUSED");
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        matchDialogSeen = currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+
+        if (currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
+                !matchDialogSeen) {
+            try {
+                //showMatchDialog();
+                ((SectionsPagerAdapter) mViewPager.getAdapter()).showMatchDialog();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "STOPPED");
+        active = false;
     }
 
     private void findViews() {
