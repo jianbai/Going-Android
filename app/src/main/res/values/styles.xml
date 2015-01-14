@@ -5,12 +5,14 @@
 
         <!-- Action bar style -->
         <item name="android:actionBarStyle">@style/CustomActionBarTheme</item>
+        <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/CustomActionBarTheme</item>
+        <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
 
     </style>
     
-    <style name="CustomActionBarTheme" parent="Widget.AppCompat.Light.ActionBar">
+    <style name="CustomActionBarTheme" parent="Widget.AppCompat.ActionBar">
 
         <item name="android:background">@color/hello_orange</item>
         <item name="background">@color/hello_orange</item>
@@ -20,6 +22,8 @@
 
         <item name="android:height">@dimen/action_bar_height</item>
         <item name="height">@dimen/action_bar_height</item>
+
+        <item name="android:gravity">center_vertical</item>
 
     </style>
 

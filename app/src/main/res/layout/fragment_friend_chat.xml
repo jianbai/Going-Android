@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-
-    tools:context=".MainActivity">
+    android:layout_height="fill_parent" >
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/group_chat_list_footer"
+        android:layout_above="@+id/friend_chat_list_footer"
         android:layout_alignParentTop="true"
         android:transcriptMode="alwaysScroll"
         android:background="@color/hello_white"
@@ -18,7 +15,7 @@
         android:dividerHeight="0dp" />
 
     <LinearLayout
-        android:id="@+id/group_chat_list_footer"
+        android:id="@+id/friend_chat_list_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/action_bar_height"
@@ -33,7 +30,7 @@
         android:weightSum="6">
 
         <EditText
-            android:id="@+id/group_chat_message_input"
+            android:id="@+id/friend_chat_message_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -47,7 +44,7 @@
             android:layout_marginRight="@dimen/abc_action_bar_default_padding_material" />
 
         <ImageButton
-            android:id="@+id/group_chat_send_button"
+            android:id="@+id/friend_chat_send_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

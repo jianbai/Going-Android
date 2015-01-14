@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:minHeight="@dimen/profile_height"
         android:orientation="vertical"
-        android:padding="@dimen/group_chat_padding"
+        android:padding="@dimen/chat_padding"
         android:gravity="center_vertical|right">
 
         <TextView
@@ -37,7 +37,7 @@
         android:text="@string/settings_age"
         android:layout_width="match_parent"
         android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/group_chat_padding"
+        android:padding="@dimen/chat_padding"
         android:gravity="center_vertical|left"
         android:textSize="@dimen/abc_text_size_medium_material" />
 
@@ -46,7 +46,7 @@
         android:text="@string/settings_gender"
         android:layout_width="match_parent"
         android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/group_chat_padding"
+        android:padding="@dimen/chat_padding"
         android:gravity="center_vertical|left"
         android:textSize="@dimen/abc_text_size_medium_material" />
 
@@ -55,7 +55,7 @@
         android:text="@string/settings_faq"
         android:layout_width="match_parent"
         android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/group_chat_padding"
+        android:padding="@dimen/chat_padding"
         android:gravity="center_vertical|left"
         android:textSize="@dimen/abc_text_size_medium_material" />
 
@@ -64,7 +64,7 @@
         android:text="@string/settings_bug"
         android:layout_width="match_parent"
         android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/group_chat_padding"
+        android:padding="@dimen/chat_padding"
         android:gravity="center_vertical|left"
         android:textSize="@dimen/abc_text_size_medium_material" />
 
@@ -73,7 +73,7 @@
         android:text="@string/settings_contact"
         android:layout_width="match_parent"
         android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/group_chat_padding"
+        android:padding="@dimen/chat_padding"
         android:gravity="center_vertical|left"
         android:textSize="@dimen/abc_text_size_medium_material" />
 
@@ -82,14 +82,14 @@
         android:text="@string/settings_logout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/group_chat_padding"
+        android:padding="@dimen/chat_padding"
         android:gravity="center_vertical|left"
         android:textSize="@dimen/abc_text_size_medium_material" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/group_chat_padding"
+        android:padding="@dimen/chat_padding"
         android:gravity="center_vertical|left"
         android:textSize="@dimen/abc_text_size_medium_material" />
 

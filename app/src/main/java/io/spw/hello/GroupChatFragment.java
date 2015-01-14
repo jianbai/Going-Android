@@ -51,6 +51,7 @@ public class GroupChatFragment extends ListFragment {
 
     private ParseUser currentUser;
     private ParseRelation<ParseUser> mFriendsRelation;
+    private ParseRelation<ParseUser> mGroupMembersRelation;
     private List<ParseUser> groupMembers;
 
     private static boolean[] mFriendsToKeep = {
@@ -150,11 +151,8 @@ public class GroupChatFragment extends ListFragment {
     }
 
     private void setUpUsername() {
-//        SharedPreferences prefs = getActivity().getApplication().getSharedPreferences("ChatPrefs", 0);
-//        mUsername = prefs.getString("username", null);
         if (mUsername == null) {
             mUsername = currentUser.getString(ParseConstants.KEY_FIRST_NAME);
-//            prefs.edit().putString("username", mUsername).commit();
         }
     }
 
@@ -192,10 +190,10 @@ public class GroupChatFragment extends ListFragment {
     }
 
     private void showPickFriendsDialog() {
-        ParseRelation<ParseUser> groupMembersRelation =
+        mGroupMembersRelation =
                 currentUser.getRelation(ParseConstants.KEY_GROUP_MEMBERS_RELATION);
 
-        ParseQuery<ParseUser> query = groupMembersRelation.getQuery();
+        ParseQuery<ParseUser> query = mGroupMembersRelation.getQuery();
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> parseUsers, ParseException e) {
@@ -225,6 +223,7 @@ public class GroupChatFragment extends ListFragment {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             for (int i=0; i<groupMembers.size(); i++) {
+                                                mGroupMembersRelation.remove(groupMembers.get(i));
                                                 if (mFriendsToKeep[i]) {
                                                     mFriendsRelation.add(groupMembers.get(i));
                                                 }

@@ -35,8 +35,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     static final int NUM_ITEMS = 3;
     private Activity mActivity;
     private final FragmentManager mFragmentManager;
+    protected Fragment mFriendsFragment;
     protected Fragment mFirstFragment;
-    private static final int[] imageResId = {
+    public static int[] imageResIdUnselected = {
+            R.drawable.ic_settings_icon_unselected,
+            R.drawable.ic_this_weekend_icon_unselected,
+            R.drawable.ic_friends_icon_unselected
+    };
+
+    public static int[] imageResIdSelected = {
             R.drawable.ic_settings_icon,
             R.drawable.ic_this_weekend_icon,
             R.drawable.ic_friends_icon
@@ -51,6 +58,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mFragmentManager = fm;
         currentUser = MainActivity.currentUser;
         // isMatched = currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED);
+
     }
 
     @Override
@@ -66,19 +74,30 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         } else if (object instanceof GroupChatFragment &&
                 mFirstFragment instanceof ThisWeekendFragment) {
             return POSITION_NONE;
+        } else if (object instanceof FriendsFragment) {
+            return POSITION_NONE;
         } else {
             return POSITION_UNCHANGED;
         }
+
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        Drawable image = mActivity.getResources().getDrawable(imageResId[position]);
+        Drawable image = mActivity.getResources().getDrawable(imageResIdUnselected[position]);
+
+        int currentPosition = ((MainActivity) mActivity).mViewPager.getCurrentItem();
+
+        if (position == currentPosition) {
+            image = mActivity.getResources().getDrawable(imageResIdSelected[position]);
+        }
+
         image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicWidth());
         SpannableString ss = new SpannableString(" ");
         ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
         ss.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return ss;
+
     }
 
     @Override
@@ -95,6 +114,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                         @Override
                         public void onFriendsPicked() {
                             switchToThisWeekendFragment();
+                            updateFriendsFragment();
                         }
                     });
                 } else {
@@ -112,7 +132,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 }
                 return mFirstFragment;
             case 2:
-                return new FriendsFragment();
+                if (mFriendsFragment == null) {
+                    mFriendsFragment = new FriendsFragment(mActivity);
+                }
+                return mFriendsFragment;
             default:
                 return null;
         }
@@ -175,6 +198,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         });
 
         dialog.show();
+    }
+
+    public void updateFriendsFragment() {
+        mFragmentManager.beginTransaction().remove(mFriendsFragment).commit();
+        mFriendsFragment = new FriendsFragment(mActivity);
+        notifyDataSetChanged();
     }
 
     public void switchToGroupChatFragment() {

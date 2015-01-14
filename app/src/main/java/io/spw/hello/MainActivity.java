@@ -36,12 +36,12 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     public boolean matchDialogSeen;
 
     private SlidingTabLayout mSlidingTabLayout;
-    private ViewPager mViewPager;
+    public ViewPager mViewPager;
+    private SectionsPagerAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "CREATED");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -72,19 +72,27 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     @Override
     public void onRestart() {
         super.onRestart();
+        Log.d(TAG, "RESTARTED");
         matchDialogSeen = currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "RESUMED");
     }
 
     @Override
     public void onStart() {
         super.onStart();
         active = true;
+        Log.d(TAG, "STARTED");
 
         if (currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
                 !matchDialogSeen) {
             try {
                 //showMatchDialog();
-                ((SectionsPagerAdapter) mViewPager.getAdapter()).showMatchDialog();
+                mAdapter.showMatchDialog();
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
@@ -106,11 +114,16 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     }
 
     private void setUpSlidingTabLayout() {
-        mViewPager.setAdapter(new SectionsPagerAdapter(this, getSupportFragmentManager()));
+        mAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(1);
         mSlidingTabLayout.setCustomTabView(R.layout.custom_tab, R.id.tab_title);
         mSlidingTabLayout.setOnPageChangeListener(this);
         mSlidingTabLayout.setViewPager(mViewPager);
+    }
+
+    public void setViewPagerItem(int position) {
+        mViewPager.setCurrentItem(position);
     }
 
     @Override
@@ -135,7 +148,6 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
             default:
                 break;
         }
-
         setTitle(title);
     }
 

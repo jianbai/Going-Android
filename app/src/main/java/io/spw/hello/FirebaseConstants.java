@@ -8,6 +8,7 @@ public final class FirebaseConstants {
     public static final String URL_ROOT = "https://sayhello.firebaseio.com/web/data";
     public static final String URL_USERS = "https://sayhello.firebaseio.com/web/data/users";
     public static final String URL_GROUP_CHATS = "https://sayhello.firebaseio.com/web/data/groupChats";
+    public static final String URL_FRIEND_CHATS = "https://sayhello.firebaseio.com/web/data/friendChats";
 
     // JSON Keys
     public static final String KEY_PARSE_ID = "parseId";

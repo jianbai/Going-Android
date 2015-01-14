@@ -12,8 +12,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/group_chat_padding"
-        android:paddingRight="@dimen/group_chat_padding" >
+        android:paddingLeft="@dimen/chat_padding"
+        android:paddingRight="@dimen/chat_padding" >
 
         <TextView
             android:id="@+id/author"
@@ -27,8 +27,8 @@
         android:id="@+id/messageContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/group_chat_padding"
-        android:paddingRight="@dimen/group_chat_padding"
+        android:paddingLeft="@dimen/chat_padding"
+        android:paddingRight="@dimen/chat_padding"
         android:orientation="horizontal">
 
         <TextView

@@ -66,6 +66,7 @@
     <string name="say_hello">Say hello</string>
     <string name="dialog_pick_friends_title">Keep your friends close, and your enemies even closer</string>
     <string name="dialog_pick_friends_button">Add to friends</string>
+    <string name="title_activity_chat">Chat</string>
 
     <string-array name="gender_array">
         <item>Female</item>
