@@ -253,7 +253,6 @@ public class LoginActivity extends Activity {
     // TODO: Comment?
     private void navigateToMain() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         finish();
     }

@@ -67,6 +67,20 @@
     <string name="dialog_pick_friends_title">Keep your friends close, and your enemies even closer</string>
     <string name="dialog_pick_friends_button">Add to friends</string>
     <string name="title_activity_chat">Chat</string>
+    <string name="action_view_profile">View profile</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_report">Report</string>
+    <string name="title_view_profile_error">Uh oh!</string>
+    <string name="message_view_profile_error">Something is rotten in the state of your network connection... No worries, just try again later!</string>
+    <string name="dialog_ok_button">Ok</string>
+    <string name="title_delete_friend">I don\'t care for this one</string>
+    <string name="message_delete_friend">After deletion, both you and this contact will be removed from each other\'s friend lists and will be unable to chat again. Are you sure you want to delete this contact?</string>
+    <string name="toast_contact_deleted">Contact deleted</string>
+    <string name="title_report_friend">Report</string>
+    <string name="message_report_friend">If a user makes you feel at all uncomfortable, please report them. They will be flagged, removed from your friends list and prevented from contacting you again.</string>
+    <string name="button_report_friend">Report</string>
+    <string name="toast_report_received">Report received</string>
+    <string name="title_view_profile">Profile</string>
 
     <string-array name="gender_array">
         <item>Female</item>

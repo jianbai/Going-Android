@@ -89,7 +89,9 @@ public class FriendsFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        String friendChatId;
+        String chatId;
+
+        String friendName = mFriends.get(position).getString(ParseConstants.KEY_FIRST_NAME);
 
         String currentUserObjectId = mCurrentUser.getObjectId();
         String friendObjectId = mFriends.get(position).getObjectId();
@@ -99,17 +101,20 @@ public class FriendsFragment extends ListFragment {
                 Double.parseDouble(mFriends.get(position).getString(ParseConstants.KEY_FACEBOOK_ID));
 
         if (currentUserFacebookId < friendFacebookId) {
-            friendChatId = currentUserObjectId + friendObjectId;
+            chatId = currentUserObjectId + friendObjectId;
         } else {
-            friendChatId = friendObjectId + currentUserObjectId;
+            chatId = friendObjectId + currentUserObjectId;
         }
 
-        navigateToChatActivity(friendChatId);
+        navigateToChatActivity(friendName, friendObjectId, chatId);
     }
 
-    private void navigateToChatActivity(String friendChatId) {
+    private void navigateToChatActivity(
+            String friendName, String friendObjectId, String chatId) {
         Intent intent = new Intent(mainActivity, FriendChatActivity.class);
-        intent.putExtra("friendChatId", friendChatId);
+        intent.putExtra("friendName", friendName);
+        intent.putExtra("friendObjectId", friendObjectId);
+        intent.putExtra("chatId", chatId);
         startActivity(intent);
     }
 }

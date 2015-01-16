@@ -5,10 +5,13 @@
 
         <!-- Action bar style -->
         <item name="android:actionBarStyle">@style/CustomActionBarTheme</item>
-        <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
+
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/CustomActionBarTheme</item>
+        <!--
+        <item name="android:homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
         <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
+        -->
 
     </style>
     

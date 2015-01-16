@@ -31,6 +31,7 @@ public final class ParseConstants {
     public static final String KEY_FRIENDS_RELATION = "friendsRelation";
     public static final String KEY_MATCH_DIALOG_SEEN = "matchDialogSeen";
     public static final String KEY_GROUP_MEMBERS_RELATION = "groupMembersRelation";
+    public static final String KEY_REPORTED = "reported";
 
     // Misc values
 }
