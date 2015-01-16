@@ -20,7 +20,8 @@ import org.json.JSONException;
 // DONE: use preferences api, get rid of sliders
 // DONE: friends relations
 // DONE: time :: keeping friends
-// TODO: friend chat
+// DONE: friend chat
+// TODO: fix back button
 // TODO: friend management / profile views
 // TODO: location :: restrict to Vancouver
 // TODO: push notifications
@@ -149,6 +150,7 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
                 break;
         }
         setTitle(title);
+        mAdapter.setCurrentPosition(position);
     }
 
     @Override

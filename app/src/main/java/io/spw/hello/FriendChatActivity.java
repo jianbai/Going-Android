@@ -25,4 +25,6 @@ public class FriendChatActivity extends ActionBarActivity {
 
     }
 
+
+
 }

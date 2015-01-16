@@ -48,6 +48,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             R.drawable.ic_this_weekend_icon,
             R.drawable.ic_friends_icon
     };
+    private int currentPosition;
 //    private boolean isMatched;
 
     private ParseUser currentUser;
@@ -57,6 +58,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mActivity = a;
         mFragmentManager = fm;
         currentUser = MainActivity.currentUser;
+        currentPosition = 1;
         // isMatched = currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED);
 
     }
@@ -84,9 +86,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
+        Log.d(TAG, "GETPAGETITLE");
         Drawable image = mActivity.getResources().getDrawable(imageResIdUnselected[position]);
-
-        int currentPosition = ((MainActivity) mActivity).mViewPager.getCurrentItem();
 
         if (position == currentPosition) {
             image = mActivity.getResources().getDrawable(imageResIdSelected[position]);
@@ -231,6 +232,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             }
         });
         notifyDataSetChanged();
+    }
+
+    public void setCurrentPosition(int position) {
+        currentPosition = position;
     }
 
     public interface ThisWeekendFragmentListener {
