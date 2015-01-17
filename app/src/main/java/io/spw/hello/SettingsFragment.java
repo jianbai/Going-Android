@@ -86,7 +86,7 @@ public class SettingsFragment extends ListFragment {
     private void setTextViews() {
         mProfileNameTextView.setText(currentUser.getString(ParseConstants.KEY_FIRST_NAME));
         mProfileInfoTextView.setText(currentUser.getString(ParseConstants.KEY_AGE) +
-                " : : " +
+                "  : :  " +
                 currentUser.getString(ParseConstants.KEY_HOMETOWN));
     }
 

@@ -21,6 +21,11 @@ public class DispatchActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
+//        ParseInstallation currentInstallation = ParseInstallation.getCurrentInstallation();
+//
+//        if (currentInstallation.getBoolean(ParseConstants.KEY_INSTALLATION_LOGGED_IN)) {
+//
+//        }
 
         if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
             // Start an intent for main activity

@@ -33,6 +33,9 @@ public final class ParseConstants {
     public static final String KEY_INSTALLATION_USER_ID = "userId";
     public static final String KEY_INSTALLATION_USER_NAME = "userName";
     public static final String KEY_INSTALLATION_GROUP_ID = "groupId";
+    public static final String KEY_FACEBOOK_FRIENDS = "facebookFriends";
+    public static final String KEY_LATITUDE = "latitude";
+    public static final String KEY_LONGITUDE = "longitude";
 
     // Misc values
 }

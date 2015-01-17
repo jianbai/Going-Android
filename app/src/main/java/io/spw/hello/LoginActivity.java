@@ -73,7 +73,8 @@ public class LoginActivity extends Activity {
     public void onLoginButtonClicked(View v) {
         showProgressSpinner();
 
-        List<String> permissions = Arrays.asList("public_profile", "user_hometown", "user_birthday", "email");
+        List<String> permissions = Arrays.asList("public_profile",
+                "user_hometown", "user_birthday", "email", "user_friends");
 
         ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
             @Override
@@ -81,13 +82,10 @@ public class LoginActivity extends Activity {
                 currentUser = ParseUser.getCurrentUser();
 
                 if (parseUser == null) {
-                    Log.d(TAG, "User cancelled Facebook login :(");
                     hideProgressSpinner();
                 } else if (parseUser.isNew()) {
-                    Log.d(TAG, "User signed up AND logged in through Facebook :)");
                     fetchFacebookData();
                 } else {
-                    Log.d(TAG, "User logged in through Facebook :)");
                     navigateToMain();
                 }
             }
@@ -99,6 +97,7 @@ public class LoginActivity extends Activity {
         Session session = ParseFacebookUtils.getSession();
         if (session != null && session.isOpened()) {
             makeMeRequest();
+            makeMyFriendsRequest(session);
         }
     }
 
@@ -137,6 +136,23 @@ public class LoginActivity extends Activity {
                     }
                 });
         request.executeAsync();
+    }
+
+    private void makeMyFriendsRequest(Session session) {
+        Request friendRequest = Request.newMyFriendsRequest(session,
+                new Request.GraphUserListCallback(){
+                    @Override
+                    public void onCompleted(List<GraphUser> users,
+                                            Response response) {
+                        for (GraphUser user : users) {
+                            currentUser.add(ParseConstants.KEY_FACEBOOK_FRIENDS,
+                                    user.getId());
+                            Log.d(TAG, user.getId());
+                        }
+                        currentUser.saveInBackground();
+                    }
+                });
+        friendRequest.executeAsync();
     }
 
     // TODO: Comment?
@@ -243,7 +259,6 @@ public class LoginActivity extends Activity {
         intent.putExtra("noGender", noGender);
         intent.putExtra("noAge", noAge);
         intent.putExtra("noHometown", noHometown);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         finish();
     }

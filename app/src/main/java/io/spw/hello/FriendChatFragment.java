@@ -114,7 +114,7 @@ public class FriendChatFragment extends ListFragment {
         String input = mInputText.getText().toString();
         if (!input.equals("")) {
             // Get current time
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm a");
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("h.mm a");
             GregorianCalendar cal = new GregorianCalendar();
             String time = dateFormatter.format(cal.getTime());
 

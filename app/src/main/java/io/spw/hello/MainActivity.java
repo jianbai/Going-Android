@@ -14,12 +14,13 @@ import com.parse.SaveCallback;
 
 import org.json.JSONException;
 
-// TODO: location :: restrict to Vancouver
-// TODO: icon badges
+// TODO: DESIGN: icon badges, orange change?, lighter orange chat bubbles, this weekend screen, login screen, launch screen, empty chat screen, empty friends screen
 // TODO: Complete settings
+// TODO: Make text go away when leaving fragment
 // TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
-// TODO: Add FB friends who use the app to permissions, hook up to Parse
-// TODO: Stay logged in until logout
+// DONE: location :: restrict to Vancouver
+// DONE: Add FB friends who use the app to permissions, hook up to Parse
+// DONE: Stay logged in until logout
 // DONE: push notifications
 // DONE: make chat pretty
 // DONE: replace fragment transaction with a dialog

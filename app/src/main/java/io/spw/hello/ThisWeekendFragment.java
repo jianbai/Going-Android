@@ -1,5 +1,10 @@
 package io.spw.hello;
 
+import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -26,7 +31,10 @@ public class ThisWeekendFragment extends Fragment {
 
     public static final String TAG = ThisWeekendFragment.class.getSimpleName();
 
+    private Activity mainActivity;
     private SectionsPagerAdapter.ThisWeekendFragmentListener listener;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
     private TextView mFreeTextView;
     private TextView mBullet1TextView;
@@ -41,7 +49,8 @@ public class ThisWeekendFragment extends Fragment {
     private Firebase currentUserMatchedRef;
     private ValueEventListener valueEventListener;
 
-    public ThisWeekendFragment(SectionsPagerAdapter.ThisWeekendFragmentListener listener) {
+    public ThisWeekendFragment(Activity c, SectionsPagerAdapter.ThisWeekendFragmentListener listener) {
+        mainActivity = c;
         this.listener = listener;
     }
 
@@ -50,6 +59,7 @@ public class ThisWeekendFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_this_weekend, container, false);
         currentUser = MainActivity.currentUser;
+
         isSearching = currentUser.getBoolean(ParseConstants.KEY_IS_SEARCHING);
         Firebase currentUserRef = new Firebase(FirebaseConstants.URL_USERS).child(currentUser.getObjectId());
         currentUserMatchedRef = currentUserRef.child(FirebaseConstants.KEY_MATCHED);
@@ -57,8 +67,36 @@ public class ThisWeekendFragment extends Fragment {
         findViews(rootView);
         setUpEventListener();
         setUpViews();
+        setUpLocation();
 
         return rootView;
+    }
+
+    private void setUpLocation() {
+        locationManager = (LocationManager) mainActivity.getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                currentUser.put(ParseConstants.KEY_LATITUDE, location.getLatitude());
+                currentUser.put(ParseConstants.KEY_LONGITUDE, location.getLongitude());
+                currentUser.saveInBackground();
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
     }
 
     @Override
@@ -98,6 +136,7 @@ public class ThisWeekendFragment extends Fragment {
                 currentUser.saveInBackground();
 
                 showProgressSpinner();
+                locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
 
                 currentUserMatchedRef.addValueEventListener(valueEventListener);
                 Log.d(MainActivity.TAG, "LISTENER ADDED");

@@ -117,7 +117,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                         }
                     });
                 } else {
-                    mFirstFragment = new ThisWeekendFragment(new ThisWeekendFragmentListener() {
+                    mFirstFragment = new ThisWeekendFragment(mActivity, new ThisWeekendFragmentListener() {
                         @Override
                         public void onMatchMade() throws JSONException, ParseException {
                             currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
@@ -223,7 +223,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public void switchToThisWeekendFragment() {
         mFragmentManager.beginTransaction().remove(mFirstFragment).commit();
-        mFirstFragment = new ThisWeekendFragment(new ThisWeekendFragmentListener() {
+        mFirstFragment = new ThisWeekendFragment(mActivity, new ThisWeekendFragmentListener() {
             @Override
             public void onMatchMade() throws JSONException, ParseException {
                 currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
