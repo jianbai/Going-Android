@@ -23,9 +23,7 @@ public class ChatListAdapter extends FirebaseListAdapter<Chat> {
     // The mUsername for this client. We use this to indicate which messages originated from this user
     private String mUsername;
     private Context mContext;
-    private static final int DEFAULT_ORANGE = 0xFFFDA942;
     private static final int DEFAULT_WHITE = 0xFFF6F6EF;
-    private static final int MESSAGE_SIDE_PADDING = 60;
 
     public ChatListAdapter(Query ref, Activity activity, int layout, String mUsername, Context mContext) {
         super(ref, Chat.class, layout, activity);

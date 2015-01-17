@@ -36,9 +36,6 @@ public class FriendChatActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_chat);
 
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_this_weekend_icon_unselected);
-
         setTitle(getIntent().getStringExtra("friendName"));
         mChatId = getIntent().getStringExtra("chatId");
         mCurrentUser = MainActivity.currentUser;

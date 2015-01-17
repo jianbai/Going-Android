@@ -17,12 +17,10 @@ public final class ParseConstants {
     public static final String KEY_GENDER = "gender";
     public static final String KEY_HOMETOWN = "hometown";
     public static final String KEY_HOMETOWN_NAME = "name";
-    public static final String KEY_AGE_SPREAD = "ageSpread";
-    public static final String KEY_GENDER_SPREAD = "genderSpread";
     public static final String KEY_IS_MATCHED = "isMatched";
     public static final String KEY_IS_SEARCHING = "isSearching";
-    public static final String KEY_GROUP_ID = "groupId";
     public static final String KEY_MEMBER_IDS = "memberIds";
+    public static final String KEY_GROUP_ID = "groupId";
     public static final String KEY_AGE_SETTINGS_0 = "ageSettings0";
     public static final String KEY_AGE_SETTINGS_20 = "ageSettings20";
     public static final String KEY_AGE_SETTINGS_30 = "ageSettings30";

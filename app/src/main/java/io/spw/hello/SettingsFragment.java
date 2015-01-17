@@ -31,12 +31,6 @@ public class SettingsFragment extends ListFragment {
 
     private TextView mProfileNameTextView;
     private TextView mProfileInfoTextView;
-    private TextView mSettingsAgeTextView;
-    private TextView mSettingsGenderTextView;
-    private TextView mSettingsFaqTextView;
-    private TextView mSettingsBugTextView;
-    private TextView mSettingsContactTextView;
-    private TextView mSettingsLogoutTextView;
 
     private static boolean[] mAgeSettings = {
             true, false, false, false
@@ -87,12 +81,6 @@ public class SettingsFragment extends ListFragment {
     private void findViews(View rootView) {
         mProfileNameTextView = (TextView) rootView.findViewById(R.id.settings_profile_name);
         mProfileInfoTextView = (TextView) rootView.findViewById(R.id.settings_profile_info);
-//        mSettingsAgeTextView = (TextView) rootView.findViewById(R.id.settings_age);
-//        mSettingsGenderTextView = (TextView) rootView.findViewById(R.id.settings_gender);
-//        mSettingsFaqTextView = (TextView) rootView.findViewById(R.id.settings_faq);
-//        mSettingsBugTextView = (TextView) rootView.findViewById(R.id.settings_bug);
-//        mSettingsContactTextView = (TextView) rootView.findViewById(R.id.settings_contact);
-//        mSettingsLogoutTextView = (TextView) rootView.findViewById(R.id.settings_logout);
     }
 
     private void setTextViews() {

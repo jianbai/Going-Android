@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -40,7 +39,6 @@ public class ThisWeekendFragment extends Fragment {
     private ParseUser currentUser;
     private Boolean isSearching;
     private Firebase currentUserMatchedRef;
-    protected ChildEventListener childEventListener;
     private ValueEventListener valueEventListener;
 
     public ThisWeekendFragment(SectionsPagerAdapter.ThisWeekendFragmentListener listener) {
@@ -64,24 +62,11 @@ public class ThisWeekendFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-//        currentUserMatchedRef.addValueEventListener(valueEventListener);
-//        currentUserMatchedRef.addChildEventListener(childEventListener);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
         Log.d(MainActivity.TAG, "STOPPED");
         currentUserMatchedRef.removeEventListener(valueEventListener);
         Log.d(MainActivity.TAG, "LISTENER REMOVED");
-//        currentUserMatchedRef.removeEventListener(childEventListener);
     }
 
     private void findViews(View rootView) {
@@ -116,7 +101,6 @@ public class ThisWeekendFragment extends Fragment {
 
                 currentUserMatchedRef.addValueEventListener(valueEventListener);
                 Log.d(MainActivity.TAG, "LISTENER ADDED");
-//                currentUserMatchedRef.addChildEventListener(childEventListener);
             }
         });
     }
@@ -166,19 +150,6 @@ public class ThisWeekendFragment extends Fragment {
                 } else {
                     Log.d(MainActivity.TAG, "MATCHED FALSE");
                 }
-//                if (isMatched) {
-//                    try {
-//                        listener.onMatchMade();
-//                    } catch (JSONException e) {
-//                        Log.d(TAG, e.getLocalizedMessage());
-//                    } catch (ParseException e) {
-//                        Log.d(TAG, e.getLocalizedMessage());
-//                    }
-//                    currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
-//                    currentUser.put(ParseConstants.KEY_IS_MATCHED, true);
-//                    currentUser.saveInBackground();
-//                    currentUserMatchedRef.removeEventListener(valueEventListener);
-//                }
             }
 
             @Override
@@ -186,43 +157,6 @@ public class ThisWeekendFragment extends Fragment {
 
             }
         };
-
-//        childEventListener = new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                try {
-//                    listener.onMatchMade();
-//                } catch (JSONException e) {
-//                    Log.d(TAG, e.getLocalizedMessage());
-//                } catch (ParseException e) {
-//                    Log.d(TAG, e.getLocalizedMessage());
-//                }
-//                currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
-//                currentUser.put(ParseConstants.KEY_IS_MATCHED, true);
-//                currentUser.saveInBackground();
-//                currentUserMatchedRef.removeEventListener(childEventListener);
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        };
     }
 
 }

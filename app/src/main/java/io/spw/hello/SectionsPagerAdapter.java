@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.ParseException;
+import com.parse.ParsePush;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -49,7 +50,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             R.drawable.ic_friends_icon
     };
     private int currentPosition;
-//    private boolean isMatched;
 
     private ParseUser currentUser;
 
@@ -59,8 +59,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mFragmentManager = fm;
         currentUser = MainActivity.currentUser;
         currentPosition = 1;
-        // isMatched = currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED);
-
     }
 
     @Override
@@ -194,6 +192,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 if (mFirstFragment instanceof ThisWeekendFragment) {
                     switchToGroupChatFragment();
                 }
+                ParsePush.subscribeInBackground("group" + currentUser.getString(ParseConstants.KEY_GROUP_ID));
                 dialog.dismiss();
             }
         });

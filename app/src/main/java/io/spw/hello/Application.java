@@ -3,6 +3,7 @@ package io.spw.hello;
 import com.firebase.client.Firebase;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParsePush;
 
 /**
  * Created by scottwang on 12/28/14.
@@ -27,6 +28,9 @@ public class Application extends android.app.Application {
 
         // Initialize Firebase library with Android context
         Firebase.setAndroidContext(this);
+
+        // Initialize Parse Push Notifications
+        ParsePush.subscribeInBackground("");
     }
 
 }

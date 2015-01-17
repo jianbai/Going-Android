@@ -24,6 +24,7 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -231,6 +232,8 @@ public class GroupChatFragment extends ListFragment {
                                             currentUser.put(ParseConstants.KEY_IS_MATCHED, false);
                                             currentUser.put(ParseConstants.KEY_MATCH_DIALOG_SEEN, false);
                                             currentUser.saveInBackground();
+                                            ParsePush.unsubscribeInBackground("group" +
+                                                    currentUser.getString(ParseConstants.KEY_GROUP_ID));
                                             listener.onFriendsPicked();
                                         }
                                     });

@@ -8,13 +8,21 @@ import android.util.Log;
 
 import com.firebase.client.Firebase;
 import com.parse.ParseException;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
 
 import org.json.JSONException;
 
+// TODO: location :: restrict to Vancouver
+// TODO: icon badges
+// TODO: Complete settings
+// TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
+// TODO: Add FB friends who use the app to permissions, hook up to Parse
+// TODO: Stay logged in until logout
+// DONE: push notifications
 // DONE: make chat pretty
 // DONE: replace fragment transaction with a dialog
-// TODO: HALF DONE fix lifecycle methods
+// DONE: HALF DONE fix lifecycle methods
 // DONE: destroy some activities
 // DONE: fix commit with state change THIS IS CRASHING
 // DONE: use preferences api, get rid of sliders
@@ -23,12 +31,7 @@ import org.json.JSONException;
 // DONE: friend chat
 // DONE: fix back button
 // DONE: friend management / profile views
-// TODO: location :: restrict to Vancouver
-// TODO: push notifications
-// TODO: icon badges
-// TODO: remove ageSpread and genderSpread
-// TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
-// TODO: Complete settings
+// DONE: remove ageSpread and genderSpread
 
 public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
@@ -46,11 +49,12 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "CREATED");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         matchDialogSeen = currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
+
+        ParsePush.subscribeInBackground("user" + currentUser.getObjectId());
 
         findViews();
         setUpSlidingTabLayout();
@@ -63,28 +67,9 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "DESTROYED");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "PAUSED");
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        Log.d(TAG, "RESTARTED");
-        matchDialogSeen = currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "RESUMED");
+        matchDialogSeen = currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
     }
 
     @Override
@@ -109,7 +94,6 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "STOPPED");
         active = false;
     }
 
@@ -125,10 +109,6 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         mSlidingTabLayout.setCustomTabView(R.layout.custom_tab, R.id.tab_title);
         mSlidingTabLayout.setOnPageChangeListener(this);
         mSlidingTabLayout.setViewPager(mViewPager);
-    }
-
-    public void setViewPagerItem(int position) {
-        mViewPager.setCurrentItem(position);
     }
 
     @Override
