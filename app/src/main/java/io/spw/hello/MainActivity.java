@@ -8,8 +8,9 @@ import android.util.Log;
 
 import com.firebase.client.Firebase;
 import com.parse.ParseException;
-import com.parse.ParsePush;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONException;
 
@@ -54,7 +55,22 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
         matchDialogSeen = currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
 
-        ParsePush.subscribeInBackground("user" + currentUser.getObjectId());
+        ParseInstallation.getCurrentInstallation()
+                .put(ParseConstants.KEY_INSTALLATION_USER_ID,
+                        currentUser.getObjectId());
+        ParseInstallation.getCurrentInstallation()
+                .put(ParseConstants.KEY_INSTALLATION_USER_NAME,
+                        currentUser.getString(ParseConstants.KEY_FIRST_NAME));
+        ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "INST SAVED");
+                } else {
+                    Log.d(TAG, e.getLocalizedMessage());
+                }
+            }
+        });
 
         findViews();
         setUpSlidingTabLayout();

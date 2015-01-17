@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.ParseException;
-import com.parse.ParsePush;
+import com.parse.ParseInstallation;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -192,7 +192,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 if (mFirstFragment instanceof ThisWeekendFragment) {
                     switchToGroupChatFragment();
                 }
-                ParsePush.subscribeInBackground("group" + currentUser.getString(ParseConstants.KEY_GROUP_ID));
+                // ParsePush.subscribeInBackground("group" + currentUser.getString(ParseConstants.KEY_GROUP_ID));
+                ParseInstallation.getCurrentInstallation().
+                        put(ParseConstants.KEY_INSTALLATION_GROUP_ID,
+                                currentUser.getString(ParseConstants.KEY_GROUP_ID));
+                ParseInstallation.getCurrentInstallation().saveInBackground();
                 dialog.dismiss();
             }
         });
