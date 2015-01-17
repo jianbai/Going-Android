@@ -160,8 +160,6 @@ public class LoginActivity extends Activity {
         currentUser.put(ParseConstants.KEY_FACEBOOK_ID, user.getId());
         currentUser.put(ParseConstants.KEY_FIRST_NAME, user.getFirstName());
         currentUser.put(ParseConstants.KEY_LAST_NAME, user.getLastName());
-        currentUser.put(ParseConstants.KEY_AGE_SPREAD, 0);
-        currentUser.put(ParseConstants.KEY_GENDER_SPREAD, 0);
         currentUser.put(ParseConstants.KEY_IS_MATCHED, false);
         currentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
 

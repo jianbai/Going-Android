@@ -51,7 +51,7 @@ public class ChatListAdapter extends FirebaseListAdapter<Chat> {
         TextView authorText = (TextView) view.findViewById(R.id.author);
         LinearLayout authorContainer = (LinearLayout) view.findViewById(R.id.authorContainer);
         authorText.setAllCaps(true);
-        authorText.setText(author + "  //  " + time);
+        authorText.setText(author + "  : :  " + time);
 
         TextView messageText = (TextView) view.findViewById(R.id.message);
         LinearLayout messageContainer = (LinearLayout) view.findViewById(R.id.messageContainer);

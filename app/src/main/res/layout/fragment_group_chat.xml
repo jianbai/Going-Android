@@ -21,7 +21,7 @@
         android:id="@+id/group_chat_list_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/action_bar_height"
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:background="@color/hello_orange"

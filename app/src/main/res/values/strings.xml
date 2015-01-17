@@ -87,6 +87,16 @@
         <item>Male</item>
     </string-array>
 
+    <string-array name="settings">
+        <item>Age preferences</item>
+        <item>Gender preferences</item>
+        <item>FAQ</item>
+        <item>RAQ</item>
+        <item>Report a bug</item>
+        <item>Get in touch</item>
+        <item>Log out</item>
+    </string-array>
+
     <string-array name="settings_age">
         <item>Ageism is lame!</item>
         <item>20\'s</item>

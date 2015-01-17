@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/hello_white"
     android:divider="@drawable/divider"
-    android:showDividers="middle"
+    android:showDividers="middle|end"
     android:orientation="vertical"
 
     tools:context=".MainActivity">
@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:minHeight="@dimen/profile_height"
         android:orientation="vertical"
-        android:padding="@dimen/chat_padding"
-        android:gravity="center_vertical|right">
+        android:paddingLeft="@dimen/chat_padding"
+        android:paddingRight="@dimen/chat_padding" >
 
         <TextView
             android:id="@+id/settings_profile_name"
@@ -32,66 +32,10 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/settings_age"
-        android:text="@string/settings_age"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/chat_padding"
-        android:gravity="center_vertical|left"
-        android:textSize="@dimen/abc_text_size_medium_material" />
-
-    <TextView
-        android:id="@+id/settings_gender"
-        android:text="@string/settings_gender"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/chat_padding"
-        android:gravity="center_vertical|left"
-        android:textSize="@dimen/abc_text_size_medium_material" />
-
-    <TextView
-        android:id="@+id/settings_faq"
-        android:text="@string/settings_faq"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/chat_padding"
-        android:gravity="center_vertical|left"
-        android:textSize="@dimen/abc_text_size_medium_material" />
-
-    <TextView
-        android:id="@+id/settings_bug"
-        android:text="@string/settings_bug"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/chat_padding"
-        android:gravity="center_vertical|left"
-        android:textSize="@dimen/abc_text_size_medium_material" />
-
-    <TextView
-        android:id="@+id/settings_contact"
-        android:text="@string/settings_contact"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/chat_padding"
-        android:gravity="center_vertical|left"
-        android:textSize="@dimen/abc_text_size_medium_material" />
-
-    <TextView
-        android:id="@+id/settings_logout"
-        android:text="@string/settings_logout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/chat_padding"
-        android:gravity="center_vertical|left"
-        android:textSize="@dimen/abc_text_size_medium_material" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/preference_height"
-        android:padding="@dimen/chat_padding"
-        android:gravity="center_vertical|left"
-        android:textSize="@dimen/abc_text_size_medium_material" />
-
+        android:layout_height="wrap_content"
+        android:id="@android:id/list"
+        android:layout_gravity="bottom" />
 
 </LinearLayout>

@@ -21,13 +21,14 @@ import org.json.JSONException;
 // DONE: friends relations
 // DONE: time :: keeping friends
 // DONE: friend chat
-// TODO: fix back button
-// TODO: friend management / profile views
+// DONE: fix back button
+// DONE: friend management / profile views
 // TODO: location :: restrict to Vancouver
 // TODO: push notifications
 // TODO: icon badges
 // TODO: remove ageSpread and genderSpread
 // TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
+// TODO: Complete settings
 
 public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
