@@ -25,27 +25,20 @@ public class DispatchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dispatch);
 
+        currentUser = ParseUser.getCurrentUser();
 
-//        ParseInstallation currentInstallation = ParseInstallation.getCurrentInstallation();
-//
-//        if (currentInstallation.getBoolean(ParseConstants.KEY_INSTALLATION_LOGGED_IN)) {
-//
-//        }
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                currentUser = ParseUser.getCurrentUser();
-
-                if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
-                    // Start an intent for main activity
-                    startActivity(new Intent(DispatchActivity.this, MainActivity.class));
-                } else {
-                    // Start an intent for login activity
+        if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
+            // Start an intent for main activity
+            startActivity(new Intent(DispatchActivity.this, MainActivity.class));
+        } else {
+            // Start an intent for login activity
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
                     startActivity(new Intent(DispatchActivity.this, LoginActivity.class));
                 }
-            }
-        }, LAUNCH_DISPLAY_LENGTH);
+            }, LAUNCH_DISPLAY_LENGTH);
+        }
 
     }
 

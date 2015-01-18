@@ -35,6 +35,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     static final int NUM_ITEMS = 3;
     private Activity mActivity;
+    private SlidingTabLayout mSlidingTabLayout;
     private final FragmentManager mFragmentManager;
     protected Fragment mFriendsFragment;
     protected Fragment mFirstFragment;
@@ -53,9 +54,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private ParseUser currentUser;
 
-    public SectionsPagerAdapter(Activity a, FragmentManager fm) {
+    public SectionsPagerAdapter(Activity a, SlidingTabLayout s, FragmentManager fm) {
         super(fm);
         mActivity = a;
+        mSlidingTabLayout = s;
         mFragmentManager = fm;
         currentUser = MainActivity.currentUser;
         currentPosition = 1;
@@ -132,7 +134,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return mFirstFragment;
             case 2:
                 if (mFriendsFragment == null) {
-                    mFriendsFragment = new FriendsFragment(mActivity);
+                    mFriendsFragment = new FriendsFragment(mActivity, mSlidingTabLayout);
                 }
                 return mFriendsFragment;
             default:
@@ -206,7 +208,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public void updateFriendsFragment() {
         mFragmentManager.beginTransaction().remove(mFriendsFragment).commit();
-        mFriendsFragment = new FriendsFragment(mActivity);
+        mFriendsFragment = new FriendsFragment(mActivity, mSlidingTabLayout);
         notifyDataSetChanged();
     }
 

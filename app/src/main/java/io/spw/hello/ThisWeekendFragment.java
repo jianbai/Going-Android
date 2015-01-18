@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
@@ -37,9 +39,11 @@ public class ThisWeekendFragment extends Fragment {
     private LocationListener locationListener;
 
     private TextView mFreeTextView;
-    private TextView mBullet1TextView;
-    private TextView mBullet2TextView;
-    private TextView mBullet3TextView;
+    private LinearLayout mBullet1;
+    private LinearLayout mBullet2;
+    private LinearLayout mBullet3;
+    private TextView mReadyTextView;
+    private ScrollView mScrollView;
     private Button mHelloButton;
     private TextView mSearchingTextView;
     private ProgressBar mProgressSpinner;
@@ -109,10 +113,12 @@ public class ThisWeekendFragment extends Fragment {
 
     private void findViews(View rootView) {
         mFreeTextView = (TextView) rootView.findViewById(R.id.this_weekend_free_textview);
-        mBullet1TextView = (TextView) rootView.findViewById(R.id.this_weekend_bullet_1);
-        mBullet2TextView = (TextView) rootView.findViewById(R.id.this_weekend_bullet_2);
-        mBullet3TextView = (TextView) rootView.findViewById(R.id.this_weekend_bullet_3);
+        mBullet1 = (LinearLayout) rootView.findViewById(R.id.this_weekend_bullet_1);
+        mBullet2 = (LinearLayout) rootView.findViewById(R.id.this_weekend_bullet_2);
+        mBullet3 = (LinearLayout) rootView.findViewById(R.id.this_weekend_bullet_3);
+        mReadyTextView = (TextView) rootView.findViewById(R.id.this_weekend_ready);
         mHelloButton = (Button) rootView.findViewById(R.id.this_weekend_hello_button);
+        mScrollView = (ScrollView) rootView.findViewById(R.id.this_weekend_scrollview);
         mSearchingTextView = (TextView) rootView.findViewById(R.id.this_weekend_searching_textview);
         mProgressSpinner = (ProgressBar) rootView.findViewById(R.id.this_weekend_progress_spinner);
     }
@@ -145,21 +151,25 @@ public class ThisWeekendFragment extends Fragment {
     }
 
     private void showProgressSpinner() {
-        mFreeTextView.setVisibility(View.GONE);
-        mBullet1TextView.setVisibility(View.GONE);
-        mBullet2TextView.setVisibility(View.GONE);
-        mBullet3TextView.setVisibility(View.GONE);
-        mHelloButton.setVisibility(View.GONE);
+//        mFreeTextView.setVisibility(View.GONE);
+//        mBullet1.setVisibility(View.GONE);
+//        mBullet2.setVisibility(View.GONE);
+//        mBullet3.setVisibility(View.GONE);
+//        mReadyTextView.setVisibility(View.GONE);
+//        mHelloButton.setVisibility(View.GONE);
+        mScrollView.setVisibility(View.GONE);
         mSearchingTextView.setVisibility(View.VISIBLE);
         mProgressSpinner.setVisibility(View.VISIBLE);
     }
 
     private void hideProgressSpinner() {
-        mFreeTextView.setVisibility(View.VISIBLE);
-        mBullet1TextView.setVisibility(View.VISIBLE);
-        mBullet2TextView.setVisibility(View.VISIBLE);
-        mBullet3TextView.setVisibility(View.VISIBLE);
-        mHelloButton.setVisibility(View.VISIBLE);
+//        mFreeTextView.setVisibility(View.VISIBLE);
+//        mBullet1.setVisibility(View.VISIBLE);
+//        mBullet2.setVisibility(View.VISIBLE);
+//        mBullet3.setVisibility(View.VISIBLE);
+//        mReadyTextView.setVisibility(View.VISIBLE);
+//        mHelloButton.setVisibility(View.VISIBLE);
+        mScrollView.setVisibility(View.VISIBLE);
         mSearchingTextView.setVisibility(View.GONE);
         mProgressSpinner.setVisibility(View.GONE);
     }

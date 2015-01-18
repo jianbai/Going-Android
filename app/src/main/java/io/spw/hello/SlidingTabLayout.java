@@ -244,8 +244,12 @@ public class SlidingTabLayout extends HorizontalScrollView {
         }
     }
 
-    private class InternalViewPagerListener implements ViewPager.OnPageChangeListener {
-        private int mScrollState;
+    public void setTabPosition(int position) {
+        mViewPager.setCurrentItem(position);
+    }
+
+    protected class InternalViewPagerListener implements ViewPager.OnPageChangeListener {
+        protected int mScrollState;
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -289,6 +293,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
             }
 
             populateTabStrip();
+        }
+
+        public int getScrollState() {
+            return mScrollState;
         }
 
     }

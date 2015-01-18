@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/hello_white"
     android:gravity="center" >
 
@@ -13,11 +13,33 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@android:id/empty"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/label_empty_friends"
-        android:layout_gravity="center" />
+        android:layout_height="match_parent"
+        android:id="@android:id/empty"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_empty_chat" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_empty_friends"
+            android:gravity="center"
+            android:textSize="@dimen/abc_text_size_menu_material" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/friends_meet_button"
+            android:layout_marginTop="60dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/login_bullet"
+            android:textColor="@color/hello_white"
+            android:background="@drawable/bubble_orange"
+            android:textSize="@dimen/abc_text_size_medium_material" />
+    </LinearLayout>
 
 </RelativeLayout>

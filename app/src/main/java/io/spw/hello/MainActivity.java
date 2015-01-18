@@ -120,7 +120,7 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     }
 
     private void setUpSlidingTabLayout() {
-        mAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        mAdapter = new SectionsPagerAdapter(this, mSlidingTabLayout, getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(1);
         mSlidingTabLayout.setCustomTabView(R.layout.custom_tab, R.id.tab_title);

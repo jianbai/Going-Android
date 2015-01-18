@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
@@ -27,13 +28,16 @@ public class FriendsFragment extends ListFragment {
     public static final String TAG = FriendsFragment.class.getSimpleName();
 
     private Activity mainActivity;
+    private SlidingTabLayout mSlidingTabLayout;
     private ParseUser mCurrentUser;
     private ParseRelation<ParseUser> mFriendsRelation;
     private List<ParseUser> mFriends;
     private ListView mListView;
+    private Button mMeetButton;
 
-    public FriendsFragment(Activity c) {
+    public FriendsFragment(Activity c, SlidingTabLayout slidingTabLayout) {
         mainActivity = c;
+        mSlidingTabLayout = slidingTabLayout;
     }
 
     @Override
@@ -43,7 +47,20 @@ public class FriendsFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
         mCurrentUser = MainActivity.currentUser;
 
+        setUpButton(rootView);
+
         return rootView;
+    }
+
+    private void setUpButton(View rootView) {
+        mMeetButton = (Button) rootView.findViewById(R.id.friends_meet_button);
+
+        mMeetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSlidingTabLayout.setTabPosition(1);
+            }
+        });
     }
 
     @Override
