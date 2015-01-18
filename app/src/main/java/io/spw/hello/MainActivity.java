@@ -14,7 +14,7 @@ import com.parse.SaveCallback;
 
 import org.json.JSONException;
 
-// TODO: DESIGN: icon badges, orange change?, lighter orange chat bubbles, this weekend screen, login screen, launch screen, empty chat screen, empty friends screen
+// TODO: DESIGN: icon badges, this weekend screen, empty chat screen, empty friends screen
 // TODO: Complete settings
 // TODO: Make text go away when leaving fragment
 // TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names

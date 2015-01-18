@@ -10,12 +10,19 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/group_chat_list_footer"
+        android:layout_above="@+id/group_chat_divider"
         android:layout_alignParentTop="true"
         android:transcriptMode="alwaysScroll"
         android:background="@color/hello_white"
         android:divider="@null"
         android:dividerHeight="0dp" />
+
+    <View
+        android:id="@+id/group_chat_divider"
+        android:layout_above="@+id/group_chat_list_footer"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#16333333" />
 
     <LinearLayout
         android:id="@+id/group_chat_list_footer"
@@ -24,7 +31,7 @@
         android:minHeight="@dimen/abc_action_bar_default_height_material"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:background="@color/hello_orange"
+        android:background="@color/hello_white"
         android:gravity="center"
         android:paddingLeft="@dimen/chat_padding"
         android:paddingTop="@dimen/chat_padding"
@@ -52,7 +59,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_send"
-            android:background="@color/hello_orange"
+            android:background="@color/hello_white"
             android:padding="@dimen/abc_action_bar_default_padding_material" />
     </LinearLayout>
 

@@ -4,6 +4,7 @@
     <string name="app_name">hello</string>
     <string name="facebook_app_id">748438291904311</string>
     <string name="parse_app_id">BgVWp9cm22GjjGzt6Qj9v9TDYaAQaCIYR6Fe8y2j</string>
+    <string name="login_title">hello Vancouver</string>
     <string name="login_bullet_1_textview">Find a group of 4 to go out with this weekend</string>
     <string name="login_bullet_2_textview">After meeting, decide who to keep in your friends list</string>
     <string name="login_bullet_3_textview">Go out again next weekend to grow your friends list!</string>
@@ -81,6 +82,7 @@
     <string name="button_report_friend">Report</string>
     <string name="toast_report_received">Report received</string>
     <string name="title_view_profile">Profile</string>
+    <string name="dispatch_tag">Meet people who want to meet people</string>
 
     <string-array name="gender_array">
         <item>Female</item>
