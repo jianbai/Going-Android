@@ -109,9 +109,9 @@ public class ThisWeekendFragment extends Fragment {
 
     private void findViews(View rootView) {
         mFreeTextView = (TextView) rootView.findViewById(R.id.this_weekend_free_textview);
-        mBullet1TextView = (TextView) rootView.findViewById(R.id.this_weekend_bullet_1_textview);
-        mBullet2TextView = (TextView) rootView.findViewById(R.id.this_weekend_bullet_2_textview);
-        mBullet3TextView = (TextView) rootView.findViewById(R.id.this_weekend_bullet_3_textview);
+        mBullet1TextView = (TextView) rootView.findViewById(R.id.this_weekend_bullet_1);
+        mBullet2TextView = (TextView) rootView.findViewById(R.id.this_weekend_bullet_2);
+        mBullet3TextView = (TextView) rootView.findViewById(R.id.this_weekend_bullet_3);
         mHelloButton = (Button) rootView.findViewById(R.id.this_weekend_hello_button);
         mSearchingTextView = (TextView) rootView.findViewById(R.id.this_weekend_searching_textview);
         mProgressSpinner = (ProgressBar) rootView.findViewById(R.id.this_weekend_progress_spinner);
