@@ -1,10 +1,13 @@
 package io.spw.hello;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.firebase.client.Firebase;
 import com.parse.ParseException;
@@ -14,26 +17,10 @@ import com.parse.SaveCallback;
 
 import org.json.JSONException;
 
-// TODO: DESIGN: icon badges, this weekend screen, empty chat screen, empty friends screen
+// TODO: DESIGN: main screen
 // TODO: Complete settings
-// TODO: Make text go away when leaving fragment
+// DONE: Make text go away when leaving fragment
 // TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
-// DONE: location :: restrict to Vancouver
-// DONE: Add FB friends who use the app to permissions, hook up to Parse
-// DONE: Stay logged in until logout
-// DONE: push notifications
-// DONE: make chat pretty
-// DONE: replace fragment transaction with a dialog
-// DONE: HALF DONE fix lifecycle methods
-// DONE: destroy some activities
-// DONE: fix commit with state change THIS IS CRASHING
-// DONE: use preferences api, get rid of sliders
-// DONE: friends relations
-// DONE: time :: keeping friends
-// DONE: friend chat
-// DONE: fix back button
-// DONE: friend management / profile views
-// DONE: remove ageSpread and genderSpread
 
 public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
@@ -152,7 +139,23 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         }
         setTitle(title);
         mAdapter.setCurrentPosition(position);
+
+        EditText inputText = (EditText) findViewById(R.id.group_chat_message_input);
+
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputMethodManager.hideSoftInputFromWindow(inputText.getWindowToken(), 0);
+//        hideKeyboard();
     }
+
+//    private void hideKeyboard() {
+//        View view = this.getCurrentFocus();
+//        if (view != null) {
+//            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromInputMethod();
+//        }
+//    }
 
     @Override
     public void onPageScrollStateChanged(int state) {

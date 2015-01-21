@@ -85,6 +85,8 @@
     <string name="dispatch_tag">Meet people who want to meet people</string>
     <string name="this_weekend_ready">Free this weekend?</string>
     <string name="login_bullet">Meet 3 people this weekend</string>
+    <string name="label_empty_group_chat">Remember: this chat will close on Monday, so make plans to meet this weekend. Say hello, and have fun!</string>
+    <string name="label_empty_friend_chat">No messages yet :( Say hello!</string>
 
     <string-array name="gender_array">
         <item>Female</item>

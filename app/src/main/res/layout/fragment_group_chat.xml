@@ -17,6 +17,26 @@
         android:divider="@null"
         android:dividerHeight="0dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@android:id/empty"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/hello_white"
+        android:padding="@dimen/chat_padding" >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_empty_chat" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_empty_group_chat"
+            android:gravity="center"
+            android:textSize="@dimen/abc_text_size_menu_material" />
+    </LinearLayout>
+
     <View
         android:id="@+id/group_chat_divider"
         android:layout_above="@+id/group_chat_list_footer"

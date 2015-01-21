@@ -33,7 +33,8 @@ import java.util.List;
 /**
  * Created by scottwang on 12/26/14.
  * ga0RGNYHvNM5d0SLGQfpQWAPGJ8=
- * n+xcAaOIG1e1XpxStAc4PkDDnXM
+ * n+xcAaOIG1e1XpxStAc4PkDDnXM=
+ * b9NiCI/tkmusUAAs4aW1LCFk9Uw=
  */
 
 public class LoginActivity extends Activity {
