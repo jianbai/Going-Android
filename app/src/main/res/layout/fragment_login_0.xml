@@ -5,10 +5,21 @@
     android:gravity="center"
     android:background="@color/hello_white">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_0"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:gravity="center"
+        android:paddingLeft="@dimen/login_padding"
+        android:paddingRight="@dimen/login_padding" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView5"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_this_weekend_step_1" />
+        android:src="@drawable/ic_login_step1" />
 </LinearLayout>

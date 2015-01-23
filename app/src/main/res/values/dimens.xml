@@ -8,4 +8,5 @@
     <dimen name="preference_height">60dp</dimen>
     <dimen name="profile_height">120dp</dimen>
     <dimen name="content_vertical_margin">20dp</dimen>
+    <dimen name="login_padding">32dp</dimen>
 </resources>

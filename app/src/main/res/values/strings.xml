@@ -115,6 +115,10 @@
     <string name="dialog_contact_hint">Sup</string>
     <string name="dialog_send_button">Send</string>
     <string name="this_weekend_help">How does this work?</string>
+    <string name="login_0">Match up with 3 people around you to chat in the app and make plans. Go somewhere cool this weekend!</string>
+    <string name="login_1">Matches disappear at the end of every weekend. You can choose to keep matches you liked in your friends list.</string>
+    <string name="login_2">Go again next weekend to meet more people and grow your friends list!</string>
+    <string name="login_3">We don’t use any photos, and we don’t post anything to Facebook.\n\nWe ask for your birthday and hometown to fill out your profile.\n\nWe use location services and Facebook login to make sure you get matched with real people around you.\n\nFinally, Go is for people who want to meet people, so we ask for your friends who use the app so you don’t get matched with people you already know!</string>
 
     <string-array name="gender_array">
         <item>Female</item>
