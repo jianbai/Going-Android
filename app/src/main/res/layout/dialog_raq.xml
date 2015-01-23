@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/dialog_raq_button"
+        android:id="@+id/dialog_raq_scrollview" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/chat_padding">
+
+                <TextView
+                    android:id="@+id/raq_question0"
+                    android:text="@string/raq_question0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/abc_text_size_small_material" />
+
+                <TextView
+                    android:id="@+id/raq_answer0"
+                    android:text="@string/raq_answer0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/abc_text_size_small_material" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/chat_padding">
+
+                <TextView
+                    android:id="@+id/raq_question1"
+                    android:text="@string/raq_question1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/abc_text_size_small_material" />
+
+                <TextView
+                    android:id="@+id/raq_answer1"
+                    android:text="@string/raq_answer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/abc_text_size_small_material" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/chat_padding">
+
+                <TextView
+                    android:id="@+id/raq_question2"
+                    android:text="@string/raq_question2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/abc_text_size_small_material" />
+
+                <TextView
+                    android:id="@+id/raq_answer2"
+                    android:text="@string/raq_answer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/abc_text_size_small_material" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/dialog_raq_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_ok_button"
+        android:background="@drawable/bubble_orange"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/dialog_margin" />
+
+</RelativeLayout>

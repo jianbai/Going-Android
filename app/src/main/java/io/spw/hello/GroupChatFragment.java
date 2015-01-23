@@ -1,8 +1,6 @@
 package io.spw.hello;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -20,18 +18,14 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * Created by scottwang on 1/8/15.
@@ -40,7 +34,7 @@ public class GroupChatFragment extends ListFragment {
 
     public static final String TAG = GroupChatFragment.class.getSimpleName();
 
-    private SectionsPagerAdapter.GroupChatFragmentListener listener;
+    private MainPagerAdapter.GroupChatFragmentListener listener;
 
     private Activity mainActivity;
     private String mUsername;
@@ -51,15 +45,8 @@ public class GroupChatFragment extends ListFragment {
     private ImageButton mSendButton;
 
     private ParseUser currentUser;
-    private ParseRelation<ParseUser> mFriendsRelation;
-    private ParseRelation<ParseUser> mGroupMembersRelation;
-    private List<ParseUser> groupMembers;
 
-    private static boolean[] mFriendsToKeep = {
-            false, false, false
-    };
-
-    public GroupChatFragment(Activity a, SectionsPagerAdapter.GroupChatFragmentListener listener) {
+    public GroupChatFragment(Activity a, MainPagerAdapter.GroupChatFragmentListener listener) {
         mainActivity = a;
         this.listener = listener;
     }
@@ -71,12 +58,8 @@ public class GroupChatFragment extends ListFragment {
 
         findViews(rootView);
         currentUser = MainActivity.currentUser;
-        mFriendsRelation = currentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
 
         setUpUsername();
-        if (currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED)) {
-            setUpSingleEventListener();
-        }
 
         mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -101,6 +84,12 @@ public class GroupChatFragment extends ListFragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        // Check if weekend is over
+        if (currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED)) {
+            setUpSingleEventListener();
+        }
+
         // Setup view and list adapter
         final ListView listView = getListView();
 
@@ -134,7 +123,7 @@ public class GroupChatFragment extends ListFragment {
                         }
 
                         if (!isMatched) {
-                            showPickFriendsDialog();
+                            listener.onFriendsPicked();
                         }
                     }
 
@@ -148,7 +137,9 @@ public class GroupChatFragment extends ListFragment {
     @Override
     public void onStop() {
         super.onStop();
-        mChatListAdapter.cleanup();
+        if (mChatListAdapter != null) {
+            mChatListAdapter.cleanup();
+        }
     }
 
     private void setUpUsername() {
@@ -188,64 +179,6 @@ public class GroupChatFragment extends ListFragment {
             mFirebaseRef.push().setValue(chat);
             mInputText.setText("");
         }
-    }
-
-    private void showPickFriendsDialog() {
-        mGroupMembersRelation =
-                currentUser.getRelation(ParseConstants.KEY_GROUP_MEMBERS_RELATION);
-
-        ParseQuery<ParseUser> query = mGroupMembersRelation.getQuery();
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> parseUsers, ParseException e) {
-                if (e == null) {
-                    groupMembers = parseUsers;
-
-                    String[] names = new String[groupMembers.size()];
-                    for (int i=0; i<groupMembers.size(); i++) {
-                        if (!groupMembers.get(i).getObjectId()
-                                .equals(currentUser.getObjectId())) {
-                            names[i] = groupMembers.get(i).getString(ParseConstants.KEY_FIRST_NAME);
-                        }
-                    }
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
-                    builder.setTitle(getString(R.string.dialog_pick_friends_title))
-                            .setMultiChoiceItems(names, mFriendsToKeep,
-                                    new DialogInterface.OnMultiChoiceClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which,
-                                                            boolean isChecked) {
-                                            mFriendsToKeep[which] = isChecked;
-                                        }
-                                    })
-                            .setPositiveButton(getString(R.string.dialog_pick_friends_button),
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            for (int i=0; i<groupMembers.size(); i++) {
-                                                mGroupMembersRelation.remove(groupMembers.get(i));
-                                                if (mFriendsToKeep[i]) {
-                                                    mFriendsRelation.add(groupMembers.get(i));
-                                                }
-                                            }
-                                            currentUser.put(ParseConstants.KEY_IS_MATCHED, false);
-                                            currentUser.put(ParseConstants.KEY_MATCH_DIALOG_SEEN, false);
-                                            currentUser.saveInBackground();
-//                                            ParsePush.unsubscribeInBackground("group" +
-//                                                    currentUser.getString(ParseConstants.KEY_GROUP_ID));
-                                            ParseInstallation.getCurrentInstallation()
-                                                    .remove(ParseConstants.KEY_INSTALLATION_GROUP_ID);
-                                            ParseInstallation.getCurrentInstallation().saveInBackground();
-                                            listener.onFriendsPicked();
-                                        }
-                                    });
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-            }
-        });
     }
 
 }

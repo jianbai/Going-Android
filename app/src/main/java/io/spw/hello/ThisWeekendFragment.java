@@ -1,6 +1,7 @@
 package io.spw.hello;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
@@ -34,26 +33,21 @@ public class ThisWeekendFragment extends Fragment {
     public static final String TAG = ThisWeekendFragment.class.getSimpleName();
 
     private Activity mainActivity;
-    private SectionsPagerAdapter.ThisWeekendFragmentListener listener;
+    private MainPagerAdapter.ThisWeekendFragmentListener listener;
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    private TextView mFreeTextView;
-    private LinearLayout mBullet1;
-    private LinearLayout mBullet2;
-    private LinearLayout mBullet3;
-    private TextView mReadyTextView;
-    private ScrollView mScrollView;
-    private Button mHelloButton;
-    private TextView mSearchingTextView;
-    private ProgressBar mProgressSpinner;
+    private LinearLayout mLinearLayout;
+    private Button mGoButton;
+    private TextView mHelpTextView;
+    private LinearLayout mSpinnerLayout;
 
     private ParseUser currentUser;
     private Boolean isSearching;
     private Firebase currentUserMatchedRef;
     private ValueEventListener valueEventListener;
 
-    public ThisWeekendFragment(Activity c, SectionsPagerAdapter.ThisWeekendFragmentListener listener) {
+    public ThisWeekendFragment(Activity c, MainPagerAdapter.ThisWeekendFragmentListener listener) {
         mainActivity = c;
         this.listener = listener;
     }
@@ -104,38 +98,55 @@ public class ThisWeekendFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        currentUserMatchedRef.addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
-        Log.d(MainActivity.TAG, "STOPPED");
         currentUserMatchedRef.removeEventListener(valueEventListener);
-        Log.d(MainActivity.TAG, "LISTENER REMOVED");
     }
 
     private void findViews(View rootView) {
-        mFreeTextView = (TextView) rootView.findViewById(R.id.this_weekend_free_textview);
-        mBullet1 = (LinearLayout) rootView.findViewById(R.id.this_weekend_bullet_1);
-        mBullet2 = (LinearLayout) rootView.findViewById(R.id.this_weekend_bullet_2);
-        mBullet3 = (LinearLayout) rootView.findViewById(R.id.this_weekend_bullet_3);
-        mReadyTextView = (TextView) rootView.findViewById(R.id.this_weekend_ready);
-        mHelloButton = (Button) rootView.findViewById(R.id.this_weekend_hello_button);
-        mScrollView = (ScrollView) rootView.findViewById(R.id.this_weekend_scrollview);
-        mSearchingTextView = (TextView) rootView.findViewById(R.id.this_weekend_searching_textview);
-        mProgressSpinner = (ProgressBar) rootView.findViewById(R.id.this_weekend_progress_spinner);
+        mLinearLayout = (LinearLayout) rootView.findViewById(R.id.this_weekend_linear_layout);
+        mGoButton = (Button) rootView.findViewById(R.id.this_weekend_go_button);
+        mHelpTextView = (TextView) rootView.findViewById(R.id.this_weekend_help);
+        mSpinnerLayout = (LinearLayout) rootView.findViewById(R.id.this_weekend_spinner_layout);
     }
 
     private void setUpViews() {
         if (isSearching) {
             showProgressSpinner();
             currentUserMatchedRef.addValueEventListener(valueEventListener);
-            Log.d(MainActivity.TAG, "LISTENER ADDED");
         } else {
             hideProgressSpinner();
             setUpHelloButton();
         }
+
+        mHelpTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(mainActivity);
+                dialog.setContentView(R.layout.dialog_faq);
+                dialog.setTitle(R.string.dialog_faq_title);
+                Button button = (Button) dialog.findViewById(R.id.dialog_faq_button);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
     }
 
     private void setUpHelloButton() {
-        mHelloButton.setOnClickListener(new View.OnClickListener() {
+        mGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentUser.put(ParseConstants.KEY_IS_SEARCHING, true);
@@ -145,40 +156,24 @@ public class ThisWeekendFragment extends Fragment {
                 locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
 
                 currentUserMatchedRef.addValueEventListener(valueEventListener);
-                Log.d(MainActivity.TAG, "LISTENER ADDED");
             }
         });
     }
 
     private void showProgressSpinner() {
-//        mFreeTextView.setVisibility(View.GONE);
-//        mBullet1.setVisibility(View.GONE);
-//        mBullet2.setVisibility(View.GONE);
-//        mBullet3.setVisibility(View.GONE);
-//        mReadyTextView.setVisibility(View.GONE);
-//        mHelloButton.setVisibility(View.GONE);
-        mScrollView.setVisibility(View.GONE);
-        mSearchingTextView.setVisibility(View.VISIBLE);
-        mProgressSpinner.setVisibility(View.VISIBLE);
+        mLinearLayout.setVisibility(View.GONE);
+        mSpinnerLayout.setVisibility(View.VISIBLE);
     }
 
     private void hideProgressSpinner() {
-//        mFreeTextView.setVisibility(View.VISIBLE);
-//        mBullet1.setVisibility(View.VISIBLE);
-//        mBullet2.setVisibility(View.VISIBLE);
-//        mBullet3.setVisibility(View.VISIBLE);
-//        mReadyTextView.setVisibility(View.VISIBLE);
-//        mHelloButton.setVisibility(View.VISIBLE);
-        mScrollView.setVisibility(View.VISIBLE);
-        mSearchingTextView.setVisibility(View.GONE);
-        mProgressSpinner.setVisibility(View.GONE);
+        mLinearLayout.setVisibility(View.VISIBLE);
+        mSpinnerLayout.setVisibility(View.GONE);
     }
 
     private void setUpEventListener() {
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(MainActivity.TAG, "FB TRIGGERED");
                 Boolean isMatched;
 
                 try {
@@ -188,16 +183,13 @@ public class ThisWeekendFragment extends Fragment {
                 }
 
                 if (isMatched) {
-                    Log.d(MainActivity.TAG, "MATCHED TRUE");
                     currentUserMatchedRef.removeEventListener(valueEventListener);
-                    Log.d(MainActivity.TAG, "LISTENER REMOVED");
+
                     try {
                         listener.onMatchMade();
                     } catch (JSONException | ParseException e) {
                         Log.d(TAG, e.getLocalizedMessage());
                     }
-                } else {
-                    Log.d(MainActivity.TAG, "MATCHED FALSE");
                 }
             }
 

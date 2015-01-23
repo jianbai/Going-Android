@@ -17,9 +17,8 @@ import com.parse.SaveCallback;
 
 import org.json.JSONException;
 
-// TODO: DESIGN: main screen
-// TODO: Complete settings
-// DONE: Make text go away when leaving fragment
+// TODO: DESIGN: Login explanation + help popup
+// TODO: Fix dialog bugs
 // TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
 
 public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
@@ -31,17 +30,16 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
     public static boolean active = false;
     public boolean matchDialogSeen;
+    public boolean pickFriendsDialogSeen;
 
     private SlidingTabLayout mSlidingTabLayout;
     public ViewPager mViewPager;
-    private SectionsPagerAdapter mAdapter;
+    private MainPagerAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        matchDialogSeen = currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
 
         ParseInstallation.getCurrentInstallation()
                 .put(ParseConstants.KEY_INSTALLATION_USER_ID,
@@ -66,7 +64,6 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.commit();
-            Log.d(TAG, "Transaction COMMITTED");
         }
     }
 
@@ -79,19 +76,22 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     @Override
     public void onStart() {
         super.onStart();
+
+        matchDialogSeen = currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
+        pickFriendsDialogSeen = currentUser.getBoolean(ParseConstants.KEY_PICK_FRIENDS_DIALOG_SEEN);
         active = true;
-        Log.d(TAG, "STARTED");
 
         if (currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
                 !matchDialogSeen) {
             try {
                 //showMatchDialog();
                 mAdapter.showMatchDialog();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
+            } catch (JSONException | ParseException e) {
                 e.printStackTrace();
             }
+        } else if (!currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
+                !pickFriendsDialogSeen) {
+            mAdapter.showPickFriendsDialog();
         }
     }
 
@@ -102,12 +102,12 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     }
 
     private void findViews() {
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.mainViewPager);
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
     }
 
     private void setUpSlidingTabLayout() {
-        mAdapter = new SectionsPagerAdapter(this, mSlidingTabLayout, getSupportFragmentManager());
+        mAdapter = new MainPagerAdapter(this, mSlidingTabLayout, getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(1);
         mSlidingTabLayout.setCustomTabView(R.layout.custom_tab, R.id.tab_title);
@@ -141,21 +141,13 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         mAdapter.setCurrentPosition(position);
 
         EditText inputText = (EditText) findViewById(R.id.group_chat_message_input);
+        if (inputText != null) {
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        inputMethodManager.hideSoftInputFromWindow(inputText.getWindowToken(), 0);
-//        hideKeyboard();
+            inputMethodManager.hideSoftInputFromWindow(inputText.getWindowToken(), 0);
+        }
     }
-
-//    private void hideKeyboard() {
-//        View view = this.getCurrentFocus();
-//        if (view != null) {
-//            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//            imm.hideSoftInputFromInputMethod();
-//        }
-//    }
 
     @Override
     public void onPageScrollStateChanged(int state) {

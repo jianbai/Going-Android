@@ -1,177 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/hello_white"
-    android:gravity="center"
-    android:padding="@dimen/chat_padding" >
+    android:padding="@dimen/chat_padding">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/this_weekend_scrollview" >
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/this_weekend_linear_layout"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/this_weekend_ready"
+            android:text="@string/this_weekend_ready"
+            android:textSize="@dimen/abc_text_size_headline_material"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/content_vertical_margin" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/button_go"
+            android:textColor="@color/hello_white"
+            android:id="@+id/this_weekend_go_button"
+            android:background="@drawable/bubble_orange"
             android:layout_gravity="center"
-            android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/this_weekend_free_textview"
-        android:text="@string/this_weekend_free_textview"
-        android:textSize="@dimen/abc_text_size_headline_material"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="@dimen/content_vertical_margin" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/this_weekend_bullet_1"
-        android:orientation="horizontal"
-        android:weightSum="8"
-        android:layout_marginTop="@dimen/content_vertical_margin">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="7" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/this_weekend_bullet_1_title"
-                android:textSize="@dimen/abc_text_size_menu_material" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/this_weekend_bullet_1_caption"
-                android:textSize="@dimen/abc_text_size_small_material" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_this_weekend_step_1"
-            android:layout_gravity="center" />
+            android:layout_marginTop="@dimen/content_vertical_margin"
+            android:textSize="@dimen/abc_text_size_display_3_material" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/this_weekend_bullet_2"
-        android:orientation="horizontal"
-        android:weightSum="8"
-        android:layout_marginTop="@dimen/abc_action_bar_subtitle_bottom_margin_material">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="7" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/this_weekend_bullet_2_title"
-                android:textSize="@dimen/abc_text_size_menu_material" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/this_weekend_bullet_2_caption"
-                android:textSize="@dimen/abc_text_size_small_material" />
-        </LinearLayout>
-
-        <ImageView
+        android:id="@+id/this_weekend_spinner_layout"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:gravity="center">
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_this_weekend_step_2"
-            android:layout_gravity="center" />
-    </LinearLayout>
+            android:id="@+id/this_weekend_searching_textview"
+            android:text="@string/this_weekend_searching_textview"
+            android:textSize="@dimen/abc_text_size_display_1_material" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/this_weekend_bullet_3"
-        android:orientation="horizontal"
-        android:weightSum="8"
-        android:layout_marginTop="@dimen/abc_action_bar_subtitle_bottom_margin_material"
-        android:layout_marginBottom="@dimen/content_vertical_margin">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="7" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/this_weekend_bullet_3_title"
-                android:textSize="@dimen/abc_text_size_menu_material" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/this_weekend_bullet_3_caption"
-                android:textSize="@dimen/abc_text_size_small_material" />
-        </LinearLayout>
-
-        <ImageView
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_this_weekend_step_3"
-            android:layout_gravity="center" />
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            style="@android:style/Widget.Holo.ProgressBar.Large"
+            android:id="@+id/this_weekend_progress_spinner"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/this_weekend_ready"
-        android:text="@string/this_weekend_ready"
-        android:textSize="@dimen/abc_text_size_headline_material"
-        android:layout_marginTop="@dimen/content_vertical_margin"
+        android:text="@string/this_weekend_help"
+        android:id="@+id/this_weekend_help"
         android:layout_gravity="center_horizontal"
-        android:gravity="center" />
+        android:layout_alignParentBottom="true"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentLeft="false"
+        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/button_discover"
-        android:textColor="@color/hello_white"
-        android:id="@+id/this_weekend_hello_button"
-        android:background="@drawable/bubble_orange"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/content_vertical_margin" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/this_weekend_searching_textview"
-        android:text="@string/this_weekend_searching_textview"
-        android:textSize="@dimen/abc_text_size_display_1_material"
-        android:visibility="gone" />
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        style="@android:style/Widget.Holo.ProgressBar.Large"
-        android:id="@+id/this_weekend_progress_spinner"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone" />
-
-</LinearLayout>
+</RelativeLayout>

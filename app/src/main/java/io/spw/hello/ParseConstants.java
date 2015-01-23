@@ -28,6 +28,7 @@ public final class ParseConstants {
     public static final String KEY_GENDER_SETTINGS = "genderSettings";
     public static final String KEY_FRIENDS_RELATION = "friendsRelation";
     public static final String KEY_MATCH_DIALOG_SEEN = "matchDialogSeen";
+    public static final String KEY_PICK_FRIENDS_DIALOG_SEEN = "pickFriendsDialogSeen";
     public static final String KEY_GROUP_MEMBERS_RELATION = "groupMembersRelation";
     public static final String KEY_REPORTED = "reported";
     public static final String KEY_INSTALLATION_USER_ID = "userId";
@@ -36,6 +37,8 @@ public final class ParseConstants {
     public static final String KEY_FACEBOOK_FRIENDS = "facebookFriends";
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_LONGITUDE = "longitude";
+    public static final String KEY_BUG_REPORTS = "bugReports";
+    public static final String KEY_CONTACT_US = "contactUs";
 
     // Misc values
 }

@@ -2,6 +2,8 @@ package io.spw.hello;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -105,15 +110,19 @@ public class SettingsFragment extends ListFragment {
                 break;
             // FAQ
             case 2:
+                onFaqClicked();
                 break;
             // RAQ
             case 3:
+                onRaqClicked();
                 break;
             // Report a bug
             case 4:
+                onBugClicked();
                 break;
             // Get in touch
             case 5:
+                onContactClicked();
                 break;
             // Logout
             case 6:
@@ -121,6 +130,120 @@ public class SettingsFragment extends ListFragment {
                 navigateToLogin();
                 break;
         }
+    }
+
+    private void onContactClicked() {
+        final Dialog dialog = new Dialog(mainActivity);
+        dialog.setContentView(R.layout.dialog_contact);
+        dialog.setTitle(R.string.dialog_contact_title);
+        final EditText inputText = (EditText) dialog.findViewById(R.id.dialog_contact_input);
+        Button cancelButton = (Button) dialog.findViewById(R.id.dialog_contact_cancel_button);
+        Button reportButton = (Button) dialog.findViewById(R.id.dialog_contact_send_button);
+
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = inputText.getText().toString();
+                if (!input.equals("")) {
+                    currentUser.add(ParseConstants.KEY_CONTACT_US, input);
+                    currentUser.saveInBackground();
+
+                    InputMethodManager inputMethodManager =
+                            (InputMethodManager) mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                    inputMethodManager.hideSoftInputFromWindow(inputText.getWindowToken(), 0);
+
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputMethodManager.hideSoftInputFromWindow(inputText.getWindowToken(), 0);
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void onBugClicked() {
+        final Dialog dialog = new Dialog(mainActivity);
+        dialog.setContentView(R.layout.dialog_bug);
+        dialog.setTitle(R.string.dialog_bug_title);
+        final EditText inputText = (EditText) dialog.findViewById(R.id.dialog_bug_input);
+        Button cancelButton = (Button) dialog.findViewById(R.id.dialog_bug_cancel_button);
+        Button reportButton = (Button) dialog.findViewById(R.id.dialog_bug_report_button);
+
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = inputText.getText().toString();
+                if (!input.equals("")) {
+                    currentUser.add(ParseConstants.KEY_BUG_REPORTS, input);
+                    currentUser.saveInBackground();
+
+                    InputMethodManager inputMethodManager =
+                            (InputMethodManager) mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                    inputMethodManager.hideSoftInputFromWindow(inputText.getWindowToken(), 0);
+
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputMethodManager.hideSoftInputFromWindow(inputText.getWindowToken(), 0);
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void onRaqClicked() {
+        final Dialog dialog = new Dialog(mainActivity);
+        dialog.setContentView(R.layout.dialog_raq);
+        dialog.setTitle(R.string.dialog_raq_title);
+        Button button = (Button) dialog.findViewById(R.id.dialog_raq_button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void onFaqClicked() {
+        final Dialog dialog = new Dialog(mainActivity);
+        dialog.setContentView(R.layout.dialog_faq);
+        dialog.setTitle(R.string.dialog_faq_title);
+        Button button = (Button) dialog.findViewById(R.id.dialog_faq_button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     private void onAgePreferencesClicked() {

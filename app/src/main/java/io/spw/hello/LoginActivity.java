@@ -1,9 +1,10 @@
 package io.spw.hello;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,9 +38,12 @@ import java.util.List;
  * b9NiCI/tkmusUAAs4aW1LCFk9Uw=
  */
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
 
     public static final String TAG = LoginActivity.class.getSimpleName();
+
+    private LoginPagerAdapter mAdapter;
+    public ViewPager mViewPager;
 
     private ProgressBar mProgressSpinner;
     private Button mLoginButton;
@@ -59,8 +63,16 @@ public class LoginActivity extends Activity {
         // TODO: Refactor?
         mProgressSpinner = (ProgressBar) findViewById(R.id.login_progress_spinner);
         mLoginButton = (Button) findViewById(R.id.button_facebook_login);
+        mViewPager = (ViewPager) findViewById(R.id.loginViewPager);
 
-        rootRef = new Firebase(FirebaseConstants.URL_ROOT);
+                rootRef = new Firebase(FirebaseConstants.URL_ROOT);
+
+        setUpViewPager();
+    }
+
+    private void setUpViewPager() {
+        mAdapter = new LoginPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mAdapter);
     }
 
     // TODO: Comment?
@@ -292,5 +304,20 @@ public class LoginActivity extends Activity {
     private void hideProgressSpinner() {
         mProgressSpinner.setVisibility(View.GONE);
         mLoginButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }
