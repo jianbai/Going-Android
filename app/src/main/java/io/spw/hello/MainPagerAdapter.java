@@ -177,7 +177,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
                         }
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                        builder.setTitle(mActivity.getString(R.string.dialog_pick_friends_title))
+                        builder.setTitle(mActivity.getString(R.string.group_chat_dialog_pick_friends_title))
                                 .setMultiChoiceItems(names, mFriendsToKeep,
                                         new DialogInterface.OnMultiChoiceClickListener() {
                                             @Override
@@ -186,7 +186,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
                                                 mFriendsToKeep[which] = isChecked;
                                             }
                                         })
-                                .setPositiveButton(mActivity.getString(R.string.dialog_pick_friends_button),
+                                .setPositiveButton(mActivity.getString(R.string.group_chat_dialog_pick_friends_button),
                                         new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
@@ -223,7 +223,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         if (mMatchDialog == null || !mMatchDialog.isShowing()) {
             mMatchDialog = new Dialog(mActivity);
             mMatchDialog.setContentView(R.layout.dialog_match_made);
-            mMatchDialog.setTitle(R.string.dialog_match_made_title);
+            mMatchDialog.setTitle(R.string.this_weekend_dialog_match_title);
 
             // find views
             TextView userName0 = (TextView) mMatchDialog.findViewById(R.id.userName0);

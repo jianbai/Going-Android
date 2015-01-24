@@ -23,7 +23,7 @@
 
                 <TextView
                     android:id="@+id/raq_question0"
-                    android:text="@string/raq_question0"
+                    android:text="@string/settings_dialog_raq_question_0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -31,7 +31,7 @@
 
                 <TextView
                     android:id="@+id/raq_answer0"
-                    android:text="@string/raq_answer0"
+                    android:text="@string/settings_dialog_raq_answer_0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/abc_text_size_small_material" />
@@ -45,7 +45,7 @@
 
                 <TextView
                     android:id="@+id/raq_question1"
-                    android:text="@string/raq_question1"
+                    android:text="@string/settings_dialog_raq_question_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -53,7 +53,7 @@
 
                 <TextView
                     android:id="@+id/raq_answer1"
-                    android:text="@string/raq_answer1"
+                    android:text="@string/settings_dialog_raq_answer_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/abc_text_size_small_material" />
@@ -68,7 +68,7 @@
 
                 <TextView
                     android:id="@+id/raq_question2"
-                    android:text="@string/raq_question2"
+                    android:text="@string/settings_dialog_raq_question_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -76,7 +76,7 @@
 
                 <TextView
                     android:id="@+id/raq_answer2"
-                    android:text="@string/raq_answer2"
+                    android:text="@string/settings_dialog_raq_answer_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/abc_text_size_small_material" />

@@ -1,141 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">hello</string>
+    <!--
+    APPLICATION
+    -->
+    <string name="app_name">Go</string>
+    <string name="app_tagline">Meet 3 people this weekend</string>
     <string name="facebook_app_id">748438291904311</string>
     <string name="parse_app_id">BgVWp9cm22GjjGzt6Qj9v9TDYaAQaCIYR6Fe8y2j</string>
-    <string name="login_title">Go</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_section1">This Weekend</string>
-    <string name="title_section2">Friends</string>
-    <string name="this_weekend_free_textview"></string>
-    <string name="this_weekend_bullet_1_title">1. Say hello</string>
-    <string name="this_weekend_bullet_1_caption">Match up with 3 people in Vancouver and chat in the app.</string>
-    <string name="this_weekend_bullet_2_title">2. Meet up</string>
-    <string name="this_weekend_bullet_2_caption">Go somewhere cool this weekend! Next Monday, decide who to add as friends.</string>
-    <string name="this_weekend_bullet_3_title">3. Repeat</string>
-    <string name="this_weekend_bullet_3_caption">Meet 3 more people next weekend and grow your friends list!</string>
-    <string name="button_go">Go</string>
-    <string name="label_empty_friends">You haven\'t met anyone yet!</string>
-    <string name="title_activity_login">Log in</string>
-    <string name="action_logout">Log out</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="settings_match_preferences_textview">Match preferences</string>
-    <string name="settings_your_profile_textview">Your profile</string>
-    <string name="settings_name_textview">Name</string>
-    <string name="settings_age_textview">Age</string>
-    <string name="settings_hometown_textview">Hometown</string>
-    <string name="settings_age_spread_textview">Age spread</string>
-    <string name="settings_gender_spread_textview">Gender spread</string>
-    <string name="settings_age_spread_default">Surprise me!</string>
-    <string name="settings_gender_spread_default">Surprise me!</string>
-    <string name="settings_save_button">Save settings</string>
-    <string name="settings_age_spread_1">8 years</string>
-    <string name="settings_age_spread_2">7 years</string>
-    <string name="settings_age_spread_3">6 years</string>
-    <string name="settings_age_spread_4">5 years</string>
-    <string name="settings_gender_spread_1">Co-ed (2 and 2)</string>
-    <string name="settings_gender_spread_2">Single-sex</string>
-    <string name="title_set_profile">Set up your profile</string>
-    <string name="set_profile_textview">Hey there! Go matches you with cool people around you based on age and gender. That\'s why we ask everyone to set up a full profile before they use the app. If that\'s okay with you, please fill in the missing fields below before getting started!</string>
+
+    <!--
+    LOGIN
+    -->
+    <string name="login_title">Log in</string>
+    <string name="login_dialog_error_message">Something went wrong : ( That\'s okay, make sure your network connection is ok and try again!</string>
+    <string name="login_tutorial_0">Free this weekend?\nMatch up with 3 people around you, chat in the app and make plans to go somewhere cool!</string>
+    <string name="login_tutorial_1">Matches disappear at the end of every weekend. You can choose to keep matches you liked in your friends list.</string>
+    <string name="login_tutorial_2">Go again next weekend to meet more people and grow your friends list!</string>
+    <string name="login_tutorial_3">We don’t use any photos, and we don’t post anything to Facebook.\n\nWe ask for your birthday and hometown to fill out your profile.\n\nWe use location services and Facebook login to make sure you get matched with real people around you.\n\nFinally, Go is for people who want to meet people, so we ask for your friends who use the app so you don’t get matched with people you already know!</string>
+
+    <!--
+    SET PROFILE
+    -->
+    <string name="set_profile_title">Set up your profile</string>
+    <string name="set_profile_text">Hey there! Go matches you with cool people around you based on age and gender. That\'s why we ask everyone to set up a full profile before they use the app. If that\'s okay with you, please fill in the missing fields below before getting started!</string>
     <string name="set_profile_birthday_hint">When were you born?</string>
     <string name="set_profile_hometown_hint">Where are you from?</string>
-    <string name="set_profile_save_button">Save profile</string>
     <string name="set_profile_gender_hint">What gender do you identify with?</string>
-    <string name="gender_female">Female</string>
-    <string name="gender_male">Male</string>
-    <string name="set_profile_incomplete_message">One of your required fields is missing! Please set up your profile before continuing.</string>
-    <string name="set_profile_incomplete_title">Oops!</string>
-    <string name="set_profile_invalid_age_message">The birthday you entered is not working. Please enter a valid birthday!</string>
-    <string name="set_profile_invalid_age_title">Ouch!</string>
-    <string name="login_failed_message">Something went wrong : ( That\'s okay, make sure your network connection is ok and try again!</string>
-    <string name="login_failed_title">Rats!</string>
-    <string name="toast_save_successful">Settings saved</string>
-    <string name="this_weekend_searching_textview">Searching…</string>
-    <string name="chat_say_hello_hint">Write a message</string>
-    <string name="title_default">hello: Vancouver</string>
-    <string name="title_section0">Settings</string>
-    <string name="settings_age">Age preferences</string>
-    <string name="settings_gender">Gender preferences</string>
-    <string name="settings_logout">Log out</string>
-    <string name="settings_faq">FAQ</string>
-    <string name="settings_bug">Report a bug (Please do!)</string>
-    <string name="settings_contact">Get in touch (We\'d love to hear from you!)</string>
-    <string name="settings_age_title">Match me with ages:</string>
-    <string name="settings_gender_title">Match me in groups by gender:</string>
-    <string name="match_made_title">Say hello</string>
-    <string name="say_hello">Say hello</string>
-    <string name="dialog_pick_friends_title">Match expired!</string>
-    <string name="dialog_pick_friends_button">Add to friends</string>
-    <string name="title_activity_chat">Chat</string>
-    <string name="action_view_profile">View profile</string>
-    <string name="action_delete">Delete</string>
-    <string name="action_report">Report</string>
-    <string name="title_network_error">Uh oh!</string>
-    <string name="message_network_error">Something is rotten in the state of your network connection… No worries, just try again later!</string>
-    <string name="dialog_ok_button">Ok</string>
-    <string name="title_delete_friend">Delete</string>
-    <string name="message_delete_friend">After deletion, both you and this contact will be removed from each other\'s friend lists and will be unable to chat again. Are you sure you want to delete this contact?</string>
-    <string name="toast_contact_deleted">Contact deleted</string>
-    <string name="title_report_friend">Report</string>
-    <string name="message_report_friend">If a user makes you feel at all uncomfortable, please report them. They will be flagged, removed from your friends list and prevented from contacting you again.</string>
-    <string name="button_report_friend">Report</string>
-    <string name="toast_report_received">Report received</string>
-    <string name="title_view_profile">Profile</string>
-    <string name="dispatch_tag">Meet 3 people this weekend</string>
-    <string name="this_weekend_ready">Meet 3 people this weekend</string>
-    <string name="login_bullet">Meet 3 people this weekend</string>
-    <string name="label_empty_group_chat">Remember: this chat will disappear on Monday, so make plans to meet this weekend. Say hello, and have fun!</string>
-    <string name="label_empty_friend_chat">No messages yet : ( Say hello!</string>
-    <string name="faq_question0">Is this a dating app?</string>
-    <string name="faq_answer0">No! Go is not a place for finding dates, hookups, flings, trysts, affairs, and/or dalliances.</string>
-    <string name="faq_question1">So then who is this app for?</string>
-    <string name="faq_answer1">Go is for people who want to meet people. Real life people, right here in Vancouver. If (i) you like meeting new people and (ii) you’re free this weekend, then Go is for you!</string>
-    <string name="faq_question2">How do matches work?</string>
-    <string name="faq_answer2">Matches are groups of 4 people that are free this weekend. If you’re free, press the big shiny “Go” button and Go will match you with 3 other people around you. You can then chat with each other in the app. Make plans to go somewhere cool! Matches only last for one weekend.</string>
-    <string name="faq_question3">Why do matches only last for the weekend?</string>
-    <string name="faq_answer3">Matches disappear every week so you can make new matches and meet more awesome people. So quit dwelling on the past! Go looks forward, not backward; upward not forward; and always twirling, twirling, twirling towards next weekend!</string>
-    <string name="faq_question4">How do I add friends?</string>
-    <string name="faq_answer4">After you meet, Go leaves it up to you to decide who to keep in touch with. When your match disappears, you’ll be prompted to choose who you want to keep as friends. Keep using Go to meet more people and grow your friends list.</string>
-    <string name="dialog_faq_title">FAQs</string>
-    <string name="raq_question0">Why groups of 4?</string>
-    <string name="raq_answer0">4 is the magic number! 3 and 5 are graceless odd numbers, and 6 is too many. Nothing quite like a great crew of 4.</string>
-    <string name="raq_question1">Why can’t I choose my matches?</string>
-    <string name="raq_answer1">Go isn’t about choosing who to make friends with based on what they look like. It’s also not about making you assemble and maintain a ‘profile’ that you think others will find attractive. That’s why Go profiles are minimal and have no photos. Go is a place where everyone is welcome, no one is judged, and unlikely friendships are made.</string>
-    <string name="raq_question2">Who are you people? Why are you doing this?</string>
-    <string name="raq_answer2">When we were little we had the school yard. In college we had the dorm. Now we’re all grown up and we don’t have an excuse anymore to just hang out and make new friends. Well, that sucks. We want an easy way to meet new people in the city. People who are just like us. People who are really different. All kinds of people. People who want to meet people.</string>
-    <string name="dialog_raq_title">RAQs</string>
-    <string name="dialog_bug_title">Report a bug</string>
-    <string name="dialog_cancel_button">Cancel</string>
-    <string name="dialog_report_button">Report</string>
-    <string name="dialog_bug_textview">We are totally just getting started! And we’re far from perfect, so if you found a bug, you’d be doing us a huge favor by letting us know below — we’ll buy you a drink!</string>
-    <string name="dialog_bug_hint">What\'s going on?</string>
-    <string name="dialog_contact_title">Dear Go:</string>
-    <string name="dialog_contact_textview">Thoughts? Feelings? Hunches? Cool stories? Get in touch and send us a message, we’d love to hear from you : )</string>
-    <string name="dialog_contact_hint">Sup</string>
-    <string name="dialog_send_button">Send</string>
-    <string name="this_weekend_help">How does Go work?</string>
-    <string name="login_0">Free this weekend?\nMatch up with 3 people around you, chat in the app and make plans to go somewhere cool!</string>
-    <string name="login_1">Matches disappear at the end of every weekend. You can choose to keep matches you liked in your friends list.</string>
-    <string name="login_2">Go again next weekend to meet more people and grow your friends list!</string>
-    <string name="login_3">We don’t use any photos, and we don’t post anything to Facebook.\n\nWe ask for your birthday and hometown to fill out your profile.\n\nWe use location services and Facebook login to make sure you get matched with real people around you.\n\nFinally, Go is for people who want to meet people, so we ask for your friends who use the app so you don’t get matched with people you already know!</string>
-    <string name="dialog_help_title_0">1 :: Go</string>
-    <string name="dialog_help_text_0">Press the big shiny “Go” button and Go will match you with 3 other people around you. Chat with each other in the app and make plans to go somewhere cool!</string>
-    <string name="dialog_help_title_1">2 :: Go out</string>
-    <string name="dialog_help_text_1">Matches only last for one weekend, so make sure to meet up! Your matches will disappear at the end of the weekend, and you\'ll be able to choose who you want to add to your friends list.</string>
-    <string name="dialog_help_title_2">3 :: Go again</string>
-    <string name="dialog_help_text_2">Go again next weekend to make new matches, meet more people and grow your friends list!</string>
-    <string name="dialog_help_more">More questions? Check out the FAQ in the Settings tab.</string>
-    <string name="dialog_help_free">Free this weekend?</string>
-    <string name="dialog_help_title">How Go Works</string>
-    <string name="dialog_match_made_title">Go!</string>
+    <string name="set_profile_gender_female">Female</string>
+    <string name="set_profile_gender_male">Male</string>
+    <string name="set_profile_save_button">Save profile</string>
+    <string name="set_profile_dialog_incomplete_message">One of your required fields is missing! Please set up your profile before continuing.</string>
+    <string name="set_profile_dialog_invalid_age_message">The birthday you entered is not working. Please enter a valid birthday!</string>
 
-    <string-array name="gender_array">
+    <!--
+    SETTINGS
+    -->
+    <string name="settings_title">Settings</string>
+    <!-- Age & Gender -->
+    <string name="settings_dialog_age_title">Match me with ages:</string>
+    <string name="settings_dialog_gender_title">Match me in groups by gender:</string>
+    <string name="settings_dialog_save_button">Save settings</string>
+    <string name="settings_toast_save_successful">Settings saved</string>
+    <!-- FAQ -->
+    <string name="settings_dialog_faq_title">FAQs</string>
+    <string name="settings_dialog_faq_question_0">Is this a dating app?</string>
+    <string name="settings_dialog_faq_answer_0">No! Go is not a place for finding dates, hookups, flings, trysts, affairs, and/or dalliances.</string>
+    <string name="settings_dialog_faq_question_1">So then who is this app for?</string>
+    <string name="settings_dialog_faq_answer_1">Go is for people who want to meet people. Real life people, right here in Vancouver. If (i) you like meeting new people and (ii) you’re free this weekend, then Go is for you!</string>
+    <string name="settings_dialog_faq_question_2">How do matches work?</string>
+    <string name="settings_dialog_faq_answer_2">Matches are groups of 4 people that are free this weekend. If you’re free, press the big shiny “Go” button and Go will match you with 3 other people around you. You can then chat with each other in the app. Make plans to go somewhere cool! Matches only last for one weekend.</string>
+    <string name="settings_dialog_faq_question_3">Why do matches only last for the weekend?</string>
+    <string name="settings_dialog_faq_answer_3">Matches disappear every week so you can make new matches and meet more awesome people. So quit dwelling on the past! Go looks forward, not backward; upward not forward; and always twirling, twirling, twirling towards next weekend!</string>
+    <string name="settings_dialog_faq_question_4">How do I add friends?</string>
+    <string name="settings_dialog_faq_answer_4">After you meet, Go leaves it up to you to decide who to keep in touch with. When your match disappears, you’ll be prompted to choose who you want to keep as friends. Keep using Go to meet more people and grow your friends list.</string>
+    <!-- RAQ -->
+    <string name="settings_dialog_raq_title">RAQs</string>
+    <string name="settings_dialog_raq_question_0">Why groups of 4?</string>
+    <string name="settings_dialog_raq_answer_0">4 is the magic number! 3 and 5 are graceless odd numbers, and 6 is too many. Nothing quite like a great crew of 4.</string>
+    <string name="settings_dialog_raq_question_1">Why can’t I choose my matches?</string>
+    <string name="settings_dialog_raq_answer_1">Go isn’t about choosing who to make friends with based on what they look like. It’s also not about making you assemble and maintain a ‘profile’ that you think others will find attractive. That’s why Go profiles are minimal and have no photos. Go is a place where everyone is welcome, no one is judged, and unlikely friendships are made.</string>
+    <string name="settings_dialog_raq_question_2">Who are you people? Why are you doing this?</string>
+    <string name="settings_dialog_raq_answer_2">When we were little we had the school yard. In college we had the dorm. Now we’re all grown up and we don’t have an excuse anymore to just hang out and make new friends. Well, that sucks. We want an easy way to meet new people in the city. People who are just like us. People who are really different. All kinds of people. People who want to meet people.</string>
+    <!-- Bug -->
+    <string name="settings_dialog_bug_title">Report a bug</string>
+    <string name="settings_dialog_bug_message">We are totally just getting started! And we’re far from perfect, so if you found a bug, you’d be doing us a huge favor by letting us know below — we’ll buy you a drink!</string>
+    <string name="settings_dialog_bug_report_button">Report</string>
+    <string name="settings_dialog_bug_hint">What\'s going on?</string>
+    <!-- Contact -->
+    <string name="settings_dialog_contact_title">Dear Go:</string>
+    <string name="settings_dialog_contact_message">Thoughts? Feelings? Hunches? Cool stories? Get in touch and send us a message, we’d love to hear from you : )</string>
+    <string name="settings_dialog_contact_hint">Sup</string>
+    <string name="settings_dialog_send_button">Send</string>
+
+    <!--
+    THIS WEEKEND
+    -->
+    <string name="this_weekend_title">This Weekend</string>
+    <string name="this_weekend_go_button">Go</string>
+    <string name="this_weekend_help">How does Go work?</string>
+    <string name="this_weekend_dialog_help_title">How Go Works</string>
+    <string name="this_weekend_dialog_help_free">Free this weekend?</string>
+    <string name="this_weekend_dialog_help_title_0">1 :: Go</string>
+    <string name="this_weekend_dialog_help_message_0">Press the big shiny “Go” button and Go will match you with 3 other people around you. Chat with each other in the app and make plans to go somewhere cool!</string>
+    <string name="this_weekend_dialog_help_title_1">2 :: Go out</string>
+    <string name="this_weekend_dialog_help_message_1">Matches only last for one weekend, so make sure to meet up! Your matches will disappear at the end of the weekend, and you\'ll be able to choose who you want to add to your friends list.</string>
+    <string name="this_weekend_dialog_help_title_2">3 :: Go again</string>
+    <string name="this_weekend_dialog_help_message_2">Go again next weekend to make new matches, meet more people and grow your friends list!</string>
+    <string name="this_weekend_dialog_help_more">More questions? Check out the FAQ in the Settings tab.</string>
+    <string name="this_weekend_dialog_match_title">Go!</string>
+    <string name="this_weekend_searching">Searching…</string>
+    <string name="this_weekend_dialog_match_button">Say hello</string>
+
+    <!--
+    GROUP CHAT
+    -->
+    <string name="group_chat_empty">Remember: this chat will disappear on Monday, so make plans to meet this weekend. Say hello, and have fun!</string>
+    <string name="group_chat_dialog_pick_friends_title">Match expired!</string>
+    <string name="group_chat_dialog_pick_friends_button">Add to friends</string>
+
+    <!--
+    FRIENDS
+    -->
+    <string name="friends_title">Friends</string>
+    <string name="friends_empty">You haven\'t met anyone yet!</string>
+
+    <!--
+    FRIEND CHAT
+    -->
+    <string name="friend_chat_title">Chat</string>
+    <string name="friend_chat_empty">No messages yet : ( Say hello!</string>
+    <string name="friend_chat_action_view_profile">View profile</string>
+    <string name="friend_chat_dialog_view_profile_title">Profile</string>
+    <string name="friend_chat_action_delete">Delete</string>
+    <string name="friend_chat_dialog_delete_title">Delete</string>
+    <string name="friend_chat_dialog_delete_message">After deletion, both you and this contact will be removed from each other\'s friend lists and will be unable to chat again. Are you sure you want to delete this contact?</string>
+    <string name="friend_chat_dialog_delete_button">Delete</string>
+    <string name="friend_chat_toast_contact_deleted">Contact deleted</string>
+    <string name="friend_chat_action_report">Report</string>
+    <string name="friend_chat_dialog_report_title">Report</string>
+    <string name="friend_chat_dialog_report_message">If a user makes you feel at all uncomfortable, please report them. They will be flagged, removed from your friends list and prevented from contacting you again.</string>
+    <string name="friend_chat_dialog_report_button">Report</string>
+    <string name="friend_chat_toast_report_received">Report received</string>
+
+    <!--
+    DIALOGS AND HINTS
+    -->
+    <string name="chat_hint">Write a message</string>
+    <string name="dialog_error_title">Uh oh…</string>
+    <string name="dialog_error_message">Something is rotten in the state of your network connection… No worries, just try again later!</string>
+    <string name="dialog_ok_button">OK</string>
+    <string name="dialog_cancel_button">Cancel</string>
+
+    <!--
+    ARRAYS
+    -->
+    <string-array name="set_profile_gender">
         <item>Female</item>
         <item>Male</item>
     </string-array>
 
-    <string-array name="settings">
+    <string-array name="settings_items">
         <item>Age preferences</item>
         <item>Gender preferences</item>
         <item>FAQ</item>

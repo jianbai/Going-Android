@@ -14,8 +14,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/this_weekend_ready"
-            android:text="@string/this_weekend_ready"
+            android:id="@+id/this_weekend_tagline"
+            android:text="@string/app_tagline"
             android:textSize="@dimen/abc_text_size_headline_material"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@string/button_go"
+            android:text="@string/this_weekend_go_button"
             android:textColor="@color/hello_white"
             android:id="@+id/this_weekend_go_button"
             android:background="@drawable/bubble_orange"
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/this_weekend_searching_textview"
-            android:text="@string/this_weekend_searching_textview"
+            android:text="@string/this_weekend_searching"
             android:textSize="@dimen/abc_text_size_display_1_material" />
 
         <ProgressBar

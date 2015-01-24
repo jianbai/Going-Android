@@ -55,7 +55,7 @@ public class SettingsFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         Log.d(TAG, "SETTINGS VIEW CREATED");
         currentUser = MainActivity.currentUser;
-        mSettings = getResources().getStringArray(R.array.settings);
+        mSettings = getResources().getStringArray(R.array.settings_items);
 
         findViews(rootView);
         setTextViews();
@@ -135,7 +135,7 @@ public class SettingsFragment extends ListFragment {
     private void onContactClicked() {
         final Dialog dialog = new Dialog(mainActivity);
         dialog.setContentView(R.layout.dialog_contact);
-        dialog.setTitle(R.string.dialog_contact_title);
+        dialog.setTitle(R.string.settings_dialog_contact_title);
         final EditText inputText = (EditText) dialog.findViewById(R.id.dialog_contact_input);
         Button cancelButton = (Button) dialog.findViewById(R.id.dialog_contact_cancel_button);
         Button reportButton = (Button) dialog.findViewById(R.id.dialog_contact_send_button);
@@ -176,7 +176,7 @@ public class SettingsFragment extends ListFragment {
     private void onBugClicked() {
         final Dialog dialog = new Dialog(mainActivity);
         dialog.setContentView(R.layout.dialog_bug);
-        dialog.setTitle(R.string.dialog_bug_title);
+        dialog.setTitle(R.string.settings_dialog_bug_title);
         final EditText inputText = (EditText) dialog.findViewById(R.id.dialog_bug_input);
         Button cancelButton = (Button) dialog.findViewById(R.id.dialog_bug_cancel_button);
         Button reportButton = (Button) dialog.findViewById(R.id.dialog_bug_report_button);
@@ -217,7 +217,7 @@ public class SettingsFragment extends ListFragment {
     private void onRaqClicked() {
         final Dialog dialog = new Dialog(mainActivity);
         dialog.setContentView(R.layout.dialog_raq);
-        dialog.setTitle(R.string.dialog_raq_title);
+        dialog.setTitle(R.string.settings_dialog_raq_title);
         Button button = (Button) dialog.findViewById(R.id.dialog_raq_button);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -233,7 +233,7 @@ public class SettingsFragment extends ListFragment {
     private void onFaqClicked() {
         final Dialog dialog = new Dialog(mainActivity);
         dialog.setContentView(R.layout.dialog_faq);
-        dialog.setTitle(R.string.dialog_faq_title);
+        dialog.setTitle(R.string.settings_dialog_faq_title);
         Button button = (Button) dialog.findViewById(R.id.dialog_faq_button);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -248,7 +248,7 @@ public class SettingsFragment extends ListFragment {
 
     private void onAgePreferencesClicked() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
-        builder.setTitle(getString(R.string.settings_age_title))
+        builder.setTitle(getString(R.string.settings_dialog_age_title))
                 .setMultiChoiceItems(R.array.settings_age, mAgeSettings,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
@@ -293,7 +293,7 @@ public class SettingsFragment extends ListFragment {
                             }
                         })
                         // Set action buttons
-                .setPositiveButton(getString(R.string.settings_save_button),
+                .setPositiveButton(getString(R.string.settings_dialog_save_button),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -304,7 +304,7 @@ public class SettingsFragment extends ListFragment {
                                 currentUser.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(ParseException e) {
-                                        Toast.makeText(mainActivity, R.string.toast_save_successful, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mainActivity, R.string.settings_toast_save_successful, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -317,7 +317,7 @@ public class SettingsFragment extends ListFragment {
 
     private void onGenderPreferencesClicked() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
-        builder.setTitle(getString(R.string.settings_gender_title))
+        builder.setTitle(getString(R.string.settings_dialog_gender_title))
                 .setSingleChoiceItems(R.array.settings_gender, mGenderSettings,
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -326,7 +326,7 @@ public class SettingsFragment extends ListFragment {
                             }
                         })
                         // Set up action buttons
-                .setPositiveButton(getString(R.string.settings_save_button),
+                .setPositiveButton(getString(R.string.settings_dialog_save_button),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -334,7 +334,7 @@ public class SettingsFragment extends ListFragment {
                                 currentUser.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(ParseException e) {
-                                        Toast.makeText(mainActivity, R.string.toast_save_successful, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mainActivity, R.string.settings_toast_save_successful, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }

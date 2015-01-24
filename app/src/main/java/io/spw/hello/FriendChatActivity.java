@@ -76,7 +76,7 @@ public class FriendChatActivity extends ActionBarActivity {
                 String friendObjectId = getIntent().getStringExtra("friendObjectId");
 
                 dialog.setContentView(R.layout.dialog_view_profile);
-                dialog.setTitle(R.string.title_view_profile);
+                dialog.setTitle(R.string.friend_chat_dialog_view_profile_title);
 
                 if (mFriend != null) {
                     String friendName = mFriend.getString(ParseConstants.KEY_FIRST_NAME);
@@ -100,8 +100,8 @@ public class FriendChatActivity extends ActionBarActivity {
                     dialog.show();
                 } else {
                     builder = new AlertDialog.Builder(FriendChatActivity.this);
-                    builder.setTitle(R.string.title_network_error)
-                            .setMessage(R.string.message_network_error)
+                    builder.setTitle(R.string.dialog_error_title)
+                            .setMessage(R.string.dialog_error_message)
                             .setPositiveButton(android.R.string.ok, null);
 
                     AlertDialog errorDialog = builder.create();
@@ -111,10 +111,10 @@ public class FriendChatActivity extends ActionBarActivity {
                 break;
             case R.id.action_delete:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.title_delete_friend)
-                        .setMessage(R.string.message_delete_friend)
+                builder.setTitle(R.string.friend_chat_dialog_delete_title)
+                        .setMessage(R.string.friend_chat_dialog_delete_message)
                         .setNegativeButton(android.R.string.cancel, null)
-                        .setPositiveButton(android.R.string.yes,
+                        .setPositiveButton(R.string.friend_chat_dialog_delete_button,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -125,7 +125,7 @@ public class FriendChatActivity extends ActionBarActivity {
                                             mCurrentUser.saveInBackground(new SaveCallback() {
                                                 @Override
                                                 public void done(ParseException e) {
-                                                    Toast.makeText(FriendChatActivity.this, R.string.toast_contact_deleted, Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(FriendChatActivity.this, R.string.friend_chat_toast_contact_deleted, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
 
@@ -142,10 +142,10 @@ public class FriendChatActivity extends ActionBarActivity {
                 break;
             case R.id.action_report:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.title_report_friend)
-                        .setMessage(R.string.message_report_friend)
+                builder.setTitle(R.string.friend_chat_dialog_report_title)
+                        .setMessage(R.string.friend_chat_dialog_report_message)
                         .setNegativeButton(android.R.string.cancel, null)
-                        .setPositiveButton(R.string.button_report_friend,
+                        .setPositiveButton(R.string.friend_chat_dialog_report_button,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -157,7 +157,7 @@ public class FriendChatActivity extends ActionBarActivity {
                                             mCurrentUser.saveInBackground(new SaveCallback() {
                                                 @Override
                                                 public void done(ParseException e) {
-                                                    Toast.makeText(FriendChatActivity.this, R.string.toast_report_received, Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(FriendChatActivity.this, R.string.friend_chat_toast_report_received, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                             dialog.dismiss();

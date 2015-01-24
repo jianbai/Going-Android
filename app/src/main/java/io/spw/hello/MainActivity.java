@@ -95,8 +95,8 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
     private void showErrorDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.title_network_error)
-                .setMessage(R.string.message_network_error)
+        builder.setTitle(R.string.dialog_error_title)
+                .setMessage(R.string.dialog_error_message)
                 .setPositiveButton(android.R.string.ok, null);
 
         AlertDialog errorDialog = builder.create();
@@ -130,19 +130,20 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
-        String title = getString(R.string.title_default);
+        String title;
 
         switch (position) {
             case 0:
-                title = getString(R.string.title_section0);
+                title = getString(R.string.settings_title);
                 break;
             case 1:
-                title = getString(R.string.title_section1);
+                title = getString(R.string.this_weekend_title);
                 break;
             case 2:
-                title = getString(R.string.title_section2);
+                title = getString(R.string.friends_title);
                 break;
             default:
+                title = getString(R.string.app_name);
                 break;
         }
         setTitle(title);

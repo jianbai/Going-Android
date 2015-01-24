@@ -105,16 +105,16 @@ public class SetProfileActivity extends ActionBarActivity {
     private void initializeGenderDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.set_profile_gender_hint);
-        builder.setItems(R.array.gender_array, new DialogInterface.OnClickListener() {
+        builder.setItems(R.array.set_profile_gender, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 switch(which) {
                     case 0:
-                        mGenderEditText.setText(R.string.gender_female);
+                        mGenderEditText.setText(R.string.set_profile_gender_female);
                         break;
                     case 1:
-                        mGenderEditText.setText(R.string.gender_male);
+                        mGenderEditText.setText(R.string.set_profile_gender_male);
                 }
             }
         });
@@ -190,8 +190,8 @@ public class SetProfileActivity extends ActionBarActivity {
 
     private void initializeIncompleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.set_profile_incomplete_message)
-                .setTitle(R.string.set_profile_incomplete_title)
+        builder.setMessage(R.string.set_profile_dialog_incomplete_message)
+                .setTitle(R.string.dialog_error_title)
                 .setPositiveButton(android.R.string.ok, null);
 
         mIncompleteDialog = builder.create();
@@ -221,8 +221,8 @@ public class SetProfileActivity extends ActionBarActivity {
 
     private void showInvalidAgeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.set_profile_invalid_age_message)
-                .setTitle(R.string.set_profile_invalid_age_title)
+        builder.setMessage(R.string.set_profile_dialog_invalid_age_message)
+                .setTitle(R.string.dialog_error_title)
                 .setPositiveButton(android.R.string.ok, null);
 
         AlertDialog dialog = builder.create();

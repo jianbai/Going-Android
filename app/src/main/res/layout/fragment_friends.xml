@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_empty_friends"
+            android:text="@string/friends_empty"
             android:gravity="center"
             android:textSize="@dimen/abc_text_size_menu_material" />
         <Button
@@ -36,7 +36,7 @@
             android:layout_marginTop="60dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@string/login_bullet"
+            android:text="@string/app_tagline"
             android:textColor="@color/hello_white"
             android:background="@drawable/bubble_orange"
             android:textSize="@dimen/abc_text_size_medium_material" />

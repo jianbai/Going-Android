@@ -291,8 +291,8 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
     // TODO: Comment?
     private void showLoginFailedDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.login_failed_message)
-                .setTitle(R.string.login_failed_title)
+        builder.setMessage(R.string.login_dialog_error_message)
+                .setTitle(R.string.dialog_error_title)
                 .setPositiveButton(android.R.string.ok, null);
 
         AlertDialog dialog = builder.create();

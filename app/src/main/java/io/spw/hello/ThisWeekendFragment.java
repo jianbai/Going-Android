@@ -130,7 +130,7 @@ public class ThisWeekendFragment extends Fragment {
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(mainActivity);
                 dialog.setContentView(R.layout.dialog_help);
-                dialog.setTitle(R.string.dialog_help_title);
+                dialog.setTitle(R.string.this_weekend_dialog_help_title);
                 Button button = (Button) dialog.findViewById(R.id.dialog_help_button);
 
                 button.setOnClickListener(new View.OnClickListener() {

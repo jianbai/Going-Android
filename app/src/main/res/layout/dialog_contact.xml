@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/dialog_contact_textview"
-        android:text="@string/dialog_contact_textview"
+        android:text="@string/settings_dialog_contact_message"
         android:layout_margin="@dimen/dialog_margin"
         />
 
@@ -25,7 +25,7 @@
         android:maxLines="6"
         android:scrollbars="vertical"
         android:background="@drawable/bubble_grey"
-        android:hint="@string/dialog_contact_hint"
+        android:hint="@string/settings_dialog_contact_hint"
         />
 
     <LinearLayout
@@ -54,7 +54,7 @@
                 android:id="@+id/dialog_contact_send_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dialog_send_button"
+                android:text="@string/settings_dialog_send_button"
                 android:textColor="@color/hello_white"
                 android:background="@drawable/bubble_orange"
                 android:gravity="center"

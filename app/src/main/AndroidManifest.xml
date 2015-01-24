@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/login_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -40,17 +40,17 @@
             android:screenOrientation="portrait"
             android:noHistory="true" />
         <activity android:name=".SetProfileActivity"
-            android:label="@string/title_set_profile"
+            android:label="@string/set_profile_title"
             android:screenOrientation="portrait"
             android:noHistory="true" >
         </activity>
         <activity android:name=".MainActivity"
-            android:label="@string/title_section1"
+            android:label="@string/this_weekend_title"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".FriendChatActivity"
-            android:label="@string/title_activity_chat"
+            android:label="@string/friend_chat_title"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >

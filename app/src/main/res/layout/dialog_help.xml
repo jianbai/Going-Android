@@ -17,7 +17,7 @@
 
             <TextView
                 android:id="@+id/dialog_help_free"
-                android:text="@string/dialog_help_free"
+                android:text="@string/this_weekend_dialog_help_free"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dialog_margin"
@@ -31,7 +31,7 @@
 
                 <TextView
                     android:id="@+id/dialog_help_title_0"
-                    android:text="@string/dialog_help_title_0"
+                    android:text="@string/this_weekend_dialog_help_title_0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -39,7 +39,7 @@
 
                 <TextView
                     android:id="@+id/dialog_help_text_0"
-                    android:text="@string/dialog_help_text_0"
+                    android:text="@string/this_weekend_dialog_help_message_0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/abc_text_size_small_material" />
@@ -53,7 +53,7 @@
 
                 <TextView
                     android:id="@+id/dialog_help_title_1"
-                    android:text="@string/dialog_help_title_1"
+                    android:text="@string/this_weekend_dialog_help_title_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -61,7 +61,7 @@
 
                 <TextView
                     android:id="@+id/dialog_help_text_1"
-                    android:text="@string/dialog_help_text_1"
+                    android:text="@string/this_weekend_dialog_help_message_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/abc_text_size_small_material" />
@@ -76,7 +76,7 @@
 
                 <TextView
                     android:id="@+id/dialog_help_title_2"
-                    android:text="@string/dialog_help_title_2"
+                    android:text="@string/this_weekend_dialog_help_title_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -84,7 +84,7 @@
 
                 <TextView
                     android:id="@+id/dialog_help_text_2"
-                    android:text="@string/dialog_help_text_2"
+                    android:text="@string/this_weekend_dialog_help_message_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/abc_text_size_small_material" />
@@ -93,7 +93,7 @@
 
             <TextView
                 android:id="@+id/dialog_help_more"
-                android:text="@string/dialog_help_more"
+                android:text="@string/this_weekend_dialog_help_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
