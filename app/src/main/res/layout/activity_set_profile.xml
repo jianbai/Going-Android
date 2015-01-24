@@ -52,7 +52,9 @@
         android:text="@string/set_profile_save_button"
         android:id="@+id/set_profile_save_button"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/activity_indent_horizontal_margin" />
+        android:layout_marginTop="@dimen/activity_indent_horizontal_margin"
+        android:background="@drawable/bubble_orange"
+        android:textColor="@color/hello_white" />
 
     <ProgressBar
         android:layout_width="wrap_content"

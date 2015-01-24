@@ -37,7 +37,7 @@
     <string name="settings_gender_spread_1">Co-ed (2 and 2)</string>
     <string name="settings_gender_spread_2">Single-sex</string>
     <string name="title_set_profile">Set up your profile</string>
-    <string name="set_profile_textview">Hey there! hello matches you with cool people around you based on age and gender. That\'s why we ask everyone to set up a full profile before they use the app. If that\'s okay with you, please fill in the missing fields below before getting started!</string>
+    <string name="set_profile_textview">Hey there! Go matches you with cool people around you based on age and gender. That\'s why we ask everyone to set up a full profile before they use the app. If that\'s okay with you, please fill in the missing fields below before getting started!</string>
     <string name="set_profile_birthday_hint">When were you born?</string>
     <string name="set_profile_hometown_hint">Where are you from?</string>
     <string name="set_profile_save_button">Save profile</string>
