@@ -27,7 +27,7 @@ public class Application extends android.app.Application {
 
         // TODO: Enable analytics
 
-        // Initialize Firebase library with Android context
+        // Initialize Firebase
         Firebase.setAndroidContext(this);
 
         // Initialize Parse Push Notifications

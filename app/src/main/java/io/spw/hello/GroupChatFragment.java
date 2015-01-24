@@ -57,7 +57,7 @@ public class GroupChatFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_group_chat, container, false);
 
         findViews(rootView);
-        currentUser = MainActivity.currentUser;
+        currentUser = MainActivity.mCurrentUser;
 
         setUpUsername();
 
@@ -110,7 +110,7 @@ public class GroupChatFragment extends ListFragment {
     }
 
     private void setUpSingleEventListener() {
-        MainActivity.currentUserRef.child(FirebaseConstants.KEY_MATCHED)
+        MainActivity.mCurrentUserRef.child(FirebaseConstants.KEY_MATCHED)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

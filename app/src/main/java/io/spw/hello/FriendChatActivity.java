@@ -26,7 +26,7 @@ public class FriendChatActivity extends ActionBarActivity {
 
     public static final String TAG = FriendChatActivity.class.getSimpleName();
 
-    protected static String mChatId;
+    protected String mChatId;
 
     private ParseUser mCurrentUser;
     private ParseUser mFriend;
@@ -38,7 +38,7 @@ public class FriendChatActivity extends ActionBarActivity {
 
         setTitle(getIntent().getStringExtra("friendName"));
         mChatId = getIntent().getStringExtra("chatId");
-        mCurrentUser = MainActivity.currentUser;
+        mCurrentUser = MainActivity.mCurrentUser;
         try {
             mFriend = ParseUser.getQuery().get(getIntent().getStringExtra("friendObjectId"));
         } catch (ParseException e) {

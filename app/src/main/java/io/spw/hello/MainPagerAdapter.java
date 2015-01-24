@@ -72,7 +72,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         mActivity = a;
         mSlidingTabLayout = s;
         mFragmentManager = fm;
-        currentUser = MainActivity.currentUser;
+        currentUser = MainActivity.mCurrentUser;
         mFriendsRelation =
                 currentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
         mGroupMembersRelation =

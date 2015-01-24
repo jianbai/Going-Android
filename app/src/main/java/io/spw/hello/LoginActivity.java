@@ -90,8 +90,12 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
     public void onLoginButtonClicked(View v) {
         showProgressSpinner();
 
-        List<String> permissions = Arrays.asList("public_profile",
-                "user_hometown", "user_birthday", "email", "user_friends");
+        List<String> permissions = Arrays.asList(
+                FacebookConstants.PERMISSION_PUBLIC_PROFILE,
+                FacebookConstants.PERMISSION_EMAIL,
+                FacebookConstants.PERMISSION_USER_FRIENDS,
+                FacebookConstants.PERMISSION_USER_BIRTHDAY,
+                FacebookConstants.PERMISSION_USER_HOMETOWN);
 
         ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
             @Override

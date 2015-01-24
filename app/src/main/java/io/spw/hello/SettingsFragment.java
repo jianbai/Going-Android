@@ -54,7 +54,7 @@ public class SettingsFragment extends ListFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         Log.d(TAG, "SETTINGS VIEW CREATED");
-        currentUser = MainActivity.currentUser;
+        currentUser = MainActivity.mCurrentUser;
         mSettings = getResources().getStringArray(R.array.settings_items);
 
         findViews(rootView);

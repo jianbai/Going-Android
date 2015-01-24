@@ -44,7 +44,7 @@ public class FriendsFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
-        mCurrentUser = MainActivity.currentUser;
+        mCurrentUser = MainActivity.mCurrentUser;
 
         setUpButton(rootView);
 

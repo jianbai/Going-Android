@@ -50,7 +50,7 @@ public class FriendChatFragment extends ListFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_friend_chat, container, false);
 
-        mCurrentUser = MainActivity.currentUser;
+        mCurrentUser = MainActivity.mCurrentUser;
 
         findViews(rootView);
         setUpUsername();

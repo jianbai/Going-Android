@@ -56,7 +56,7 @@ public class ThisWeekendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_this_weekend, container, false);
-        currentUser = MainActivity.currentUser;
+        currentUser = MainActivity.mCurrentUser;
 
         isSearching = currentUser.getBoolean(ParseConstants.KEY_IS_SEARCHING);
         Firebase currentUserRef = new Firebase(FirebaseConstants.URL_USERS).child(currentUser.getObjectId());

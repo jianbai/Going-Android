@@ -1,8 +1,8 @@
 package io.spw.hello;
 
 /**
- * @author greg
- * @since 6/21/13
+ * Created by scottwang on 12/28/14.
+ * Based on Firebase template by @author greg
  */
 public class Chat {
 

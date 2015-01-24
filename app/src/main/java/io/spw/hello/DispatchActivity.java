@@ -14,7 +14,7 @@ import com.parse.ParseUser;
 public class DispatchActivity extends Activity {
 
     private final int LAUNCH_DISPLAY_LENGTH = 2000;
-    private ParseUser currentUser;
+    private ParseUser mCurrentUser;
 
     public DispatchActivity() {
 
@@ -25,9 +25,9 @@ public class DispatchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dispatch);
 
-        currentUser = ParseUser.getCurrentUser();
+        mCurrentUser = ParseUser.getCurrentUser();
 
-        if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
+        if ((mCurrentUser != null) && ParseFacebookUtils.isLinked(mCurrentUser)) {
             // Start an intent for main activity
             startActivity(new Intent(DispatchActivity.this, MainActivity.class));
         } else {

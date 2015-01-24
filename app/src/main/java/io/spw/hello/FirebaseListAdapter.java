@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Firebase ListAdapter Template by:
  * @author greg
  * @since 6/21/13
  *
