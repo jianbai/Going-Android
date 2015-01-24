@@ -150,7 +150,7 @@ public class GroupChatFragment extends ListFragment {
 
     private void setUpListView(final ListView listView) {
         mChatListAdapter = new ChatListAdapter(mFirebaseRef.limitToLast(50),
-                getActivity(), R.layout.chat_message, mUsername, mainActivity);
+                getActivity(), R.layout.custom_chat_bubble, mUsername, mainActivity);
         listView.setAdapter(mChatListAdapter);
         mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override

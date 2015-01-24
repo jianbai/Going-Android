@@ -2,27 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.spw.hello" >
 
+    <!--
+    PERMISSIONS
+    -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
     <permission android:protectionLevel="signature"
         android:name="io.spw.hello.permission.C2D_MESSAGE" />
     <uses-permission android:name="io.spw.hello.permission.C2D_MESSAGE" />
 
+    <!--
+    APPLICATION
+    -->
     <application
         android:name=".Application"
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!-- DISPATCH -->
         <activity android:name=".DispatchActivity"
             android:noHistory="true" >
             <intent-filter>
@@ -30,25 +35,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- LOGIN -->
         <activity android:name=".LoginActivity"
             android:label="@string/login_title"
             android:screenOrientation="portrait" >
         </activity>
+        <!-- FACEBOOK LOGIN -->
         <activity
             android:name="com.facebook.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:noHistory="true" />
+        <!-- SET PROFILE -->
         <activity android:name=".SetProfileActivity"
             android:label="@string/set_profile_title"
             android:screenOrientation="portrait"
             android:noHistory="true" >
         </activity>
+        <!-- MAIN -->
         <activity android:name=".MainActivity"
             android:label="@string/this_weekend_title"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait" >
         </activity>
+        <!-- FRIEND CHAT -->
         <activity android:name=".FriendChatActivity"
             android:label="@string/friend_chat_title"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -58,9 +68,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.spw.hello.MainActivity" />
         </activity>
+        <!-- FACEBOOK APP ID -->
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-
+        <!-- PARSE PUSH NOTIFICATIONS -->
         <service android:name="com.parse.PushService" />
         <receiver android:name="com.parse.ParseBroadcastReceiver">
             <intent-filter>
@@ -83,10 +94,10 @@
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-
         <meta-data
             android:name="com.parse.push.notification_icon"
             android:resource="@drawable/ic_this_weekend_icon" />
+
     </application>
 
 </manifest>

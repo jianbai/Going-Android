@@ -22,6 +22,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView3"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_login_step3"
+        android:src="@drawable/ic_login_tutorial_2"
         android:layout_marginTop="@dimen/content_margin" />
 </LinearLayout>

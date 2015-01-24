@@ -82,7 +82,7 @@ public class FriendChatFragment extends ListFragment {
         final ListView listView = getListView();
 
         mChatListAdapter = new ChatListAdapter(mFirebaseRef.limitToLast(50),
-                getActivity(), R.layout.chat_message, mUsername, mActivity);
+                getActivity(), R.layout.custom_chat_bubble, mUsername, mActivity);
         listView.setAdapter(mChatListAdapter);
         mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
