@@ -14,7 +14,8 @@
         android:gravity="center"
         android:paddingLeft="@dimen/login_padding"
         android:paddingRight="@dimen/login_padding"
-        android:textSize="@dimen/abc_text_size_medium_material" />
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_marginBottom="@dimen/content_vertical_margin" />
 
     <ImageView
         android:layout_width="wrap_content"

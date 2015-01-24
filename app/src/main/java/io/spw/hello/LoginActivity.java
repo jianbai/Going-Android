@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.facebook.Request;
@@ -45,8 +46,9 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
     private LoginPagerAdapter mAdapter;
     public ViewPager mViewPager;
 
-    private ProgressBar mProgressSpinner;
+    private ImageView mLoginPageIndicator;
     private Button mLoginButton;
+    private ProgressBar mProgressSpinner;
 
     private ParseUser currentUser;
     private Boolean noGender;
@@ -61,11 +63,13 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
         setContentView(R.layout.activity_login);
 
         // TODO: Refactor?
-        mProgressSpinner = (ProgressBar) findViewById(R.id.login_progress_spinner);
+        mLoginPageIndicator = (ImageView) findViewById(R.id.login_page_indicator);
         mLoginButton = (Button) findViewById(R.id.button_facebook_login);
+        mProgressSpinner = (ProgressBar) findViewById(R.id.login_progress_spinner);
         mViewPager = (ViewPager) findViewById(R.id.loginViewPager);
+        mViewPager.setOnPageChangeListener(this);
 
-                rootRef = new Firebase(FirebaseConstants.URL_ROOT);
+        rootRef = new Firebase(FirebaseConstants.URL_ROOT);
 
         setUpViewPager();
     }
@@ -313,7 +317,23 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
-
+        Log.d(TAG, String.valueOf(position));
+        switch (position) {
+            case 0:
+                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_0);
+                break;
+            case 1:
+                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_1);
+                break;
+            case 2:
+                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_2);
+                break;
+            case 3:
+                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_3);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

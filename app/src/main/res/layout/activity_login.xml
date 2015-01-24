@@ -1,77 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:divider="@drawable/divider"
-    android:showDividers="middle"
     android:background="@color/hello_white">
 
-    <!--
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/loginLogo"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_logo" />
+        android:id="@+id/login_header"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:paddingTop="@dimen/chat_padding">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_title"
-        android:id="@+id/login_title"
-        android:layout_gravity="center"
-        android:textSize="@dimen/abc_text_size_display_1_material"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_logo"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_bullet"
-        android:id="@+id/textView5"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:textSize="@dimen/abc_text_size_medium_material"
-        android:gravity="center" />
-    -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/abc_text_size_display_2_material"
+            android:text="@string/login_title" />
+
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/loginViewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_facebook_login"
-        android:layout_gravity="center"
+        android:layout_above="@+id/login_divider"
+        android:layout_below="@+id/login_header"
+        android:layout_centerInParent="true" />
 
-        android:text="@string/com_facebook_loginview_log_in_button"
-        android:textColor="@color/com_facebook_loginview_text_color"
-        android:textSize="@dimen/com_facebook_loginview_text_size"
-        android:textStyle="normal"
+    <View
+        android:id="@+id/login_divider"
+        android:layout_above="@+id/login_footer"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#16333333" />
 
-        android:background="@drawable/com_facebook_button_blue"
-        android:drawableLeft="@drawable/com_facebook_inverse_icon"
-        android:drawablePadding="@dimen/com_facebook_likebutton_compound_drawable_padding"
-        android:paddingLeft="@dimen/com_facebook_loginview_padding_left"
-        android:paddingRight="@dimen/com_facebook_loginview_padding_right"
-        android:paddingBottom="@dimen/com_facebook_loginview_padding_bottom"
-        android:paddingTop="@dimen/com_facebook_loginview_padding_top"
-        android:shadowColor="#00000000"
-        android:singleLine="true"
-        android:onClick="onLoginButtonClicked"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="@dimen/content_vertical_margin" />
-
-    <ProgressBar
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        style="@android:style/Widget.Holo.ProgressBar.Large"
-        android:id="@+id/login_progress_spinner"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-</LinearLayout>
+        android:id="@+id/login_footer"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_page_indicator"
+            android:src="@drawable/ic_login_indicator_0"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dialog_margin"
+            android:layout_marginBottom="@dimen/dialog_margin" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_facebook_login"
+            android:layout_gravity="center"
+
+            android:text="@string/com_facebook_loginview_log_in_button"
+            android:textColor="@color/com_facebook_loginview_text_color"
+            android:textSize="@dimen/com_facebook_loginview_text_size"
+            android:textStyle="normal"
+
+            android:background="@drawable/com_facebook_button_blue"
+            android:drawableLeft="@drawable/com_facebook_inverse_icon"
+            android:drawablePadding="@dimen/com_facebook_likebutton_compound_drawable_padding"
+            android:paddingLeft="@dimen/com_facebook_loginview_padding_left"
+            android:paddingRight="@dimen/com_facebook_loginview_padding_right"
+            android:paddingBottom="@dimen/com_facebook_loginview_padding_bottom"
+            android:paddingTop="@dimen/com_facebook_loginview_padding_top"
+            android:shadowColor="#00000000"
+            android:singleLine="true"
+            android:onClick="onLoginButtonClicked"
+            android:layout_marginBottom="40dp" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            style="@android:style/Widget.Holo.ProgressBar.Large"
+            android:id="@+id/login_progress_spinner"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</RelativeLayout>
