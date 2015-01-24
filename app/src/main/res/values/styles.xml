@@ -5,7 +5,6 @@
 
         <!-- Action bar style -->
         <item name="android:actionBarStyle">@style/CustomActionBarTheme</item>
-
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/CustomActionBarTheme</item>
 
@@ -13,39 +12,23 @@
     
     <style name="CustomActionBarTheme" parent="Widget.AppCompat.ActionBar">
 
+        <!-- Background color -->
         <item name="android:background">@color/hello_orange</item>
+        <!-- Support library compatibility -->
         <item name="background">@color/hello_orange</item>
 
+        <!-- Text style -->
         <item name="android:titleTextStyle">@style/CustomActionBarTheme.TitleText</item>
+        <!-- Support library compatibility -->
         <item name="titleTextStyle">@style/CustomActionBarTheme.TitleText</item>
 
-        <!--
-        <item name="android:height">@dimen/action_bar_height</item>
-        <item name="height">@dimen/action_bar_height</item>
-        -->
-
-        <item name="android:scaleGravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:foregroundGravity">center</item>
-
-        <!--
-        <item name="android:homeAsUpIndicator">@drawable/ic_this_weekend_icon_unselected</item>
-        <item name="homeAsUpIndicator">@drawable/ic_this_weekend_icon_unselected</item>
-        -->
-
     </style>
 
-    <style
+    <style name="CustomActionBarTheme.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
 
-        name="CustomActionBarTheme.TitleText"
-        parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-
+        <!-- Text color -->
         <item name="android:textColor">@color/hello_white</item>
-        <item name="android:layout_centerVertical">true</item>
 
     </style>
-
-    <dimen name="action_bar_height">48dp</dimen>
 
 </resources>
