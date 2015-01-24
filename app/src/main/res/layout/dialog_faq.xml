@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/chat_padding">
+                android:padding="@dimen/thin_padding">
 
                 <TextView
                     android:id="@+id/faq_question0"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/chat_padding">
+                android:padding="@dimen/thin_padding">
 
                 <TextView
                     android:id="@+id/faq_question1"
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/chat_padding">
+                android:padding="@dimen/thin_padding">
 
                 <TextView
                     android:id="@+id/faq_question2"
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/chat_padding">
+                android:padding="@dimen/thin_padding">
 
                 <TextView
                     android:id="@+id/faq_question3"
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/chat_padding">
+                android:padding="@dimen/thin_padding">
 
                 <TextView
                     android:id="@+id/faq_question4"

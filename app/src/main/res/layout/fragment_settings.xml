@@ -13,10 +13,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/profile_height"
+
         android:orientation="vertical"
-        android:paddingLeft="@dimen/chat_padding"
-        android:paddingRight="@dimen/chat_padding" >
+        android:paddingLeft="@dimen/thin_padding"
+        android:paddingRight="@dimen/thin_padding"
+        android:paddingTop="@dimen/thin_padding"
+        android:paddingBottom="@dimen/medium_padding">
 
         <TextView
             android:id="@+id/settings_profile_name"

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/hello_white"
-    android:padding="@dimen/chat_padding">
+    android:padding="@dimen/thin_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:textSize="@dimen/abc_text_size_headline_material"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:layout_marginBottom="@dimen/content_vertical_margin" />
+            android:layout_marginBottom="@dimen/content_margin" />
 
         <Button
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
             android:id="@+id/this_weekend_go_button"
             android:background="@drawable/bubble_orange"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/content_vertical_margin"
+            android:layout_marginTop="@dimen/content_margin"
             android:textSize="@dimen/abc_text_size_display_3_material" />
     </LinearLayout>
 
@@ -53,7 +53,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/content_margin"
             style="@android:style/Widget.Holo.ProgressBar.Large"
             android:id="@+id/this_weekend_progress_spinner"
             android:layout_gravity="center_horizontal" />
@@ -62,7 +62,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/content_vertical_margin"
+        android:layout_marginBottom="@dimen/content_margin"
         android:text="@string/this_weekend_help"
         android:id="@+id/this_weekend_help"
         android:layout_gravity="center_horizontal"

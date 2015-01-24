@@ -24,7 +24,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:background="@color/hello_white"
-        android:padding="@dimen/chat_padding" >
+        android:padding="@dimen/thin_padding" >
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,10 +53,10 @@
         android:orientation="horizontal"
         android:background="@color/hello_white"
         android:gravity="center"
-        android:paddingLeft="@dimen/chat_padding"
-        android:paddingTop="@dimen/chat_padding"
+        android:paddingLeft="@dimen/thin_padding"
+        android:paddingTop="@dimen/thin_padding"
         android:paddingRight="@dimen/abc_action_bar_default_padding_material"
-        android:paddingBottom="@dimen/chat_padding"
+        android:paddingBottom="@dimen/thin_padding"
         android:weightSum="6">
 
         <EditText
