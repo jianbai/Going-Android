@@ -1,5 +1,6 @@
 package io.spw.hello;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -17,7 +18,6 @@ import com.parse.SaveCallback;
 
 import org.json.JSONException;
 
-// TODO: Fix dialog bugs
 // TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
 
 public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
@@ -83,15 +83,24 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         if (currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
                 !matchDialogSeen) {
             try {
-                //showMatchDialog();
                 mAdapter.showMatchDialog();
             } catch (JSONException | ParseException e) {
-                e.printStackTrace();
+                showErrorDialog();
             }
         } else if (!currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
                 !pickFriendsDialogSeen) {
             mAdapter.showPickFriendsDialog();
         }
+    }
+
+    private void showErrorDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.title_network_error)
+                .setMessage(R.string.message_network_error)
+                .setPositiveButton(android.R.string.ok, null);
+
+        AlertDialog errorDialog = builder.create();
+        errorDialog.show();
     }
 
     @Override

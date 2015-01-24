@@ -100,8 +100,8 @@ public class FriendChatActivity extends ActionBarActivity {
                     dialog.show();
                 } else {
                     builder = new AlertDialog.Builder(FriendChatActivity.this);
-                    builder.setTitle(R.string.title_view_profile_error)
-                            .setMessage(R.string.message_view_profile_error)
+                    builder.setTitle(R.string.title_network_error)
+                            .setMessage(R.string.message_network_error)
                             .setPositiveButton(android.R.string.ok, null);
 
                     AlertDialog errorDialog = builder.create();

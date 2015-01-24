@@ -18,8 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 /**
  * Created by scottwang on 1/11/15.
@@ -59,9 +62,6 @@ public class SettingsFragment extends ListFragment {
 
         setUpAge();
         setUpGender();
-//        setUpFaq();
-//        setUpBug();
-//        setUpContact();
 
         return rootView;
     }
@@ -301,7 +301,12 @@ public class SettingsFragment extends ListFragment {
                                 currentUser.put(ParseConstants.KEY_AGE_SETTINGS_20, mAgeSettings[1]);
                                 currentUser.put(ParseConstants.KEY_AGE_SETTINGS_30, mAgeSettings[2]);
                                 currentUser.put(ParseConstants.KEY_AGE_SETTINGS_40, mAgeSettings[3]);
-                                currentUser.saveInBackground();
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        Toast.makeText(mainActivity, R.string.toast_save_successful, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         })
                 .setNegativeButton(android.R.string.cancel, null);
@@ -326,7 +331,12 @@ public class SettingsFragment extends ListFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 currentUser.put(ParseConstants.KEY_GENDER_SETTINGS, mGenderSettings);
-                                currentUser.saveInBackground();
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        Toast.makeText(mainActivity, R.string.toast_save_successful, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         })
                 .setNegativeButton(android.R.string.cancel, null);

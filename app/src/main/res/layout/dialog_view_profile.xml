@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dialog_margin"
         android:orientation="vertical"
-        android:padding="@dimen/chat_padding">
+        android:padding="@dimen/chat_padding"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/friend_name"
