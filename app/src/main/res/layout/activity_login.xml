@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:paddingTop="@dimen/chat_padding">
+        android:layout_marginTop="@dimen/content_vertical_margin">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginBottom="@dimen/dialog_margin"
             style="@android:style/Widget.Holo.ProgressBar.Large"
             android:id="@+id/login_progress_spinner"
             android:layout_gravity="center"

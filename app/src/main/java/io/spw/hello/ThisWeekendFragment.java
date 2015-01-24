@@ -129,9 +129,9 @@ public class ThisWeekendFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(mainActivity);
-                dialog.setContentView(R.layout.dialog_faq);
-                dialog.setTitle(R.string.dialog_faq_title);
-                Button button = (Button) dialog.findViewById(R.id.dialog_faq_button);
+                dialog.setContentView(R.layout.dialog_help);
+                dialog.setTitle(R.string.dialog_help_title);
+                Button button = (Button) dialog.findViewById(R.id.dialog_help_button);
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override

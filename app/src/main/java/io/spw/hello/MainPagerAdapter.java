@@ -222,7 +222,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
         final Dialog dialog = new Dialog(mActivity);
         dialog.setContentView(R.layout.dialog_match_made);
-        dialog.setTitle("An introduction is the essence of possibility");
+        dialog.setTitle(R.string.dialog_match_made_title);
 
         // find views
         TextView userName0 = (TextView) dialog.findViewById(R.id.userName0);
@@ -248,17 +248,17 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         // set text
         userName0.setText(users.get(0).getString(ParseConstants.KEY_FIRST_NAME));
         userInfo0.setText(users.get(0).getString(ParseConstants.KEY_AGE) +
-                " // " +
+                "  : :  " +
                 (users.get(0).getString(ParseConstants.KEY_HOMETOWN)));
 
         userName1.setText(users.get(1).getString(ParseConstants.KEY_FIRST_NAME));
         userInfo1.setText(users.get(1).getString(ParseConstants.KEY_AGE) +
-                " // " +
+                "  : :  " +
                 (users.get(1).getString(ParseConstants.KEY_HOMETOWN)));
 
         userName2.setText(users.get(2).getString(ParseConstants.KEY_FIRST_NAME));
         userInfo2.setText(users.get(2).getString(ParseConstants.KEY_AGE) +
-                " // " +
+                "  : :  " +
                 (users.get(2).getString(ParseConstants.KEY_HOMETOWN)));
 
         // set button

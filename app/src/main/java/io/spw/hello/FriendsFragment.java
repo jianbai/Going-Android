@@ -43,7 +43,6 @@ public class FriendsFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "FRIENDS VIEW CREATED");
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
         mCurrentUser = MainActivity.currentUser;
 

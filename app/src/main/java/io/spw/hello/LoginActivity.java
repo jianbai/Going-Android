@@ -99,6 +99,7 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
                 currentUser = ParseUser.getCurrentUser();
 
                 if (parseUser == null) {
+                    showLoginFailedDialog();
                     hideProgressSpinner();
                 } else if (parseUser.isNew()) {
                     fetchFacebookData();
@@ -317,7 +318,6 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
-        Log.d(TAG, String.valueOf(position));
         switch (position) {
             case 0:
                 mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_0);

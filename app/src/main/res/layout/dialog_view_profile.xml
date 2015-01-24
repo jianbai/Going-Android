@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/profile_height"
+        android:layout_margin="@dimen/dialog_margin"
         android:orientation="vertical"
         android:padding="@dimen/chat_padding">
 
@@ -29,7 +29,10 @@
         android:id="@+id/dialog_ok_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_margin"
+        android:layout_marginBottom="24dp"
         android:text="@string/dialog_ok_button"
+        android:textColor="@color/hello_white"
         android:background="@drawable/bubble_orange" />
 
 </LinearLayout>

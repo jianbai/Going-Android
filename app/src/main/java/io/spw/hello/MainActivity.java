@@ -17,10 +17,8 @@ import com.parse.SaveCallback;
 
 import org.json.JSONException;
 
-// TODO: DESIGN: Login explanation + help popup
 // TODO: Fix dialog bugs
 // TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
-// TODO: Fixing git email
 
 public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 

@@ -87,7 +87,7 @@ public class FriendChatActivity extends ActionBarActivity {
                     TextView friendInfoTextView = (TextView) dialog.findViewById(R.id.friend_info);
 
                     friendNameTextView.setText(friendName);
-                    friendInfoTextView.setText(friendAge + " // " + friendHometown);
+                    friendInfoTextView.setText(friendAge + "  : :  " + friendHometown);
 
                     Button okButton = (Button) dialog.findViewById(R.id.dialog_ok_button);
                     okButton.setOnClickListener(new View.OnClickListener() {

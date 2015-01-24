@@ -137,6 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dialog_ok_button"
+        android:textColor="@color/hello_white"
         android:background="@drawable/bubble_orange"
         android:layout_alignParentBottom="true"
         android:gravity="center"

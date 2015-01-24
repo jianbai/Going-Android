@@ -7,9 +7,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/profile_height"
         android:orientation="vertical"
-        android:padding="@dimen/chat_padding">
+        android:gravity="center_horizontal"
+        android:layout_margin="@dimen/dialog_margin">
 
         <TextView
             android:id="@+id/userName0"
@@ -30,9 +30,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/profile_height"
         android:orientation="vertical"
-        android:padding="@dimen/chat_padding">
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/userName1"
@@ -53,9 +52,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/profile_height"
         android:orientation="vertical"
-        android:padding="@dimen/chat_padding">
+        android:gravity="center_horizontal"
+        android:layout_margin="@dimen/dialog_margin">
 
         <TextView
             android:id="@+id/userName2"
@@ -78,6 +77,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/say_hello"
-        android:background="@drawable/bubble_orange" />
+        android:background="@drawable/bubble_orange"
+        android:textColor="@color/hello_white"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="@dimen/dialog_margin" />
 
 </LinearLayout>

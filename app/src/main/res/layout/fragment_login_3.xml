@@ -12,7 +12,7 @@
         android:id="@+id/textView5"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:textSize="@dimen/abc_text_size_medium_material"
+        android:textSize="@dimen/abc_text_size_small_material"
         android:paddingLeft="@dimen/login_padding"
         android:paddingRight="@dimen/login_padding" />
 

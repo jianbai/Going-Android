@@ -5,12 +5,25 @@
     android:background="@color/hello_white"
     android:gravity="center">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_logo" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/content_vertical_margin">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_logo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/abc_text_size_display_2_material"
+            android:text="@string/login_title" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
