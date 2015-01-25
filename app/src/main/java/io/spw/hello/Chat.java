@@ -10,9 +10,9 @@ package io.spw.hello;
  */
 public class Chat {
 
-    private String mMessage;
-    private String mAuthor;
-    private String mTime;
+    private String message;
+    private String author;
+    private String time;
 
     /** Provides required default constructor for Firebase object mapping */
     @SuppressWarnings("unused")
@@ -21,24 +21,23 @@ public class Chat {
 
     /** Initializes member variables */
     Chat(String message, String author, String time) {
-        mMessage = message;
-        mAuthor = author;
-        mTime = time;
+        this.message = message;
+        this.author = author;
+        this.time = time;
     }
 
     /** Returns message field */
     public String getMessage() {
-        return mMessage;
+        return message;
     }
 
     /** Returns author field */
     public String getAuthor() {
-        return mAuthor;
+        return author;
     }
 
     /** Returns time field */
     public String getTime() {
-        return mTime;
+        return time;
     }
-
 }

@@ -1,3 +1,7 @@
+/**
+ * Created by @author scottwang on 12/20/14 based on SlidingTabStrip template by Google
+ */
+
 package io.spw.hello;
 
 import android.content.Context;
@@ -9,6 +13,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
+/**
+ * SlidingTabStrip template by Google, with modifications to default styles
+ */
 public class SlidingTabStrip extends LinearLayout {
 
     private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 2;

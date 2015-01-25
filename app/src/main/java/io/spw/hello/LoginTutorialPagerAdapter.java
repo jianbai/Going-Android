@@ -1,5 +1,5 @@
 /**
- * Created by scott on 1/22/15.
+ * Created by @author scott on 1/22/15.
  */
 
 package io.spw.hello;
@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-/** Provides custom FragmentPagerAdapter implementation for login tutorial */
+/**
+ * Provides custom FragmentPagerAdapter implementation for login tutorial
+ */
 public class LoginTutorialPagerAdapter extends FragmentPagerAdapter {
 
     public static final int NUM_ITEMS = 4;

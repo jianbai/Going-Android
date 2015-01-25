@@ -1,9 +1,14 @@
-package io.spw.hello;
-
 /**
  * Created by scottwang on 1/1/15.
  */
+
+package io.spw.hello;
+
+/**
+ * Provides Parse constant String values
+ */
 public final class ParseConstants {
+
     // Class names
     public static final String CLASS_GROUPS = "Groups";
 
@@ -40,5 +45,4 @@ public final class ParseConstants {
     public static final String KEY_BUG_REPORTS = "bugReports";
     public static final String KEY_CONTACT_US = "contactUs";
 
-    // Misc values
 }

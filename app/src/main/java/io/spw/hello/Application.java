@@ -1,5 +1,5 @@
 /**
- * Created by scottwang on 12/28/14.
+ * Created by @author scottwang on 12/28/14.
  * Facebook app keys:
  * ga0RGNYHvNM5d0SLGQfpQWAPGJ8=
  * n+xcAaOIG1e1XpxStAc4PkDDnXM=

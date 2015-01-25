@@ -26,7 +26,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/** Saves any missing user fields to Parse after first login */
+/**
+ * Saves any missing user fields to Parse after first login
+ */
 public class SetProfileActivity extends ActionBarActivity {
 
     private EditText mGenderEditText;
@@ -89,7 +91,7 @@ public class SetProfileActivity extends ActionBarActivity {
         mGenderEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createGenderDialog().show();
+                showGenderDialog();
             }
         });
     }
@@ -102,7 +104,7 @@ public class SetProfileActivity extends ActionBarActivity {
         mBirthdayEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createDatePickerDialog().show();
+                showDatePickerDialog();
             }
         });
     }
@@ -126,7 +128,7 @@ public class SetProfileActivity extends ActionBarActivity {
 
                 if (emptyGender || emptyBirthday || emptyHometown) {
                     // If any fields are still missing, show an AlertDialog
-                    createErrorDialog(R.string.set_profile_dialog_incomplete_message).show();
+                    showErrorDialog(R.string.set_profile_dialog_incomplete_message);
                     hideProgressSpinner();
                 } else {
                     // Otherwise, add the missing fields to ParseUser and save to Parse
@@ -159,7 +161,7 @@ public class SetProfileActivity extends ActionBarActivity {
             String age = calculateAge(birthday);
             mCurrentUser.put(ParseConstants.KEY_AGE, age);
         } catch (ParseException e) {
-            createErrorDialog(R.string.set_profile_dialog_invalid_age_message).show();
+            showErrorDialog(R.string.set_profile_dialog_invalid_age_message);
         }
         mCurrentUser.put(ParseConstants.KEY_BIRTHDAY, birthday);
     }
@@ -204,7 +206,7 @@ public class SetProfileActivity extends ActionBarActivity {
     }
 
     /** Returns an AlertDialog for picking user gender */
-    private AlertDialog createGenderDialog() {
+    private void showGenderDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.set_profile_gender_hint);
         builder.setItems(R.array.set_profile_gender, new DialogInterface.OnClickListener() {
@@ -221,14 +223,14 @@ public class SetProfileActivity extends ActionBarActivity {
             }
         });
 
-        return builder.create();
+        builder.create().show();
     }
 
     /** Returns a DatePickerDialog for picking user birthday */
-    private DatePickerDialog createDatePickerDialog() {
+    private void showDatePickerDialog() {
         GregorianCalendar cal = new GregorianCalendar();
 
-        return new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -236,23 +238,18 @@ public class SetProfileActivity extends ActionBarActivity {
                 date.set(year, monthOfYear, dayOfMonth);
                 mBirthdayEditText.setText(dateFormatter.format(date.getTime()));
             }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
+                .show();
     }
 
     /** Returns an error dialog with given message */
-    private AlertDialog createErrorDialog(int messageId) {
+    private void showErrorDialog(int messageId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(messageId)
                 .setTitle(R.string.dialog_error_title)
                 .setPositiveButton(android.R.string.ok, null);
 
-        return builder.create();
-    }
-
-    /** Navigates to MainActivity */
-    private void navigateToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        builder.create().show();
     }
 
     /** Shows progress spinner and hides save button */
@@ -265,6 +262,12 @@ public class SetProfileActivity extends ActionBarActivity {
     private void hideProgressSpinner() {
         mProgressSpinner.setVisibility(View.GONE);
         mSaveButton.setVisibility(View.VISIBLE);
+    }
+
+    /** Navigates to MainActivity */
+    private void navigateToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 }

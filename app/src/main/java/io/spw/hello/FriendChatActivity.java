@@ -1,3 +1,7 @@
+/**
+ * Created by @author scottwang on 1/13/15.
+ */
+
 package io.spw.hello;
 
 import android.app.AlertDialog;
@@ -20,160 +24,155 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 /**
- * Created by scottwang on 1/13/15.
+ * Provides activity containing FriendChatFragments
  */
 public class FriendChatActivity extends ActionBarActivity {
 
-    public static final String TAG = FriendChatActivity.class.getSimpleName();
-
-    protected String mChatId;
-
-    private ParseUser mCurrentUser;
+    public ParseUser currentUser;
     private ParseUser mFriend;
+    private ParseRelation<ParseUser> mFriendsRelation;
 
+    /** Initializes member variables and adds FriendChatFragment to layout */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_chat);
-
         setTitle(getIntent().getStringExtra("friendName"));
-        mChatId = getIntent().getStringExtra("chatId");
-        mCurrentUser = MainActivity.mCurrentUser;
+        currentUser = ParseUser.getCurrentUser();
+        mFriendsRelation =
+                currentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
         try {
             mFriend = ParseUser.getQuery().get(getIntent().getStringExtra("friendObjectId"));
         } catch (ParseException e) {
-            e.printStackTrace();
+            // If there is a problem loading a ParseUser into mFriend, an error dialog will be
+            // shown if the user tries to delete or report the friend
         }
 
-        FriendChatFragment friendChatFragment = new FriendChatFragment(this, mChatId);
+        FriendChatFragment friendChatFragment =
+                new FriendChatFragment(this, getIntent().getStringExtra("chatId"));
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.friend_chat_container, friendChatFragment)
-                    .commit();
-
+        transaction.add(R.id.friend_chat_container, friendChatFragment).commit();
     }
 
+    /** Inflates menu */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_chat, menu);
         return true;
     }
 
-
+    /** Handles click events for each cell in menu */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        if (mFriend == null) {
+            showErrorDialog();
+            return super.onOptionsItemSelected(item);
+        }
 
-        AlertDialog.Builder builder;
-
-        switch(id) {
+        switch(item.getItemId()) {
             case R.id.action_view_profile:
-
-                final Dialog dialog = new Dialog(this);
-                String friendObjectId = getIntent().getStringExtra("friendObjectId");
-
-                dialog.setContentView(R.layout.dialog_view_profile);
-                dialog.setTitle(R.string.friend_chat_dialog_view_profile_title);
-
-                if (mFriend != null) {
-                    String friendName = mFriend.getString(ParseConstants.KEY_FIRST_NAME);
-                    String friendAge = mFriend.getString(ParseConstants.KEY_AGE);
-                    String friendHometown = mFriend.getString(ParseConstants.KEY_HOMETOWN);
-
-                    TextView friendNameTextView = (TextView) dialog.findViewById(R.id.friend_name);
-                    TextView friendInfoTextView = (TextView) dialog.findViewById(R.id.friend_info);
-
-                    friendNameTextView.setText(friendName);
-                    friendInfoTextView.setText(friendAge + "  : :  " + friendHometown);
-
-                    Button okButton = (Button) dialog.findViewById(R.id.dialog_ok_button);
-                    okButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    dialog.show();
-                } else {
-                    builder = new AlertDialog.Builder(FriendChatActivity.this);
-                    builder.setTitle(R.string.dialog_error_title)
-                            .setMessage(R.string.dialog_error_message)
-                            .setPositiveButton(android.R.string.ok, null);
-
-                    AlertDialog errorDialog = builder.create();
-                    errorDialog.show();
-                }
-
+                showViewProfileDialog();
                 break;
             case R.id.action_delete:
-                builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.friend_chat_dialog_delete_title)
-                        .setMessage(R.string.friend_chat_dialog_delete_message)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .setPositiveButton(R.string.friend_chat_dialog_delete_button,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        ParseRelation<ParseUser> friendsRelation =
-                                                mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
-                                        if (mFriend != null) {
-                                            friendsRelation.remove(mFriend);
-                                            mCurrentUser.saveInBackground(new SaveCallback() {
-                                                @Override
-                                                public void done(ParseException e) {
-                                                    Toast.makeText(FriendChatActivity.this, R.string.friend_chat_toast_contact_deleted, Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-
-                                            dialog.dismiss();
-                                            NavUtils.navigateUpFromSameTask(FriendChatActivity.this);
-                                        } else {
-                                            // Show error dialog
-                                        }
-                                    }
-                                });
-
-                AlertDialog deleteDialog = builder.create();
-                deleteDialog.show();
+                showDeleteDialog();
                 break;
             case R.id.action_report:
-                builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.friend_chat_dialog_report_title)
-                        .setMessage(R.string.friend_chat_dialog_report_message)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .setPositiveButton(R.string.friend_chat_dialog_report_button,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        ParseRelation<ParseUser> friendsRelation =
-                                                mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
-                                        if (mFriend != null) {
-                                            mCurrentUser.add(ParseConstants.KEY_REPORTED, mFriend.getObjectId());
-                                            friendsRelation.remove(mFriend);
-                                            mCurrentUser.saveInBackground(new SaveCallback() {
-                                                @Override
-                                                public void done(ParseException e) {
-                                                    Toast.makeText(FriendChatActivity.this, R.string.friend_chat_toast_report_received, Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                            dialog.dismiss();
-                                            NavUtils.navigateUpFromSameTask(FriendChatActivity.this);
-                                        } else {
-                                            // Show error dialog
-                                        }
-                                    }
-                                });
-
-                AlertDialog reportDialog = builder.create();
-                reportDialog.show();
+                showReportDialog();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /** Shows view profile dialog */
+    private void showViewProfileDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_view_profile);
+        dialog.setTitle(R.string.friend_chat_dialog_view_profile_title);
+
+        String friendName = mFriend.getString(ParseConstants.KEY_FIRST_NAME);
+        String friendAge = mFriend.getString(ParseConstants.KEY_AGE);
+        String friendHometown = mFriend.getString(ParseConstants.KEY_HOMETOWN);
+
+        TextView friendNameTextView = (TextView) dialog.findViewById(R.id.friend_name);
+        TextView friendInfoTextView = (TextView) dialog.findViewById(R.id.friend_info);
+
+        friendNameTextView.setText(friendName);
+        friendInfoTextView.setText(friendAge + "  : :  " + friendHometown);
+
+        Button okButton = (Button) dialog.findViewById(R.id.dialog_ok_button);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    /** Shows delete dialog */
+    private void showDeleteDialog() {
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.friend_chat_dialog_delete_title)
+                .setMessage(R.string.friend_chat_dialog_delete_message)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.friend_chat_dialog_delete_button,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteFriend(dialog, R.string.friend_chat_toast_contact_deleted);
+                            }
+                        });
+
+        AlertDialog deleteDialog = builder.create();
+        deleteDialog.show();
+    }
+
+    /** Shows report dialog */
+    private void showReportDialog() {
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.friend_chat_dialog_report_title)
+                .setMessage(R.string.friend_chat_dialog_report_message)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.friend_chat_dialog_report_button,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                currentUser.add(ParseConstants.KEY_REPORTED, mFriend.getObjectId());
+                                deleteFriend(dialog, R.string.friend_chat_toast_report_received);
+                            }
+                        });
+
+        AlertDialog reportDialog = builder.create();
+        reportDialog.show();
+    }
+
+    /** Deletes friend, saves to Parse and navigates back to MainActivity */
+    private void deleteFriend(DialogInterface dialog, final int messageId) {
+        mFriendsRelation.remove(mFriend);
+        currentUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Toast.makeText(FriendChatActivity.this, messageId, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.dismiss();
+        NavUtils.navigateUpFromSameTask(FriendChatActivity.this);
+    }
+
+    /** Shows error dialog */
+    private void showErrorDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.dialog_error_title)
+                .setMessage(R.string.dialog_error_message)
+                .setPositiveButton(android.R.string.ok, null);
+
+        AlertDialog errorDialog = builder.create();
+        errorDialog.show();
     }
 
 }

@@ -1,92 +1,103 @@
+/**
+ * Created by @author scottwang on 12/20/14.
+ */
+
 package io.spw.hello;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.firebase.client.Firebase;
-import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
-import org.json.JSONException;
-
 // TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
 
+/**
+ * Provides main activity containing main ViewPager with 3 pages
+ * for SettingsFragment, ThisWeekendFragment and FriendFragment
+ */
 public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
-    public static final String TAG = MainActivity.class.getSimpleName();
-
-    public static boolean active = false;
-    public boolean matchDialogSeen;
-    public boolean pickFriendsDialogSeen;
-
-    public static final ParseUser mCurrentUser = ParseUser.getCurrentUser();
-    public static final Firebase mCurrentUserRef = new Firebase(FirebaseConstants.URL_USERS).child(mCurrentUser.getObjectId());
-
+    public ParseUser currentUser;
+    public Firebase currentUserRef;
     private SlidingTabLayout mSlidingTabLayout;
-    public ViewPager mViewPager;
+    private ViewPager mViewPager;
     private MainPagerAdapter mAdapter;
 
+    /** Saves device info to Parse and sets up sliding tabs */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ParseInstallation.getCurrentInstallation()
-                .put(ParseConstants.KEY_INSTALLATION_USER_ID,
-                        mCurrentUser.getObjectId());
-        ParseInstallation.getCurrentInstallation()
-                .put(ParseConstants.KEY_INSTALLATION_USER_NAME,
-                        mCurrentUser.getString(ParseConstants.KEY_FIRST_NAME));
-        ParseInstallation.getCurrentInstallation().saveInBackground();
-
         findViews();
-        setUpSlidingTabLayout();
 
+        // Initialize ParseUser and Firebase variables
+        currentUser = ParseUser.getCurrentUser();
+        currentUserRef =
+                new Firebase(FirebaseConstants.URL_USERS).child(currentUser.getObjectId());
+
+        // Save device ParseInstallation info
+        saveParseInstallation();
+
+        // Set up SlidingTabLayout and commit transaction
+        setUpSlidingTabLayout();
         if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.commit();
+            getSupportFragmentManager().beginTransaction().commit();
         }
     }
 
+    /** Checks Parse to see if any dialogs should be shown */
     @Override
     public void onResume() {
         super.onResume();
 
-        matchDialogSeen = mCurrentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
-        pickFriendsDialogSeen = mCurrentUser.getBoolean(ParseConstants.KEY_PICK_FRIENDS_DIALOG_SEEN);
-        active = true;
+        Boolean matchDialogSeen =
+                currentUser.getBoolean(ParseConstants.KEY_MATCH_DIALOG_SEEN);
+        Boolean pickFriendsDialogSeen =
+                currentUser.getBoolean(ParseConstants.KEY_PICK_FRIENDS_DIALOG_SEEN);
 
-        if (mCurrentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
+        if (currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
                 !matchDialogSeen) {
-            try {
-                mAdapter.showMatchDialog();
-            } catch (JSONException | ParseException e) {
-                showErrorDialog();
-            }
-        } else if (!mCurrentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
+            // If user is matched, but has not seen their matches, show the match dialog
+            mAdapter.showMatchMadeDialog();
+        } else if (!currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED) &&
                 !pickFriendsDialogSeen) {
-            mAdapter.showPickFriendsDialog();
+            // If user is not matched, but has not picked friends, show the pick friend dialog
+            mAdapter.showMatchExpiredDialog();
         }
     }
 
+    /** Satisfies required method implementation for OnPageChangeListener */
     @Override
-    public void onStop() {
-        super.onStop();
-        active = false;
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+    /** Updates title and hides keyboard when page is changed */
+    @Override
+    public void onPageSelected(int position) {
+        // Update title based on position
+        updateTitle(position);
+        // Update MainPagerAdapter's currentPosition
+        mAdapter.setCurrentPosition(position);
+        // Hide keyboard on page change
+        hideKeyboard();
     }
 
+    /** Satisfies required method implementation for OnPageChangeListener */
+    @Override
+    public void onPageScrollStateChanged(int state) {}
+
+    /** Finds views */
     private void findViews() {
         mViewPager = (ViewPager) findViewById(R.id.mainViewPager);
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
     }
 
+    /** Sets up fragments and sliding tabs */
     private void setUpSlidingTabLayout() {
         mAdapter = new MainPagerAdapter(this, mSlidingTabLayout, getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
@@ -96,16 +107,18 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         mSlidingTabLayout.setViewPager(mViewPager);
     }
 
-    private void showErrorDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.dialog_error_title)
-                .setMessage(R.string.dialog_error_message)
-                .setPositiveButton(android.R.string.ok, null);
-
-        AlertDialog errorDialog = builder.create();
-        errorDialog.show();
+    /** Saves device info to Parse */
+    private void saveParseInstallation() {
+        ParseInstallation.getCurrentInstallation()
+                .put(ParseConstants.KEY_INSTALLATION_USER_ID,
+                        currentUser.getObjectId());
+        ParseInstallation.getCurrentInstallation()
+                .put(ParseConstants.KEY_INSTALLATION_USER_NAME,
+                        currentUser.getString(ParseConstants.KEY_FIRST_NAME));
+        ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 
+    /** Updates title in action bar based on which page is selected */
     private void updateTitle(int position) {
         String title;
         switch (position) {
@@ -125,6 +138,7 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         setTitle(title);
     }
 
+    /** Hides keyboard */
     private void hideKeyboard() {
         EditText inputText = (EditText) findViewById(R.id.group_chat_message_input);
         if (inputText != null) {
@@ -135,23 +149,4 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         }
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        // Update title based on position
-        updateTitle(position);
-        // Update MainPagerAdapter's currentPosition
-        mAdapter.setCurrentPosition(position);
-        // Hide keyboard on page change
-        hideKeyboard();
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
 }

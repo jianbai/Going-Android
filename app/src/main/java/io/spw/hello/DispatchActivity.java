@@ -1,5 +1,5 @@
 /**
- * Created by scottwang on 12/28/14.
+ * Created by @author scottwang on 12/28/14.
  */
 
 package io.spw.hello;

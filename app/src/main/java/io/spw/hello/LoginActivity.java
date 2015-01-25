@@ -1,5 +1,5 @@
 /**
- * Created by scottwang on 12/26/14.
+ * Created by @author scottwang on 12/26/14.
  */
 
 package io.spw.hello;
@@ -65,6 +65,35 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
     }
+
+    /** Satisfies required method implementation for OnPageChangeListener */
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+    /** Changes page indicator image based on which page is selected */
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case 0:
+                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_0);
+                break;
+            case 1:
+                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_1);
+                break;
+            case 2:
+                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_2);
+                break;
+            case 3:
+                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_3);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /** Satisfies required method implementation for OnPageChangeListener */
+    @Override
+    public void onPageScrollStateChanged(int state) {}
 
     /** Finds views */
     private void findViews() {
@@ -326,34 +355,5 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
         mProgressSpinner.setVisibility(View.GONE);
         mLoginButton.setVisibility(View.VISIBLE);
     }
-
-    /** Satisfies required method implementation for OnPageChangeListener */
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-    /** Changes page indicator image based on which page is selected */
-    @Override
-    public void onPageSelected(int position) {
-        switch (position) {
-            case 0:
-                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_0);
-                break;
-            case 1:
-                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_1);
-                break;
-            case 2:
-                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_2);
-                break;
-            case 3:
-                mLoginPageIndicator.setImageResource(R.drawable.ic_login_indicator_3);
-                break;
-            default:
-                break;
-        }
-    }
-
-    /** Satisfies required method implementation for OnPageChangeListener */
-    @Override
-    public void onPageScrollStateChanged(int state) {}
 
 }

@@ -1,5 +1,5 @@
 /**
- * Created by scott on 1/22/15.
+ * Created by @author scott on 1/22/15.
  */
 
 package io.spw.hello;
@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/** Provides third fragment of login tutorial */
+/**
+ * Provides third fragment of login tutorial
+ */
 public class LoginFragment2 extends Fragment {
 
     /** Displays login tutorial */

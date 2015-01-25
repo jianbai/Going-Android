@@ -34,6 +34,11 @@
     <string name="set_profile_dialog_invalid_age_message">The birthday you entered is not working. Please enter a valid birthday!</string>
 
     <!--
+    MAIN
+    -->
+    <string name="main_dialog_match_error_message">You\'ve been matched, but there was a problem displaying your match details. Verify your network connection and try again.</string>
+
+    <!--
     SETTINGS
     -->
     <string name="settings_title">Settings</string>
@@ -131,6 +136,7 @@
     <string name="dialog_error_message">Something is rotten in the state of your network connection… No worries, just try again later!</string>
     <string name="dialog_ok_button">OK</string>
     <string name="dialog_cancel_button">Cancel</string>
+    <string name="friends_dialog_error_message">Sorry, there was an error loading your friends list. Verify your network connection and try again!</string>
 
     <!--
     ARRAYS

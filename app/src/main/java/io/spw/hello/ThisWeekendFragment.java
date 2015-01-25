@@ -1,6 +1,9 @@
+/**
+ * Created by @author scottwang on 12/20/14.
+ */
+
 package io.spw.hello;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.location.Location;
@@ -8,7 +11,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,49 +22,45 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.parse.ParseException;
 import com.parse.ParseUser;
 
-import org.json.JSONException;
-
 /**
- * Created by scottwang on 12/20/14.
+ * Provides This Weekend page
  */
 public class ThisWeekendFragment extends Fragment {
 
-    public static final String TAG = ThisWeekendFragment.class.getSimpleName();
-
-    private Activity mainActivity;
-    private MainPagerAdapter.ThisWeekendFragmentListener listener;
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-
+    private MainActivity mMainActivity;
+    private MainPagerAdapter.ThisWeekendFragmentListener mListener;
+    private LocationManager mLocationManager;
+    private LocationListener mLocationListener;
     private LinearLayout mLinearLayout;
     private Button mGoButton;
     private TextView mHelpTextView;
     private LinearLayout mSpinnerLayout;
+    private ParseUser mCurrentUser;
+    private Boolean mIsSearching;
+    private Firebase mCurrentUserMatchedRef;
+    private ValueEventListener mValueEventListener;
 
-    private ParseUser currentUser;
-    private Boolean isSearching;
-    private Firebase currentUserMatchedRef;
-    private ValueEventListener valueEventListener;
-
-    public ThisWeekendFragment(Activity c, MainPagerAdapter.ThisWeekendFragmentListener listener) {
-        mainActivity = c;
-        this.listener = listener;
+    /** Initializes member variables */
+    public ThisWeekendFragment(MainActivity activity,
+                               MainPagerAdapter.ThisWeekendFragmentListener listener) {
+        mMainActivity = activity;
+        mListener = listener;
+        mCurrentUser = mMainActivity.currentUser;
+        mIsSearching = mCurrentUser.getBoolean(ParseConstants.KEY_IS_SEARCHING);
+        mCurrentUserMatchedRef = new Firebase(FirebaseConstants.URL_USERS)
+                .child(mCurrentUser.getObjectId())
+                .child(FirebaseConstants.KEY_MATCHED);
     }
 
+    /** Set up Firebase event listener and Android location services */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_this_weekend, container, false);
-        currentUser = MainActivity.mCurrentUser;
-
-        isSearching = currentUser.getBoolean(ParseConstants.KEY_IS_SEARCHING);
-        Firebase currentUserRef = new Firebase(FirebaseConstants.URL_USERS).child(currentUser.getObjectId());
-        currentUserMatchedRef = currentUserRef.child(FirebaseConstants.KEY_MATCHED);
-
         findViews(rootView);
+
         setUpEventListener();
         setUpViews();
         setUpLocation();
@@ -70,45 +68,21 @@ public class ThisWeekendFragment extends Fragment {
         return rootView;
     }
 
-    private void setUpLocation() {
-        locationManager = (LocationManager) mainActivity.getSystemService(Context.LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                currentUser.put(ParseConstants.KEY_LATITUDE, location.getLatitude());
-                currentUser.put(ParseConstants.KEY_LONGITUDE, location.getLongitude());
-                currentUser.saveInBackground();
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-    }
-
+    /** Adds Firebase event listener */
     @Override
     public void onStart() {
         super.onStart();
-        currentUserMatchedRef.addListenerForSingleValueEvent(valueEventListener);
+        mCurrentUserMatchedRef.addListenerForSingleValueEvent(mValueEventListener);
     }
 
+    /** Removes Firebase event listener */
     @Override
     public void onStop() {
         super.onStop();
-        currentUserMatchedRef.removeEventListener(valueEventListener);
+        mCurrentUserMatchedRef.removeEventListener(mValueEventListener);
     }
 
+    /** Finds views */
     private void findViews(View rootView) {
         mLinearLayout = (LinearLayout) rootView.findViewById(R.id.this_weekend_linear_layout);
         mGoButton = (Button) rootView.findViewById(R.id.this_weekend_go_button);
@@ -116,19 +90,48 @@ public class ThisWeekendFragment extends Fragment {
         mSpinnerLayout = (LinearLayout) rootView.findViewById(R.id.this_weekend_spinner_layout);
     }
 
+    /** Sets up Firebase event listener */
+    private void setUpEventListener() {
+        mValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean isMatched;
+
+                // Check if user has been matched
+                try {
+                    isMatched = (Boolean) dataSnapshot.getValue();
+                } catch (ClassCastException e) {
+                    isMatched = false;
+                }
+
+                // If matched, remove event listener and call listener method
+                if (isMatched) {
+                    mCurrentUserMatchedRef.removeEventListener(mValueEventListener);
+                    mListener.onMatchMade();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {}
+        };
+    }
+
+    /** Sets up appropriate views */
     private void setUpViews() {
-        if (isSearching) {
+        // Displays different views based on whether user is currently searching for match
+        if (mIsSearching) {
             showProgressSpinner();
-            currentUserMatchedRef.addValueEventListener(valueEventListener);
+            mCurrentUserMatchedRef.addValueEventListener(mValueEventListener);
         } else {
             hideProgressSpinner();
-            setUpHelloButton();
+            setUpGoButton();
         }
 
+        // Sets up help button
         mHelpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(mainActivity);
+                final Dialog dialog = new Dialog(mMainActivity);
                 dialog.setContentView(R.layout.dialog_help);
                 dialog.setTitle(R.string.this_weekend_dialog_help_title);
                 Button button = (Button) dialog.findViewById(R.id.dialog_help_button);
@@ -145,59 +148,59 @@ public class ThisWeekendFragment extends Fragment {
         });
     }
 
-    private void setUpHelloButton() {
+    /** Sets up location services */
+    private void setUpLocation() {
+        mLocationManager =
+                (LocationManager) mMainActivity.getSystemService(Context.LOCATION_SERVICE);
+        mLocationListener = new LocationListener() {
+            // Save user location to Parse
+            @Override
+            public void onLocationChanged(Location location) {
+                mCurrentUser.put(ParseConstants.KEY_LATITUDE, location.getLatitude());
+                mCurrentUser.put(ParseConstants.KEY_LONGITUDE, location.getLongitude());
+                mCurrentUser.saveInBackground();
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+            @Override
+            public void onProviderEnabled(String provider) {}
+
+            @Override
+            public void onProviderDisabled(String provider) {}
+        };
+    }
+
+    /** Sets up Go button */
+    private void setUpGoButton() {
         mGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentUser.put(ParseConstants.KEY_IS_SEARCHING, true);
-                currentUser.saveInBackground();
+                // Save to Parse that user is searching
+                mCurrentUser.put(ParseConstants.KEY_IS_SEARCHING, true);
+                mCurrentUser.saveInBackground();
 
+                // Show progress spinner and log location
                 showProgressSpinner();
-                locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
+                mLocationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, mLocationListener, null);
 
-                currentUserMatchedRef.addValueEventListener(valueEventListener);
+                // Add Firebase event listener
+                mCurrentUserMatchedRef.addValueEventListener(mValueEventListener);
             }
         });
     }
 
+    /** Shows progress spinner and hides Go button */
     private void showProgressSpinner() {
-        mLinearLayout.setVisibility(View.GONE);
         mSpinnerLayout.setVisibility(View.VISIBLE);
+        mLinearLayout.setVisibility(View.GONE);
     }
 
+    /** Hides progress spinner and shows Go button */
     private void hideProgressSpinner() {
-        mLinearLayout.setVisibility(View.VISIBLE);
         mSpinnerLayout.setVisibility(View.GONE);
-    }
-
-    private void setUpEventListener() {
-        valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean isMatched;
-
-                try {
-                    isMatched = (Boolean) dataSnapshot.getValue();
-                } catch (ClassCastException e) {
-                    isMatched = false;
-                }
-
-                if (isMatched) {
-                    currentUserMatchedRef.removeEventListener(valueEventListener);
-
-                    try {
-                        listener.onMatchMade();
-                    } catch (JSONException | ParseException e) {
-                        Log.d(TAG, e.getLocalizedMessage());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        };
+        mLinearLayout.setVisibility(View.VISIBLE);
     }
 
 }

@@ -1,6 +1,9 @@
+/**
+ * Created by @author scottwang on 1/8/15.
+ */
+
 package io.spw.hello;
 
-import android.app.Activity;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -18,6 +21,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -28,43 +32,43 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
- * Created by scottwang on 1/8/15.
+ * Provides Group Chat page
  */
 public class GroupChatFragment extends ListFragment {
 
-    public static final String TAG = GroupChatFragment.class.getSimpleName();
-
-    private MainPagerAdapter.GroupChatFragmentListener listener;
-
-    private Activity mainActivity;
+    private MainActivity mMainActivity;
+    private MainPagerAdapter.GroupChatFragmentListener mListener;
     private String mUsername;
-    private Firebase mFirebaseRef;
+    private Firebase mGroupChatRef;
     private ChatListAdapter mChatListAdapter;
-
     private EditText mInputText;
     private ImageButton mSendButton;
+    private ParseUser mCurrentUser;
 
-    private ParseUser currentUser;
-
-    public GroupChatFragment(Activity a, MainPagerAdapter.GroupChatFragmentListener listener) {
-        mainActivity = a;
-        this.listener = listener;
+    /** Initializes member variables */
+    public GroupChatFragment(MainActivity activity,
+                             MainPagerAdapter.GroupChatFragmentListener listener) {
+        mMainActivity = activity;
+        mListener = listener;
+        mCurrentUser = mMainActivity.currentUser;
+        if (mUsername == null) {
+            mUsername = mCurrentUser.getString(ParseConstants.KEY_FIRST_NAME);
+        }
     }
 
+    /** Sets up message input and send button */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_group_chat, container, false);
 
         findViews(rootView);
-        currentUser = MainActivity.mCurrentUser;
-
-        setUpUsername();
 
         mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                if (actionId == EditorInfo.IME_NULL &&
+                        keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
                     sendMessage();
                 }
                 return true;
@@ -81,25 +85,26 @@ public class GroupChatFragment extends ListFragment {
         return rootView;
     }
 
+    /** Sets up Firebase event listener and ListView */
     @Override
     public void onStart() {
         super.onStart();
 
-        // Check if weekend is over
-        if (currentUser.getBoolean(ParseConstants.KEY_IS_MATCHED)) {
+        // Check if match expired
+        if (mCurrentUser.getBoolean(ParseConstants.KEY_IS_MATCHED)) {
             setUpSingleEventListener();
         }
 
         // Setup view and list adapter
         final ListView listView = getListView();
-
-        if (mFirebaseRef == null) {
+        // Initialize mGroupChatRef if it is null
+        if (mGroupChatRef == null) {
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(ParseConstants.CLASS_GROUPS);
-            query.whereEqualTo(ParseConstants.KEY_MEMBER_IDS, currentUser.getObjectId());
+            query.whereEqualTo(ParseConstants.KEY_MEMBER_IDS, mCurrentUser.getObjectId());
             query.getFirstInBackground(new GetCallback<ParseObject>() {
                 @Override
                 public void done(ParseObject group, ParseException e) {
-                    mFirebaseRef = new Firebase(FirebaseConstants.URL_GROUP_CHATS)
+                    mGroupChatRef = new Firebase(FirebaseConstants.URL_GROUP_CHATS)
                             .child(group.getObjectId());
                     setUpListView(listView);
                 }
@@ -109,8 +114,24 @@ public class GroupChatFragment extends ListFragment {
         }
     }
 
+    /** Removes all Firebase event listeners */
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mChatListAdapter != null) {
+            mChatListAdapter.cleanup();
+        }
+    }
+
+    /** Finds views */
+    private void findViews(View rootView) {
+        mInputText = (EditText) rootView.findViewById(R.id.group_chat_message_input);
+        mSendButton = (ImageButton) rootView.findViewById(R.id.group_chat_send_button);
+    }
+
+    /** Adds Firebase event listener to check if match is expired */
     private void setUpSingleEventListener() {
-        MainActivity.mCurrentUserRef.child(FirebaseConstants.KEY_MATCHED)
+        mMainActivity.currentUserRef.child(FirebaseConstants.KEY_MATCHED)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -123,34 +144,19 @@ public class GroupChatFragment extends ListFragment {
                         }
 
                         if (!isMatched) {
-                            listener.onFriendsPicked();
+                            mListener.onMatchExpired();
                         }
                     }
 
                     @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
+                    public void onCancelled(FirebaseError firebaseError) {}
                 });
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mChatListAdapter != null) {
-            mChatListAdapter.cleanup();
-        }
-    }
-
-    private void setUpUsername() {
-        if (mUsername == null) {
-            mUsername = currentUser.getString(ParseConstants.KEY_FIRST_NAME);
-        }
-    }
-
+    /** Fills ListView with messages from Firebase */
     private void setUpListView(final ListView listView) {
-        mChatListAdapter = new ChatListAdapter(mFirebaseRef.limitToLast(50),
-                getActivity(), R.layout.custom_chat_bubble, mUsername, mainActivity);
+        mChatListAdapter = new ChatListAdapter(mGroupChatRef.limitToLast(50),
+                getActivity(), R.layout.custom_chat_bubble, mUsername, mMainActivity);
         listView.setAdapter(mChatListAdapter);
         mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -160,11 +166,8 @@ public class GroupChatFragment extends ListFragment {
             }
         });
     }
-    private void findViews(View rootView) {
-        mInputText = (EditText) rootView.findViewById(R.id.group_chat_message_input);
-        mSendButton = (ImageButton) rootView.findViewById(R.id.group_chat_send_button);
-    }
 
+    /** Sends a message to Firebase */
     private void sendMessage() {
         String input = mInputText.getText().toString();
         if (!input.equals("")) {
@@ -176,7 +179,7 @@ public class GroupChatFragment extends ListFragment {
             // Create our 'model', a Chat object
             Chat chat = new Chat(input, mUsername, time);
             // Create a new, auto-generated child of that chat location, and save our chat data there
-            mFirebaseRef.push().setValue(chat);
+            mGroupChatRef.push().setValue(chat);
             mInputText.setText("");
         }
     }
