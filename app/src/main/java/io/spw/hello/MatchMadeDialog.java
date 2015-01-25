@@ -75,12 +75,12 @@ public class MatchMadeDialog extends Dialog {
     /** Sets up TextViews displaying match info in custom match dialog */
     private void setUpTextViews() {
         // Find views
-        TextView userName0 = (TextView) findViewById(R.id.userName0);
-        TextView userInfo0 = (TextView) findViewById(R.id.userInfo0);
-        TextView userName1 = (TextView) findViewById(R.id.userName1);
-        TextView userInfo1 = (TextView) findViewById(R.id.userInfo1);
-        TextView userName2 = (TextView) findViewById(R.id.userName2);
-        TextView userInfo2 = (TextView) findViewById(R.id.userInfo2);
+        TextView userName0 = (TextView) findViewById(R.id.user_name_0);
+        TextView userInfo0 = (TextView) findViewById(R.id.user_info_0);
+        TextView userName1 = (TextView) findViewById(R.id.user_name_1);
+        TextView userInfo1 = (TextView) findViewById(R.id.user_info_1);
+        TextView userName2 = (TextView) findViewById(R.id.user_name_2);
+        TextView userInfo2 = (TextView) findViewById(R.id.user_info_2);
 
         // Set text
         userName0.setText(mGroupMembers.get(0).getString(ParseConstants.KEY_FIRST_NAME));
@@ -102,7 +102,7 @@ public class MatchMadeDialog extends Dialog {
     /** Sets up button for custom match dialog */
     private void setUpButton() {
         // Find view
-        Button button = (Button) findViewById(R.id.dialog_hello_button);
+        Button button = (Button) findViewById(R.id.this_weekend_dialog_match_button);
         // Set click mListener
         button.setOnClickListener(new View.OnClickListener() {
             @Override

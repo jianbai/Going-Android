@@ -1,61 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
 
     <ScrollView
+        android:id="@+id/dialog_faq_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/dialog_faq_button"
-        android:id="@+id/dialog_faq_scrollview" >
+        android:layout_above="@+id/dialog_faq_button" >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center" >
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/thin_padding">
+                android:padding="@dimen/thin_padding"
+                android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/faq_question0"
+                    android:id="@+id/faq_question_0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/settings_dialog_faq_question_0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/abc_text_size_small_material" />
+                    android:textSize="@dimen/abc_text_size_small_material"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/faq_answer0"
+                    android:id="@+id/faq_answer_0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/settings_dialog_faq_answer_0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:textSize="@dimen/abc_text_size_small_material" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/thin_padding">
+                android:padding="@dimen/thin_padding"
+                android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/faq_question1"
+                    android:id="@+id/faq_question_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/settings_dialog_faq_question_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/abc_text_size_small_material" />
+                    android:textSize="@dimen/abc_text_size_small_material"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/faq_answer1"
+                    android:id="@+id/faq_answer_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/settings_dialog_faq_answer_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:textSize="@dimen/abc_text_size_small_material" />
 
             </LinearLayout>
@@ -63,22 +64,22 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/thin_padding">
+                android:padding="@dimen/thin_padding"
+                android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/faq_question2"
+                    android:id="@+id/faq_question_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/settings_dialog_faq_question_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/abc_text_size_small_material" />
+                    android:textSize="@dimen/abc_text_size_small_material"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/faq_answer2"
+                    android:id="@+id/faq_answer_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/settings_dialog_faq_answer_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:textSize="@dimen/abc_text_size_small_material" />
 
             </LinearLayout>
@@ -86,22 +87,22 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/thin_padding">
+                android:padding="@dimen/thin_padding"
+                android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/faq_question3"
+                    android:id="@+id/faq_question_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/settings_dialog_faq_question_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/abc_text_size_small_material" />
+                    android:textSize="@dimen/abc_text_size_small_material"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/faq_answer3"
-                    android:text="@string/settings_dialog_faq_answer_3"
+                    android:id="@+id/faq_answer_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/settings_dialog_faq_answer_3"
                     android:textSize="@dimen/abc_text_size_small_material" />
 
             </LinearLayout>
@@ -109,22 +110,22 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/thin_padding">
+                android:padding="@dimen/thin_padding"
+                android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/faq_question4"
+                    android:id="@+id/faq_question_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/settings_dialog_faq_question_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/abc_text_size_small_material" />
+                    android:textSize="@dimen/abc_text_size_small_material"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/faq_answer4"
-                    android:text="@string/settings_dialog_faq_answer_4"
+                    android:id="@+id/faq_answer_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/settings_dialog_faq_answer_4"
                     android:textSize="@dimen/abc_text_size_small_material" />
 
             </LinearLayout>
@@ -136,12 +137,12 @@
         android:id="@+id/dialog_faq_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_margin"
+        android:gravity="center"
+        android:background="@drawable/bubble_orange"
         android:text="@string/dialog_ok_button"
         android:textColor="@color/hello_white"
-        android:background="@drawable/bubble_orange"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/dialog_margin" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

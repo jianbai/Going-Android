@@ -41,12 +41,12 @@ public class ChatListAdapter extends FirebaseListAdapter<Chat> {
         String message = chat.getMessage();
 
         // Set authorText with author name and timestamp
-        TextView authorText = (TextView) view.findViewById(R.id.author);
+        TextView authorText = (TextView) view.findViewById(R.id.chat_author);
         authorText.setAllCaps(true);
         authorText.setText(author + "  : :  " + time);
 
         // Set messageText with message
-        TextView messageText = (TextView) view.findViewById(R.id.message);
+        TextView messageText = (TextView) view.findViewById(R.id.chat_message);
         messageText.setText(message);
 
         styleMessage(view, author, messageText);
@@ -55,8 +55,8 @@ public class ChatListAdapter extends FirebaseListAdapter<Chat> {
     /** Styles each chat bubble */
     private void styleMessage(View view, String author, TextView messageText) {
         // Find views
-        LinearLayout authorContainer = (LinearLayout) view.findViewById(R.id.authorContainer);
-        LinearLayout messageContainer = (LinearLayout) view.findViewById(R.id.messageContainer);
+        LinearLayout authorContainer = (LinearLayout) view.findViewById(R.id.chat_author_container);
+        LinearLayout messageContainer = (LinearLayout) view.findViewById(R.id.chat_message_container);
 
         // Create layout params
         Resources r = mContext.getResources();

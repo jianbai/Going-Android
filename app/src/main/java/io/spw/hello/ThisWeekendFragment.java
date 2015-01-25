@@ -70,15 +70,15 @@ public class ThisWeekendFragment extends Fragment {
 
     /** Adds Firebase event listener */
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         mCurrentUserMatchedRef.addListenerForSingleValueEvent(mValueEventListener);
     }
 
     /** Removes Firebase event listener */
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         mCurrentUserMatchedRef.removeEventListener(mValueEventListener);
     }
 

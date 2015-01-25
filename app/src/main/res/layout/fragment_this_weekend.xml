@@ -1,75 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/hello_white"
-    android:padding="@dimen/thin_padding">
+    android:padding="@dimen/thin_padding"
+    android:background="@color/hello_white" >
 
     <LinearLayout
+        android:id="@+id/this_weekend_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/this_weekend_linear_layout"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true" >
         <TextView
+            android:id="@+id/this_weekend_tagline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/this_weekend_tagline"
-            android:text="@string/app_tagline"
-            android:textSize="@dimen/abc_text_size_headline_material"
+            android:layout_marginBottom="@dimen/content_margin"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:layout_marginBottom="@dimen/content_margin" />
+            android:text="@string/app_tagline"
+            android:textSize="@dimen/abc_text_size_headline_material" />
 
         <Button
+            android:id="@+id/this_weekend_go_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@string/this_weekend_go_button"
-            android:textColor="@color/hello_white"
-            android:id="@+id/this_weekend_go_button"
-            android:background="@drawable/bubble_orange"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/content_margin"
-            android:textSize="@dimen/abc_text_size_display_3_material" />
+            android:background="@drawable/bubble_orange"
+            android:text="@string/this_weekend_go_button"
+            android:textSize="@dimen/abc_text_size_display_3_material"
+            android:textColor="@color/hello_white" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/this_weekend_spinner_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/this_weekend_spinner_layout"
+        android:gravity="center"
         android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:gravity="center">
+        android:visibility="gone" >
         <TextView
+            android:id="@+id/this_weekend_searching_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/this_weekend_searching_textview"
             android:text="@string/this_weekend_searching"
             android:textSize="@dimen/abc_text_size_display_1_material" />
 
         <ProgressBar
+            android:id="@+id/this_weekend_progress_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_margin"
-            style="@android:style/Widget.Holo.ProgressBar.Large"
-            android:id="@+id/this_weekend_progress_spinner"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            style="@android:style/Widget.Holo.ProgressBar.Large" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/this_weekend_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/content_margin"
-        android:text="@string/this_weekend_help"
-        android:id="@+id/this_weekend_help"
         android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
+        android:text="@string/this_weekend_help"
         android:textSize="@dimen/abc_text_size_medium_material"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentLeft="false"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

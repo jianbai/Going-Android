@@ -97,9 +97,9 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
 
     /** Finds views */
     private void findViews() {
-        mViewPager = (ViewPager) findViewById(R.id.loginViewPager);
+        mViewPager = (ViewPager) findViewById(R.id.login_view_pager);
         mLoginPageIndicator = (ImageView) findViewById(R.id.login_page_indicator);
-        mLoginButton = (Button) findViewById(R.id.button_facebook_login);
+        mLoginButton = (Button) findViewById(R.id.login_facebook_button);
         mProgressSpinner = (ProgressBar) findViewById(R.id.login_progress_spinner);
     }
 

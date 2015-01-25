@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/hello_white"
     android:divider="@drawable/divider"
     android:showDividers="middle|end"
-    android:orientation="vertical"
-
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:orientation="vertical"
         android:paddingLeft="@dimen/thin_padding"
         android:paddingRight="@dimen/thin_padding"
         android:paddingTop="@dimen/thin_padding"
-        android:paddingBottom="@dimen/medium_padding">
+        android:paddingBottom="@dimen/medium_padding"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/settings_profile_name"
@@ -35,9 +34,9 @@
     </LinearLayout>
 
     <ListView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@android:id/list"
         android:layout_gravity="bottom" />
 
 </LinearLayout>

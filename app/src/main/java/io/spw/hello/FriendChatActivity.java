@@ -51,7 +51,7 @@ public class FriendChatActivity extends ActionBarActivity {
         FriendChatFragment friendChatFragment =
                 new FriendChatFragment(this, getIntent().getStringExtra("chatId"));
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.friend_chat_container, friendChatFragment).commit();
+        transaction.add(R.id.friend_chat_fragment_container, friendChatFragment).commit();
     }
 
     /** Inflates menu */

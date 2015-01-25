@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="@dimen/dialog_margin"
+    android:orientation="vertical"
     android:gravity="center">
 
     <TextView
+        android:id="@+id/dialog_bug_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/dialog_bug_textview"
-        android:text="@string/settings_dialog_bug_message"
         android:layout_margin="@dimen/dialog_margin"
+        android:text="@string/settings_dialog_bug_message"
         />
 
     <EditText
+        android:id="@+id/dialog_bug_input_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/dialog_bug_input"
         android:layout_margin="@dimen/dialog_margin"
         android:inputType="textMultiLine"
         android:textSize="@dimen/abc_text_size_medium_material"
@@ -30,36 +31,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1" >
             <Button
                 android:id="@+id/dialog_bug_cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dialog_cancel_button"
-                android:textColor="@color/hello_white"
-                android:background="@drawable/bubble_orange"
-                android:gravity="center"
                 android:layout_margin="@dimen/dialog_margin"
-                android:layout_gravity="center"/>
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:background="@drawable/bubble_orange"
+                android:text="@string/dialog_cancel_button"
+                android:textColor="@color/hello_white" />
             </FrameLayout>
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1" >
             <Button
                 android:id="@+id/dialog_bug_report_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/settings_dialog_bug_report_button"
-                android:textColor="@color/hello_white"
-                android:background="@drawable/bubble_orange"
-                android:gravity="center"
                 android:layout_margin="@dimen/dialog_margin"
-                android:layout_gravity="center"/>
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:background="@drawable/bubble_orange"
+                android:text="@string/settings_dialog_bug_report_button"
+                android:textColor="@color/hello_white" />
             </FrameLayout>
     </LinearLayout>
 

@@ -236,7 +236,7 @@ public class SettingsFragment extends ListFragment {
         final Dialog dialog = new Dialog(mMainActivity);
         dialog.setContentView(R.layout.dialog_bug);
         dialog.setTitle(R.string.settings_dialog_bug_title);
-        final EditText inputText = (EditText) dialog.findViewById(R.id.dialog_bug_input);
+        final EditText inputText = (EditText) dialog.findViewById(R.id.dialog_bug_input_edittext);
         Button cancelButton = (Button) dialog.findViewById(R.id.dialog_bug_cancel_button);
         Button reportButton = (Button) dialog.findViewById(R.id.dialog_bug_report_button);
 

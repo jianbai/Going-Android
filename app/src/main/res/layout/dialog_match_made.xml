@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_margin"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_margin="@dimen/dialog_margin">
+        android:gravity="center_horizontal" >
 
         <TextView
-            android:id="@+id/userName0"
-            android:text="Scott"
+            android:id="@+id/user_name_0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/abc_text_size_display_2_material" />
 
         <TextView
-            android:id="@+id/userInfo0"
-            android:text="23 // Toronto, Ontario"
+            android:id="@+id/user_info_0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/abc_text_size_medium_material" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -34,52 +33,46 @@
         android:gravity="center_horizontal">
 
         <TextView
-            android:id="@+id/userName1"
-            android:text="Scott"
+            android:id="@+id/user_name_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/abc_text_size_display_2_material" />
 
         <TextView
-            android:id="@+id/userInfo1"
-            android:text="23 // Toronto, Ontario"
+            android:id="@+id/user_info_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/abc_text_size_medium_material" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_margin"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_margin="@dimen/dialog_margin">
+        android:gravity="center_horizontal" >
 
         <TextView
-            android:id="@+id/userName2"
-            android:text="Scott"
+            android:id="@+id/user_name_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/abc_text_size_display_2_material" />
 
         <TextView
-            android:id="@+id/userInfo2"
-            android:text="23 // Toronto, Ontario"
+            android:id="@+id/user_info_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/abc_text_size_medium_material" />
-
     </LinearLayout>
 
     <Button
-        android:id="@+id/dialog_hello_button"
+        android:id="@+id/this_weekend_dialog_match_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/this_weekend_dialog_match_button"
-        android:background="@drawable/bubble_orange"
-        android:textColor="@color/hello_white"
         android:layout_marginBottom="24dp"
-        android:layout_marginTop="@dimen/dialog_margin" />
+        android:layout_marginTop="@dimen/dialog_margin"
+        android:background="@drawable/bubble_orange"
+        android:text="@string/this_weekend_dialog_match_button"
+        android:textColor="@color/hello_white" />
 
 </LinearLayout>

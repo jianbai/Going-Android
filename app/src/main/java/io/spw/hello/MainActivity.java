@@ -93,7 +93,7 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
     /** Finds views */
     private void findViews() {
-        mViewPager = (ViewPager) findViewById(R.id.mainViewPager);
+        mViewPager = (ViewPager) findViewById(R.id.main_view_pager);
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
     }
 

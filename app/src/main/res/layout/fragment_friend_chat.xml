@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
@@ -7,21 +8,21 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/friend_chat_divider"
-        android:layout_alignParentTop="true"
         android:transcriptMode="alwaysScroll"
         android:background="@color/hello_white"
         android:divider="@null"
-        android:dividerHeight="0dp" />
+        android:dividerHeight="0dp"
+        android:layout_above="@+id/friend_chat_divider"
+        android:layout_alignParentTop="true" />
 
     <LinearLayout
+        android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@android:id/empty"
-        android:gravity="center"
+        android:padding="@dimen/thin_padding"
         android:orientation="vertical"
-        android:background="@color/hello_white"
-        android:padding="@dimen/thin_padding" >
+        android:gravity="center"
+        android:background="@color/hello_white" >
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,38 +30,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/friend_chat_empty"
             android:gravity="center"
+            android:text="@string/friend_chat_empty"
             android:textSize="@dimen/abc_text_size_menu_material" />
     </LinearLayout>
 
     <View
         android:id="@+id/friend_chat_divider"
-        android:layout_above="@+id/friend_chat_list_footer"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#16333333" />
+        android:background="#16333333"
+        android:layout_above="@+id/friend_chat_list_footer" />
 
     <LinearLayout
         android:id="@+id/friend_chat_list_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/abc_action_bar_default_height_material"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:background="@color/hello_white"
-        android:gravity="center"
         android:paddingLeft="@dimen/thin_padding"
         android:paddingTop="@dimen/thin_padding"
         android:paddingRight="@dimen/abc_action_bar_default_padding_material"
         android:paddingBottom="@dimen/thin_padding"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/hello_white"
+        android:layout_alignParentBottom="true"
         android:weightSum="6">
 
         <EditText
             android:id="@+id/friend_chat_message_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_marginRight="@dimen/abc_action_bar_default_padding_material"
             android:inputType="textMultiLine"
             android:textSize="@dimen/abc_text_size_medium_material"
             android:minLines="1"
@@ -68,17 +69,16 @@
             android:scrollbars="vertical"
             android:background="@drawable/bubble_white"
             android:hint="@string/chat_hint"
-            android:layout_marginRight="@dimen/abc_action_bar_default_padding_material" />
+            android:layout_weight="5" />
 
         <ImageButton
             android:id="@+id/friend_chat_send_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_send"
+            android:padding="@dimen/abc_action_bar_default_padding_material"
             android:background="@color/hello_white"
-            android:padding="@dimen/abc_action_bar_default_padding_material" />
+            android:src="@android:drawable/ic_menu_send"
+            android:layout_weight="1" />
     </LinearLayout>
-
 
 </RelativeLayout>
