@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -105,6 +106,10 @@ public class SettingsFragment extends ListFragment {
                 break;
             // Logout
             case 6:
+
+                if(ParseFacebookUtils.getSession()!=null)
+                    ParseFacebookUtils.getSession().closeAndClearTokenInformation();
+
                 ParseUser.logOut();
                 navigateToLogin();
                 break;

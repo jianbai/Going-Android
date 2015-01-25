@@ -11,15 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Provides second fragment of login tutorial
+ * Provides fragment of login tutorial based on given layout ID
  */
-public class LoginFragment1 extends Fragment {
+public class LoginTutorialFragment extends Fragment {
+
+    private int mLayoutId;
+
+    public LoginTutorialFragment(int layoutId) {
+        mLayoutId = layoutId;
+    }
 
     /** Displays login tutorial */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login_1, container, false);
+        return inflater.inflate(mLayoutId, container, false);
     }
 
 }

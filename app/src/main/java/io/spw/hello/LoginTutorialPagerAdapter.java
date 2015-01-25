@@ -31,13 +31,13 @@ public class LoginTutorialPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new LoginFragment0();
+                return new LoginTutorialFragment(R.layout.fragment_login_0);
             case 1:
-                return new LoginFragment1();
+                return new LoginTutorialFragment(R.layout.fragment_login_1);
             case 2:
-                return new LoginFragment2();
+                return new LoginTutorialFragment(R.layout.fragment_login_2);
             case 3:
-                return new LoginFragment3();
+                return new LoginTutorialFragment(R.layout.fragment_login_3);
             default:
                 return null;
         }

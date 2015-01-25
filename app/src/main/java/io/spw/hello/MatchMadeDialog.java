@@ -32,15 +32,15 @@ public class MatchMadeDialog extends Dialog {
     private ParseRelation<ParseUser> mGroupMembersRelation;
 
     /** Initialize member variables and set up views */
-    public MatchMadeDialog(MainActivity a, MainPagerAdapter.MatchMadeDialogListener listener) {
-        super(a);
+    public MatchMadeDialog(MainActivity activity, MainPagerAdapter.MatchMadeDialogListener listener) {
+        super(activity);
         setContentView(R.layout.dialog_match_made);
         setTitle(R.string.this_weekend_dialog_match_title);
 
         // Initialize member variables
         mListener = listener;
-        mActivity = a;
-        mCurrentUser = a.currentUser;
+        mActivity = activity;
+        mCurrentUser = activity.currentUser;
         mGroupMembersRelation =
                 mCurrentUser.getRelation(ParseConstants.KEY_GROUP_MEMBERS_RELATION);
 

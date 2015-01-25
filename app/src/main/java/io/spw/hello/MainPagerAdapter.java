@@ -38,9 +38,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     private FragmentManager mFragmentManager;
     private Fragment mCenterFragment;
     private Fragment mFriendsFragment;
-    protected ParseUser mCurrentUser;
-    protected ParseRelation<ParseUser> mFriendsRelation;
-    protected ParseRelation<ParseUser> mGroupMembersRelation;
+    private ParseUser mCurrentUser;
+    private ParseInstallation mInstallation;
+    private ParseRelation<ParseUser> mFriendsRelation;
+    private ParseRelation<ParseUser> mGroupMembersRelation;
     private List<ParseUser> mGroupMembers;
     private String[] mNames;
     private int mCurrentPosition;
@@ -65,6 +66,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         mSlidingTabLayout = s;
         mFragmentManager = fm;
         mCurrentUser = mActivity.currentUser;
+        mInstallation = ParseInstallation.getCurrentInstallation();
         mFriendsRelation =
                 mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
         mGroupMembersRelation =
@@ -243,10 +245,11 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         mCurrentUser.put(ParseConstants.KEY_MATCH_DIALOG_SEEN, true);
         mCurrentUser.saveInBackground();
 
-        ParseInstallation.getCurrentInstallation().
-                put(ParseConstants.KEY_INSTALLATION_GROUP_ID,
-                        mCurrentUser.getString(ParseConstants.KEY_GROUP_ID));
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        if (mInstallation != null) {
+            mInstallation.put(ParseConstants.KEY_INSTALLATION_GROUP_ID,
+                    mCurrentUser.getString(ParseConstants.KEY_GROUP_ID));
+            mInstallation.saveInBackground();
+        }
 
         if (mCenterFragment instanceof ThisWeekendFragment) {
             switchToGroupChatFragment();
@@ -261,6 +264,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
             if (mFriendsToKeep[i]) {
                 mFriendsRelation.add(mGroupMembers.get(i));
             }
+            mFriendsToKeep[i] = false;
         }
 
         // Update ParseUser and save to Parse
@@ -269,9 +273,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         mCurrentUser.saveInBackground();
 
         // Update ParseInstallation and save to Parse
-        ParseInstallation.getCurrentInstallation()
-                .remove(ParseConstants.KEY_INSTALLATION_GROUP_ID);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        if (mInstallation != null) {
+            mInstallation.remove(ParseConstants.KEY_INSTALLATION_GROUP_ID);
+            mInstallation.saveInBackground();
+        }
 
         // Switch center fragment and update friends
         if (mCenterFragment instanceof GroupChatFragment) {

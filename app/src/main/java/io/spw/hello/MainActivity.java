@@ -15,8 +15,6 @@ import com.firebase.client.Firebase;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
-// TODO: Refactor 1. Comments 2. Spacing 3. Variable names 4. Constant names
-
 /**
  * Provides main activity containing main ViewPager with 3 pages
  * for SettingsFragment, ThisWeekendFragment and FriendFragment
@@ -109,13 +107,15 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
     /** Saves device info to Parse */
     private void saveParseInstallation() {
-        ParseInstallation.getCurrentInstallation()
-                .put(ParseConstants.KEY_INSTALLATION_USER_ID,
-                        currentUser.getObjectId());
-        ParseInstallation.getCurrentInstallation()
-                .put(ParseConstants.KEY_INSTALLATION_USER_NAME,
-                        currentUser.getString(ParseConstants.KEY_FIRST_NAME));
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+
+        if (installation != null) {
+            installation.put(ParseConstants.KEY_INSTALLATION_USER_ID,
+                    currentUser.getObjectId());
+            installation.put(ParseConstants.KEY_INSTALLATION_USER_NAME,
+                    currentUser.getString(ParseConstants.KEY_FIRST_NAME));
+            installation.saveInBackground();
+        }
     }
 
     /** Updates title in action bar based on which page is selected */

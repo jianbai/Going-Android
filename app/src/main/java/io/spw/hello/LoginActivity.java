@@ -161,7 +161,7 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
                             updateUserProfile(user);
                             updateUserAge(user);
                             updateUserHometown(user);
-                            initializeParseBooleans();
+                            updateDefaultParseValues();
 
                             // Save user info
                             mCurrentUser.saveInBackground(new SaveCallback() {
@@ -266,11 +266,16 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
     }
 
     /** Adds default values for Parse Booleans to ParseUser */
-    private void initializeParseBooleans() {
+    private void updateDefaultParseValues() {
         mCurrentUser.put(ParseConstants.KEY_IS_MATCHED, false);
         mCurrentUser.put(ParseConstants.KEY_IS_SEARCHING, false);
         mCurrentUser.put(ParseConstants.KEY_MATCH_DIALOG_SEEN, false);
         mCurrentUser.put(ParseConstants.KEY_PICK_FRIENDS_DIALOG_SEEN, true);
+        mCurrentUser.put(ParseConstants.KEY_GENDER_SETTINGS, 0);
+        mCurrentUser.put(ParseConstants.KEY_AGE_SETTINGS_0, true);
+        mCurrentUser.put(ParseConstants.KEY_AGE_SETTINGS_20, false);
+        mCurrentUser.put(ParseConstants.KEY_AGE_SETTINGS_30, false);
+        mCurrentUser.put(ParseConstants.KEY_AGE_SETTINGS_40, false);
     }
 
     /** Returns a String with age calculated from birthday */

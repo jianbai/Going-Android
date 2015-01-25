@@ -72,7 +72,7 @@ public class ThisWeekendFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mCurrentUserMatchedRef.addListenerForSingleValueEvent(mValueEventListener);
+        mCurrentUserMatchedRef.addValueEventListener(mValueEventListener);
     }
 
     /** Removes Firebase event listener */
@@ -121,7 +121,6 @@ public class ThisWeekendFragment extends Fragment {
         // Displays different views based on whether user is currently searching for match
         if (mIsSearching) {
             showProgressSpinner();
-            mCurrentUserMatchedRef.addValueEventListener(mValueEventListener);
         } else {
             hideProgressSpinner();
             setUpGoButton();
