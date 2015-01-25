@@ -106,12 +106,7 @@ public class SettingsFragment extends ListFragment {
                 break;
             // Logout
             case 6:
-
-                if(ParseFacebookUtils.getSession()!=null)
-                    ParseFacebookUtils.getSession().closeAndClearTokenInformation();
-
-                ParseUser.logOut();
-                navigateToLogin();
+                logOut();
                 break;
         }
     }
@@ -264,6 +259,15 @@ public class SettingsFragment extends ListFragment {
         setUpPositiveButton(dialog, inputText, sendButton, ParseConstants.KEY_CONTACT_US);
 
         dialog.show();
+    }
+
+    /** Closes Facebook session, logs out of Parse and navigates to LoginActivity */
+    private void logOut() {
+        if(ParseFacebookUtils.getSession()!=null)
+            ParseFacebookUtils.getSession().closeAndClearTokenInformation();
+
+        ParseUser.logOut();
+        navigateToLogin();
     }
 
     /** Provides logic for handling clicks in age preferences dialog */
