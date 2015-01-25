@@ -1,7 +1,11 @@
+/**
+ * Created by scott on 1/24/15.
+ */
+
 package io.spw.hello;
 
 /**
- * Created by scott on 1/24/15.
+ * Provides Facebook constant String values
  */
 public final class FacebookConstants {
     // Permissions

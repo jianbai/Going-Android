@@ -1,11 +1,14 @@
-package io.spw.hello;
-
 /**
  * Created by scottwang on 1/8/15.
  */
+
+package io.spw.hello;
+
+/**
+ * Provides Firebase constant String values
+ */
 public final class FirebaseConstants {
     // Firebase URLs
-    public static final String URL_ROOT = "https://sayhello.firebaseio.com/web/data";
     public static final String URL_USERS = "https://sayhello.firebaseio.com/web/data/users";
     public static final String URL_GROUP_CHATS = "https://sayhello.firebaseio.com/web/data/groupChats";
     public static final String URL_FRIEND_CHATS = "https://sayhello.firebaseio.com/web/data/friendChats";

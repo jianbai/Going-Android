@@ -1,3 +1,7 @@
+/**
+ * Created by scottwang on 12/31/14.
+ */
+
 package io.spw.hello;
 
 import android.app.AlertDialog;
@@ -21,58 +25,46 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
-/**
- * Created by scottwang on 12/31/14.
- */
+/** Saves any missing user fields to Parse after first login */
 public class SetProfileActivity extends ActionBarActivity {
 
-    public static final String TAG = SetProfileActivity.class.getSimpleName();
-
-    private ParseUser currentUser;
-
-    private Boolean noGender;
-    private Boolean noAge;
-    private Boolean noHometown;
-
     private EditText mGenderEditText;
-    private AlertDialog mGenderDialog;
-
     private EditText mBirthdayEditText;
-    private DatePickerDialog mDatePickerDialog;
-    private SimpleDateFormat mDateFormatter;
-
     private EditText mHometownEditText;
-
     private Button mSaveButton;
-    private AlertDialog mIncompleteDialog;
     private ProgressBar mProgressSpinner;
+    private Boolean mNoGender;
+    private Boolean mNoAge;
+    private Boolean mNoHometown;
+    private ParseUser mCurrentUser;
 
+    /** Displays appropriate views after checking which user fields are missing from Parse */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_profile);
-        currentUser = ParseUser.getCurrentUser();
-
         findViews();
-        initializeBooleans();
+        mCurrentUser = ParseUser.getCurrentUser();
 
-        if (noGender) {
+        // Initialize Boolean fields based on which user fields are missing
+        identifyMissingFields();
+
+        // Display appropriate views and prompt user to manually enter missing fields
+        if (mNoGender) {
             setUpGender();
         }
-
-        if (noAge) {
+        if (mNoAge) {
             setUpAge();
         }
-
-        if (noHometown) {
+        if (mNoHometown) {
             setUpHometown();
         }
 
         setUpSaveButton();
     }
 
+    /** Finds views */
     private void findViews() {
         mGenderEditText = (EditText) findViewById(R.id.set_profile_gender_edittext);
         mBirthdayEditText = (EditText) findViewById(R.id.set_profile_birthday_edittext);
@@ -81,28 +73,138 @@ public class SetProfileActivity extends ActionBarActivity {
         mProgressSpinner = (ProgressBar) findViewById(R.id.set_profile_progress_spinner);
     }
 
-    private void initializeBooleans() {
+    /** Initializes Boolean fields based on Boolean extras passed from LoginActivity */
+    private void identifyMissingFields() {
         Intent intent = getIntent();
-        noGender = intent.getExtras().getBoolean("noGender");
-        noAge = intent.getExtras().getBoolean("noAge");
-        noHometown = intent.getExtras().getBoolean("noHometown");
+        mNoGender = intent.getExtras().getBoolean("noGender");
+        mNoAge = intent.getExtras().getBoolean("noAge");
+        mNoHometown = intent.getExtras().getBoolean("noHometown");
     }
 
+    /** Displays gender views and sets up gender picker dialog */
     private void setUpGender() {
         mGenderEditText.setVisibility(View.VISIBLE);
         mGenderEditText.setInputType(InputType.TYPE_NULL);
 
-        initializeGenderDialog();
-
         mGenderEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGenderDialog.show();
+                createGenderDialog().show();
             }
         });
     }
 
-    private void initializeGenderDialog() {
+    /** Displays age views and sets up birthday picker dialog */
+    private void setUpAge() {
+        mBirthdayEditText.setVisibility(View.VISIBLE);
+        mBirthdayEditText.setInputType(InputType.TYPE_NULL);
+
+        mBirthdayEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDatePickerDialog().show();
+            }
+        });
+    }
+
+    /** Displays hometown views */
+    private void setUpHometown() {
+        mHometownEditText.setVisibility(View.VISIBLE);
+    }
+
+    /** Sets up save button */
+    private void setUpSaveButton() {
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProgressSpinner();
+
+                // Checks if all missing fields have been added
+                Boolean emptyGender = mNoGender && mGenderEditText.getText().toString().matches("");
+                Boolean emptyBirthday = mNoAge && mBirthdayEditText.getText().toString().matches("");
+                Boolean emptyHometown = mNoHometown && mHometownEditText.getText().toString().matches("");
+
+                if (emptyGender || emptyBirthday || emptyHometown) {
+                    // If any fields are still missing, show an AlertDialog
+                    createErrorDialog(R.string.set_profile_dialog_incomplete_message).show();
+                    hideProgressSpinner();
+                } else {
+                    // Otherwise, add the missing fields to ParseUser and save to Parse
+                    if (mNoGender) {
+                        updateUserGender();
+                    }
+                    if (mNoAge) {
+                        updateUserAge();
+                    }
+                    if (mNoHometown) {
+                        updateUserHometown();
+                    }
+
+                    saveToParse();
+                }
+            }
+        });
+    }
+
+    /** Adds gender input to ParseUser */
+    private void updateUserGender() {
+        String gender = mGenderEditText.getText().toString();
+        mCurrentUser.put(ParseConstants.KEY_GENDER, gender);
+    }
+
+    /** Adds age input to ParseUser */
+    private void updateUserAge() {
+        String birthday = mBirthdayEditText.getText().toString();
+        try {
+            String age = calculateAge(birthday);
+            mCurrentUser.put(ParseConstants.KEY_AGE, age);
+        } catch (ParseException e) {
+            createErrorDialog(R.string.set_profile_dialog_invalid_age_message).show();
+        }
+        mCurrentUser.put(ParseConstants.KEY_BIRTHDAY, birthday);
+    }
+
+    /** Adds hometown input to ParseUser */
+    private void updateUserHometown() {
+        String hometown = mHometownEditText.getText().toString();
+        mCurrentUser.put(ParseConstants.KEY_HOMETOWN, hometown);
+    }
+
+    /** Saves ParseUser to Parse */
+    private void saveToParse() {
+        mCurrentUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(com.parse.ParseException e) {
+                hideProgressSpinner();
+                navigateToMain();
+            }
+        });
+    }
+
+    /** Returns a String with age calculated from birthday*/
+    private String calculateAge(String birthday) throws java.text.ParseException {
+        // Create two calendars with date of birthday and current date
+        Date date = new SimpleDateFormat("MM/dd/yyyy").parse(birthday);
+        Date now = new Date();
+        GregorianCalendar cal1 = new GregorianCalendar();
+        GregorianCalendar cal2 = new GregorianCalendar();
+        cal1.setTime(date);
+        cal2.setTime(now);
+
+        // Check if birthday has passed this year
+        int factor = 0;
+        if (cal2.get(Calendar.DAY_OF_YEAR) < cal1.get(Calendar.DAY_OF_YEAR)) {
+            factor = -1;
+        }
+
+        // Calculate difference in years, then subtract 1 if birthday has not yet passed this year
+        int age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
+
+        return String.valueOf(age);
+    }
+
+    /** Returns an AlertDialog for picking user gender */
+    private AlertDialog createGenderDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.set_profile_gender_hint);
         builder.setItems(R.array.set_profile_gender, new DialogInterface.OnClickListener() {
@@ -119,157 +221,47 @@ public class SetProfileActivity extends ActionBarActivity {
             }
         });
 
-        mGenderDialog = builder.create();
+        return builder.create();
     }
 
-    private void setUpAge() {
-        mBirthdayEditText.setVisibility(View.VISIBLE);
-        mBirthdayEditText.setInputType(InputType.TYPE_NULL);
-        mDateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.CANADA);
-
-        initializeDatePickerDialog();
-
-        mBirthdayEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDatePickerDialog.show();
-            }
-        });
-    }
-
-    private void initializeDatePickerDialog() {
+    /** Returns a DatePickerDialog for picking user birthday */
+    private DatePickerDialog createDatePickerDialog() {
         GregorianCalendar cal = new GregorianCalendar();
 
-        mDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        return new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
                 GregorianCalendar date = new GregorianCalendar();
                 date.set(year, monthOfYear, dayOfMonth);
-                mBirthdayEditText.setText(mDateFormatter.format(date.getTime()));
+                mBirthdayEditText.setText(dateFormatter.format(date.getTime()));
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
     }
 
-    private void setUpHometown() {
-        mHometownEditText.setVisibility(View.VISIBLE);
-    }
-
-    private void setUpSaveButton() {
-        initializeIncompleteDialog();
-
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showProgressSpinner();
-
-                Boolean emptyGender = noGender && mGenderEditText.getText().toString().matches("");
-                Boolean emptyBirthday = noAge && mBirthdayEditText.getText().toString().matches("");
-                Boolean emptyHometown = noHometown && mHometownEditText.getText().toString().matches("");
-
-                if (emptyGender || emptyBirthday || emptyHometown) {
-                    mIncompleteDialog.show();
-                    hideProgressSpinner();
-                } else {
-                    if (noGender) {
-                        updateUserGender();
-                    }
-
-                    if (noAge) {
-                        updateUserAge();
-                    }
-
-                    if (noHometown) {
-                        updateUserHometown();
-                    }
-
-                    saveToParse();
-                }
-            }
-        });
-    }
-
-    private void initializeIncompleteDialog() {
+    /** Returns an error dialog with given message */
+    private AlertDialog createErrorDialog(int messageId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.set_profile_dialog_incomplete_message)
+        builder.setMessage(messageId)
                 .setTitle(R.string.dialog_error_title)
                 .setPositiveButton(android.R.string.ok, null);
 
-        mIncompleteDialog = builder.create();
+        return builder.create();
     }
 
-    private String calculateAge(String birthday) throws java.text.ParseException {
-        int age;
-
-        Date date = new SimpleDateFormat("MM/dd/yyyy").parse(birthday);
-        Date now = new Date();
-
-        GregorianCalendar cal1 = new GregorianCalendar();
-        GregorianCalendar cal2 = new GregorianCalendar();
-        cal1.setTime(date);
-        cal2.setTime(now);
-
-        int factor = 0;
-
-        if (cal2.get(Calendar.DAY_OF_YEAR) < cal1.get(Calendar.DAY_OF_YEAR)) {
-            factor = -1;
-        }
-
-        age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
-
-        return String.valueOf(age);
-    }
-
-    private void showInvalidAgeDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.set_profile_dialog_invalid_age_message)
-                .setTitle(R.string.dialog_error_title)
-                .setPositiveButton(android.R.string.ok, null);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private void updateUserGender() {
-        String gender = mGenderEditText.getText().toString();
-        currentUser.put(ParseConstants.KEY_GENDER, gender);
-    }
-
-    private void updateUserAge() {
-        String birthday = mBirthdayEditText.getText().toString();
-        try {
-            String age = calculateAge(birthday);
-            currentUser.put(ParseConstants.KEY_AGE, age);
-        } catch (ParseException e) {
-            showInvalidAgeDialog();
-        }
-        currentUser.put(ParseConstants.KEY_BIRTHDAY, birthday);
-    }
-
-    private void updateUserHometown() {
-        String hometown = mHometownEditText.getText().toString();
-        currentUser.put(ParseConstants.KEY_HOMETOWN, hometown);
-    }
-
-    private void saveToParse() {
-        currentUser.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(com.parse.ParseException e) {
-                hideProgressSpinner();
-                navigateToMain();
-            }
-        });
-    }
-
+    /** Navigates to MainActivity */
     private void navigateToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /** Shows progress spinner and hides save button */
     private void showProgressSpinner() {
         mSaveButton.setVisibility(View.GONE);
         mProgressSpinner.setVisibility(View.VISIBLE);
     }
 
+    /** Hides progress spinner and shows save button */
     private void hideProgressSpinner() {
         mProgressSpinner.setVisibility(View.GONE);
         mSaveButton.setVisibility(View.VISIBLE);

@@ -1,3 +1,7 @@
+/**
+ * Created by scottwang on 12/28/14.
+ */
+
 package io.spw.hello;
 
 import android.app.Activity;
@@ -9,29 +13,26 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
 /**
- * Created by scottwang on 12/28/14.
+ * Provides launch activity
  */
 public class DispatchActivity extends Activity {
 
-    private final int LAUNCH_DISPLAY_LENGTH = 2000;
-    private ParseUser mCurrentUser;
+    public static final int LAUNCH_DISPLAY_LENGTH = 1600;
 
-    public DispatchActivity() {
-
-    }
-
+    /** Dispatches to appropriate activity based on whether user is logged in */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dispatch);
 
-        mCurrentUser = ParseUser.getCurrentUser();
+        ParseUser currentUser = ParseUser.getCurrentUser();
 
-        if ((mCurrentUser != null) && ParseFacebookUtils.isLinked(mCurrentUser)) {
+        // Check if user is logged in to Parse and Facebook
+        if (currentUser != null && ParseFacebookUtils.isLinked(currentUser)) {
             // Start an intent for main activity
             startActivity(new Intent(DispatchActivity.this, MainActivity.class));
         } else {
-            // Start an intent for login activity
+            // Show launch screen, then start an intent for login activity
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -39,7 +40,6 @@ public class DispatchActivity extends Activity {
                 }
             }, LAUNCH_DISPLAY_LENGTH);
         }
-
     }
 
 }
