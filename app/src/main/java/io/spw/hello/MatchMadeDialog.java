@@ -10,7 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -25,7 +28,7 @@ import java.util.List;
  */
 public class MatchMadeDialog extends Dialog {
 
-    private MainActivity mActivity;
+    private MainActivity mMainActivity;
     private MainPagerAdapter.MatchMadeDialogListener mListener;
     private ParseUser mCurrentUser;
     private List<ParseUser> mGroupMembers;
@@ -39,37 +42,62 @@ public class MatchMadeDialog extends Dialog {
 
         // Initialize member variables
         mListener = listener;
-        mActivity = activity;
-        mCurrentUser = activity.currentUser;
+        mMainActivity = activity;
+        mCurrentUser = ParseUser.getCurrentUser();
         mGroupMembersRelation =
                 mCurrentUser.getRelation(ParseConstants.KEY_GROUP_MEMBERS_RELATION);
+        mGroupMembers = new ArrayList<>();
 
-        // Try to update group members from Parse
-        try {
-            updateGroupMembers();
-        } catch (JSONException | ParseException e) {
-            showMatchErrorDialog();
+        // Get group members from Parse
+        fetchParseData();
+    }
+
+    /** Counts dialog as seen if user dismisses it */
+    @Override
+    public void onStop() {
+        super.onStop();
+        mListener.onMatchMadeDialogSeen();
+    }
+
+    /** Gets group member data from Parse */
+    private void fetchParseData() {
+        // Look for group containing current user
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(ParseConstants.CLASS_GROUPS);
+        query.whereEqualTo(ParseConstants.KEY_GROUP_MEMBER_IDS, mCurrentUser.getObjectId());
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject group, ParseException e) {
+                handleParseData(group);
+            }
+        });
+    }
+
+    /** Adds group member info to mGroupMembers variable and ParseUser,
+     * then sets up dialog textviews and button accordingly*/
+    private void handleParseData(ParseObject group) {
+        // Get list of member ids, add each member to mGroupMembers
+        // and to mGroupMembersRelation
+        JSONArray memberIds = group.getJSONArray(ParseConstants.KEY_GROUP_MEMBER_IDS);
+        for (int i=0; i<memberIds.length(); i++) {
+            try {
+                String id = memberIds.getString(i);
+                if (!mCurrentUser.getObjectId().equals(id)) {
+                    ParseUser user = ParseUser.getQuery().get(id);
+                    mGroupMembers.add(user);
+                    mGroupMembersRelation.add(user);
+                }
+            } catch (JSONException | ParseException e1) {
+                showMatchErrorDialog();
+            }
         }
+
+        // Add group id and save ParseUser
+        mCurrentUser.put(ParseConstants.KEY_GROUP_ID, group.getObjectId());
+        mCurrentUser.saveInBackground();
 
         // Set up TextViews and Button
         setUpTextViews();
         setUpButton();
-    }
-
-    /** Update list of group members */
-    private void updateGroupMembers() throws JSONException, ParseException {
-        mGroupMembers = new ArrayList<>();
-
-        JSONArray userIds = mCurrentUser.getJSONArray(ParseConstants.KEY_MEMBER_IDS);
-        for (int i=0; i<userIds.length(); i++) {
-            if (!mCurrentUser.getObjectId().equals(userIds.getString(i))) {
-                ParseUser user = ParseUser.getQuery().get(userIds.getString(i));
-                mGroupMembers.add(user);
-                mGroupMembersRelation.add(user);
-            }
-        }
-
-        mCurrentUser.saveInBackground();
     }
 
     /** Sets up TextViews displaying match info in custom match dialog */
@@ -115,7 +143,7 @@ public class MatchMadeDialog extends Dialog {
 
     /** Shows error dialog */
     private void showMatchErrorDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mMainActivity);
         builder.setTitle(R.string.dialog_error_title)
                 .setMessage(R.string.main_dialog_match_error_message)
                 .setPositiveButton(android.R.string.ok, null);

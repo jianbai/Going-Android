@@ -50,7 +50,7 @@ public class GroupChatFragment extends ListFragment {
                              MainPagerAdapter.GroupChatFragmentListener listener) {
         mMainActivity = activity;
         mListener = listener;
-        mCurrentUser = mMainActivity.currentUser;
+        mCurrentUser = ParseUser.getCurrentUser();
         if (mUsername == null) {
             mUsername = mCurrentUser.getString(ParseConstants.KEY_FIRST_NAME);
         }
@@ -100,7 +100,7 @@ public class GroupChatFragment extends ListFragment {
         // Initialize mGroupChatRef if it is null
         if (mGroupChatRef == null) {
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(ParseConstants.CLASS_GROUPS);
-            query.whereEqualTo(ParseConstants.KEY_MEMBER_IDS, mCurrentUser.getObjectId());
+            query.whereEqualTo(ParseConstants.KEY_GROUP_MEMBER_IDS, mCurrentUser.getObjectId());
             query.getFirstInBackground(new GetCallback<ParseObject>() {
                 @Override
                 public void done(ParseObject group, ParseException e) {

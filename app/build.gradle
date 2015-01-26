@@ -29,5 +29,8 @@ dependencies {
     compile project(':facebook')
     compile 'com.parse.bolts:bolts-android:1.+'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+    compile fileTree(dir: 'libs', include: 'ParseCrashReporting-*.jar')
     compile files('libs/firebase-client-android-2.1.0.jar')
+    compile files('libs/Parse-1.8.2.jar')
+    compile files('libs/ParseCrashReporting-1.8.2.jar')
 }

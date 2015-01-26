@@ -21,8 +21,8 @@ import com.parse.ParseUser;
  */
 public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
-    public ParseUser currentUser;
     public Firebase currentUserRef;
+    private ParseUser currentUser;
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
     private MainPagerAdapter mAdapter;

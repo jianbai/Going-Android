@@ -47,7 +47,7 @@ public class ThisWeekendFragment extends Fragment {
                                MainPagerAdapter.ThisWeekendFragmentListener listener) {
         mMainActivity = activity;
         mListener = listener;
-        mCurrentUser = mMainActivity.currentUser;
+        mCurrentUser = ParseUser.getCurrentUser();
         mIsSearching = mCurrentUser.getBoolean(ParseConstants.KEY_IS_SEARCHING);
         mCurrentUserMatchedRef = new Firebase(FirebaseConstants.URL_USERS)
                 .child(mCurrentUser.getObjectId())
@@ -72,7 +72,10 @@ public class ThisWeekendFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mCurrentUserMatchedRef.addValueEventListener(mValueEventListener);
+        mIsSearching = mCurrentUser.getBoolean(ParseConstants.KEY_IS_SEARCHING);
+        if (mIsSearching) {
+            mCurrentUserMatchedRef.addValueEventListener(mValueEventListener);
+        }
     }
 
     /** Removes Firebase event listener */

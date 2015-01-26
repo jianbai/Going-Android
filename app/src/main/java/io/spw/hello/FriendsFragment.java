@@ -38,7 +38,7 @@ public class FriendsFragment extends ListFragment {
     public FriendsFragment(MainActivity activity, SlidingTabLayout slidingTabLayout) {
         mMainActivity = activity;
         mSlidingTabLayout = slidingTabLayout;
-        mCurrentUser = mMainActivity.currentUser;
+        mCurrentUser = ParseUser.getCurrentUser();
     }
 
     /** Sets up view in case of empty friends list */

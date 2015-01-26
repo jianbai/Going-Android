@@ -9,8 +9,8 @@
 package io.spw.hello;
 
 import com.firebase.client.Firebase;
-
 import com.parse.Parse;
+import com.parse.ParseCrashReporting;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParsePush;
 
@@ -26,12 +26,13 @@ public class Application extends android.app.Application {
         // Enable Parse Local Datastore.
         Parse.enableLocalDatastore(this);
 
+        // Enable Parse Crash Reporting
+        ParseCrashReporting.enable(this);
+
         // Initialize Parse
         Parse.initialize(this, "BgVWp9cm22GjjGzt6Qj9v9TDYaAQaCIYR6Fe8y2j",
                 "FPQS5IsBfyNv4CJz5DH4FlCUtELeIeJkMbE6Q6g3");
         ParseFacebookUtils.initialize("748438291904311");
-
-        // TODO: Enable analytics
 
         // Initialize Firebase
         Firebase.setAndroidContext(this);

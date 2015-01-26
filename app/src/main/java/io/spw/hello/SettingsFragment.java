@@ -46,7 +46,7 @@ public class SettingsFragment extends ListFragment {
     /** Initializes member variables */
     public SettingsFragment(MainActivity activity) {
         mMainActivity = activity;
-        mCurrentUser = mMainActivity.currentUser;
+        mCurrentUser = ParseUser.getCurrentUser();
     }
 
     /** Retrieves user info from Parse */
@@ -350,7 +350,12 @@ public class SettingsFragment extends ListFragment {
                 String input = inputText.getText().toString();
                 if (!input.equals("")) {
                     mCurrentUser.add(parseKey, input);
-                    mCurrentUser.saveInBackground();
+                    mCurrentUser.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            Toast.makeText(mMainActivity, R.string.settings_toast_message_received, Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                     hideKeyboardAndDismiss(inputText, dialog);
                 }

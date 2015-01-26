@@ -137,6 +137,7 @@
     <string name="dialog_ok_button">OK</string>
     <string name="dialog_cancel_button">Cancel</string>
     <string name="friends_dialog_error_message">Sorry, there was an error loading your friends list. Verify your network connection and try again!</string>
+    <string name="settings_toast_message_received">Message received!</string>
 
     <!--
     ARRAYS

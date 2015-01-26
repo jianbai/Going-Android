@@ -33,7 +33,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public static final int NUM_ITEMS = 3;
     private static Dialog sMatchMadeDialog;
     private static AlertDialog sMatchExpiredDialog;
-    private MainActivity mActivity;
+    private MainActivity mMainActivity;
     private SlidingTabLayout mSlidingTabLayout;
     private FragmentManager mFragmentManager;
     private Fragment mCenterFragment;
@@ -62,10 +62,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     /** Initializes member variables */
     public MainPagerAdapter(MainActivity a, SlidingTabLayout s, FragmentManager fm) {
         super(fm);
-        mActivity = a;
+        mMainActivity = a;
         mSlidingTabLayout = s;
         mFragmentManager = fm;
-        mCurrentUser = mActivity.currentUser;
+        mCurrentUser = ParseUser.getCurrentUser();
         mInstallation = ParseInstallation.getCurrentInstallation();
         mFriendsRelation =
                 mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
@@ -100,10 +100,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     /** Fills action bar with icons */
     @Override
     public CharSequence getPageTitle(int position) {
-        Drawable image = mActivity.getResources().getDrawable(mImageResIdsUnselected[position]);
+        Drawable image = mMainActivity.getResources().getDrawable(mImageResIdsUnselected[position]);
 
         if (position == mCurrentPosition) {
-            image = mActivity.getResources().getDrawable(mImageResIdsSelected[position]);
+            image = mMainActivity.getResources().getDrawable(mImageResIdsSelected[position]);
         }
 
         image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicWidth());
@@ -120,19 +120,19 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             // Settings
             case 0:
-                return new SettingsFragment(mActivity);
+                return new SettingsFragment(mMainActivity);
             // This Weekend or Group Chat
             case 1:
                 // Check is user is matched on Parse and return appropriate fragment
                 if (mCurrentUser.getBoolean(ParseConstants.KEY_IS_MATCHED)) {
-                    mCenterFragment = new GroupChatFragment(mActivity, new GroupChatFragmentListener() {
+                    mCenterFragment = new GroupChatFragment(mMainActivity, new GroupChatFragmentListener() {
                         @Override
                         public void onMatchExpired() {
                             handleMatchExpired();
                         }
                     });
                 } else {
-                    mCenterFragment = new ThisWeekendFragment(mActivity,
+                    mCenterFragment = new ThisWeekendFragment(mMainActivity,
                             new ThisWeekendFragmentListener() {
                         @Override
                         public void onMatchMade() {
@@ -144,7 +144,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
             // Friends
             case 2:
                 if (mFriendsFragment == null) {
-                    mFriendsFragment = new FriendsFragment(mActivity, mSlidingTabLayout);
+                    mFriendsFragment = new FriendsFragment(mMainActivity, mSlidingTabLayout);
                 }
                 return mFriendsFragment;
             default:
@@ -158,10 +158,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         mCurrentUser.put(ParseConstants.KEY_IS_MATCHED, true);
         mCurrentUser.saveInBackground();
 
-        // Check if match dialog is already showing
-        if (sMatchMadeDialog == null || !sMatchMadeDialog.isShowing()) {
-            showMatchMadeDialog();
-        }
+        showMatchMadeDialog();
     }
 
     /** Updates Parse values and shows pick friends dialog when match expires */
@@ -169,38 +166,39 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         mCurrentUser.put(ParseConstants.KEY_IS_MATCHED, false);
         mCurrentUser.saveInBackground();
 
-        // Check if pick friends dialog is already showing
-        if (sMatchExpiredDialog == null || !sMatchExpiredDialog.isShowing()) {
-            showMatchExpiredDialog();
-        }
+        showMatchExpiredDialog();
     }
 
     /** Shows dialog displaying matches to user */
     public void showMatchMadeDialog() {
-        sMatchMadeDialog = new MatchMadeDialog(mActivity, new MatchMadeDialogListener() {
-            @Override
-            public void onMatchMadeDialogSeen() {
-                handleMatchMadeDialogSeen();
-            }
-        });
+        if (sMatchMadeDialog == null || !sMatchMadeDialog.isShowing()) {
+            sMatchMadeDialog = new MatchMadeDialog(mMainActivity, new MatchMadeDialogListener() {
+                @Override
+                public void onMatchMadeDialogSeen() {
+                    handleMatchMadeDialogSeen();
+                }
+            });
 
-        sMatchMadeDialog.show();
+            sMatchMadeDialog.show();
+        }
     }
 
     /** Shows dialog for picking friends to add */
     public void showMatchExpiredDialog() {
-        ParseQuery<ParseUser> query = mGroupMembersRelation.getQuery();
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> groupMembers, ParseException e) {
-                if (e == null) {
-                    updateGroupMembers(groupMembers);
+        if (sMatchExpiredDialog == null || !sMatchExpiredDialog.isShowing()) {
+            ParseQuery<ParseUser> query = mGroupMembersRelation.getQuery();
+            query.findInBackground(new FindCallback<ParseUser>() {
+                @Override
+                public void done(List<ParseUser> groupMembers, ParseException e) {
+                    if (e == null) {
+                        updateGroupMembers(groupMembers);
 
-                    sMatchExpiredDialog = createMatchExpiredDialog();
-                    sMatchExpiredDialog.show();
+                        sMatchExpiredDialog = createMatchExpiredDialog();
+                        sMatchExpiredDialog.show();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     /** Updates group members and their names from Parse */
@@ -217,8 +215,8 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     /** Returns an AlertDialog for picking friends */
     private AlertDialog createMatchExpiredDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-        builder.setTitle(mActivity.getString(R.string.group_chat_dialog_pick_friends_title))
+        AlertDialog.Builder builder = new AlertDialog.Builder(mMainActivity);
+        builder.setTitle(mMainActivity.getString(R.string.group_chat_dialog_pick_friends_title))
                 .setMultiChoiceItems(mNames, mFriendsToKeep,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
@@ -228,7 +226,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
                                 mFriendsToKeep[which] = isChecked;
                             }
                         })
-                .setPositiveButton(mActivity.getString(R.string.group_chat_dialog_pick_friends_button),
+                .setPositiveButton(mMainActivity.getString(R.string.group_chat_dialog_pick_friends_button),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -267,6 +265,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
             mFriendsToKeep[i] = false;
         }
 
+        mGroupMembers = null;
         // Update ParseUser and save to Parse
         mCurrentUser.put(ParseConstants.KEY_PICK_FRIENDS_DIALOG_SEEN, true);
         mCurrentUser.put(ParseConstants.KEY_MATCH_DIALOG_SEEN, false);
@@ -288,14 +287,14 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     /** Reloads FriendsFragment */
     public void updateFriendsFragment() {
         mFragmentManager.beginTransaction().remove(mFriendsFragment).commit();
-        mFriendsFragment = new FriendsFragment(mActivity, mSlidingTabLayout);
+        mFriendsFragment = new FriendsFragment(mMainActivity, mSlidingTabLayout);
         notifyDataSetChanged();
     }
 
     /** Switches center fragment to GroupChatFragment */
     public void switchToGroupChatFragment() {
         mFragmentManager.beginTransaction().remove(mCenterFragment).commit();
-        mCenterFragment = new GroupChatFragment(mActivity, new GroupChatFragmentListener() {
+        mCenterFragment = new GroupChatFragment(mMainActivity, new GroupChatFragmentListener() {
             @Override
             public void onMatchExpired() {
                 handleMatchExpired();
@@ -307,7 +306,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     /** Switches center fragment to ThisWeekendFragment */
     public void switchToThisWeekendFragment() {
         mFragmentManager.beginTransaction().remove(mCenterFragment).commit();
-        mCenterFragment = new ThisWeekendFragment(mActivity,
+        mCenterFragment = new ThisWeekendFragment(mMainActivity,
                 new ThisWeekendFragmentListener() {
             @Override
             public void onMatchMade() {
