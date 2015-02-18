@@ -34,6 +34,10 @@ public class FriendChatFragment extends ListFragment {
     private EditText mInputText;
     private ImageButton mSendButton;
 
+    public FriendChatFragment() {
+        super();
+    }
+
     /** Initializes member variables */
     public FriendChatFragment(FriendChatActivity activity, String friendChatId) {
         mActivity = activity;

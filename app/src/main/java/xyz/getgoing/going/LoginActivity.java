@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -116,9 +117,7 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
         List<String> permissions = Arrays.asList(
                 FacebookConstants.PERMISSION_PUBLIC_PROFILE,
                 FacebookConstants.PERMISSION_EMAIL,
-                FacebookConstants.PERMISSION_USER_FRIENDS,
-                FacebookConstants.PERMISSION_USER_BIRTHDAY,
-                FacebookConstants.PERMISSION_USER_HOMETOWN);
+                FacebookConstants.PERMISSION_USER_FRIENDS);
 
         ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
             @Override
@@ -128,6 +127,7 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
                 // Handles result of login
                 if (parseUser == null) {
                     // Login failed
+                    Toast.makeText(LoginActivity.this, "user is null", Toast.LENGTH_SHORT).show();
                     showLoginErrorDialog();
                     hideProgressSpinner();
                 } else if (parseUser.isNew()) {
@@ -159,8 +159,8 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
                         if (user != null) {
                             // Update Parse user info with results
                             updateUserProfile(user);
-                            updateUserAge(user);
-                            updateUserHometown(user);
+//                            updateUserAge(user);
+//                            updateUserHometown(user);
                             updateDefaultParseValues();
 
                             // Save user info
@@ -179,6 +179,7 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
                                 }
                             });
                         } else if (response.getError() != null) {
+                            Toast.makeText(LoginActivity.this, "me request error", Toast.LENGTH_SHORT).show();
                             showLoginErrorDialog();
                             hideProgressSpinner();
                         }

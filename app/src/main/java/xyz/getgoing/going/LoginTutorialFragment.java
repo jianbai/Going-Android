@@ -17,6 +17,10 @@ public class LoginTutorialFragment extends Fragment {
 
     private int mLayoutId;
 
+    public LoginTutorialFragment() {
+        super();
+    }
+
     public LoginTutorialFragment(int layoutId) {
         mLayoutId = layoutId;
     }
