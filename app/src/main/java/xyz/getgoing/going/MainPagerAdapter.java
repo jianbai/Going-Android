@@ -3,7 +3,7 @@
  * Settings and Friends icons, made by Freepik from www.flaticon.com, are licensed under CC BY 3.0
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

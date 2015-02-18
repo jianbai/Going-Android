@@ -2,7 +2,7 @@
  * Created by scottwang on 1/1/15.
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 /**
  * Provides Parse constant String values

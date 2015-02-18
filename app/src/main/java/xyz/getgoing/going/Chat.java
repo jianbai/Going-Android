@@ -3,7 +3,7 @@
  * Based on Firebase template by @author greg
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 /**
  * Provides class for chat messages

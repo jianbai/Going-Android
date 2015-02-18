@@ -2,7 +2,7 @@
  * Created by @author scottwang on 1/13/15.
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

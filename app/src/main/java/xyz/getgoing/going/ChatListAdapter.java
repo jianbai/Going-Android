@@ -3,7 +3,7 @@
  * Based on Firebase template by @author greg
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 import android.app.Activity;
 import android.content.Context;

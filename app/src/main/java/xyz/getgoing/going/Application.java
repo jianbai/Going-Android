@@ -6,7 +6,7 @@
  * b9NiCI/tkmusUAAs4aW1LCFk9Uw=
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 import com.firebase.client.Firebase;
 import com.parse.Parse;

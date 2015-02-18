@@ -12,7 +12,7 @@
  * @param <T> The class type to use as a model for the data contained in the children of the given Firebase location
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 import android.app.Activity;
 import android.util.Log;

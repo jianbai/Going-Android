@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.spw.hello" >
+    package="xyz.getgoing.going" >
 
     <!--
     PERMISSIONS
@@ -14,21 +14,21 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <permission android:protectionLevel="signature"
-        android:name="io.spw.hello.permission.C2D_MESSAGE" />
-    <uses-permission android:name="io.spw.hello.permission.C2D_MESSAGE" />
+        android:name="xyz.getgoing.going.permission.C2D_MESSAGE" />
+    <uses-permission android:name="xyz.getgoing.going.permission.C2D_MESSAGE" />
 
     <!--
     APPLICATION
     -->
     <application
-        android:name=".Application"
+        android:name="xyz.getgoing.going.Application"
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
         <!-- DISPATCH -->
-        <activity android:name=".DispatchActivity"
+        <activity android:name="xyz.getgoing.going.DispatchActivity"
             android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <!-- LOGIN -->
-        <activity android:name=".LoginActivity"
+        <activity android:name="xyz.getgoing.going.LoginActivity"
             android:label="@string/login_title"
             android:screenOrientation="portrait" >
         </activity>
@@ -46,26 +46,26 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <!-- SET PROFILE -->
-        <activity android:name=".SetProfileActivity"
+        <activity android:name="xyz.getgoing.going.SetProfileActivity"
             android:label="@string/set_profile_title"
             android:screenOrientation="portrait"
             android:noHistory="true" >
         </activity>
         <!-- MAIN -->
-        <activity android:name=".MainActivity"
+        <activity android:name="xyz.getgoing.going.MainActivity"
             android:label="@string/this_weekend_title"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait" >
         </activity>
         <!-- FRIEND CHAT -->
-        <activity android:name=".FriendChatActivity"
+        <activity android:name="xyz.getgoing.going.FriendChatActivity"
             android:label="@string/friend_chat_title"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="xyz.getgoing.going.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.spw.hello.MainActivity" />
+                android:value="xyz.getgoing.going.MainActivity" />
         </activity>
         <!-- FACEBOOK APP ID -->
         <meta-data android:name="com.facebook.sdk.ApplicationId"
@@ -83,10 +83,10 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="io.spw.hello" />
+                <category android:name="xyz.getgoing.going" />
             </intent-filter>
         </receiver>
-        <receiver android:name="io.spw.hello.PushBroadcastReceiver" android:exported="false">
+        <receiver android:name="xyz.getgoing.going.PushBroadcastReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />

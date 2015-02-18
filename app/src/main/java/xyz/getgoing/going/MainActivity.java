@@ -2,7 +2,7 @@
  * Created by @author scottwang on 12/20/14.
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 import android.content.Context;
 import android.os.Bundle;

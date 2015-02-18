@@ -2,7 +2,7 @@
  * Created by @author scottwang on 1/14/15.
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 import android.database.DataSetObserver;
 import android.os.Bundle;

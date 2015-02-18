@@ -2,7 +2,7 @@
  * Created by @author scott on 1/22/15.
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -2,7 +2,7 @@
  * Created by @author scottwang on 12/28/14.
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 import android.app.Activity;
 import android.content.Intent;

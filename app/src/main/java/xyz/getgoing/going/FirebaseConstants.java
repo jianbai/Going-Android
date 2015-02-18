@@ -2,7 +2,7 @@
  * Created by @author scottwang on 1/8/15.
  */
 
-package io.spw.hello;
+package xyz.getgoing.going;
 
 /**
  * Provides Firebase constant String values
