@@ -92,20 +92,16 @@ public class SettingsFragment extends ListFragment {
             case 2:
                 showFaqDialog();
                 break;
-            // RAQ
-            case 3:
-                showRaqDialog();
-                break;
             // Report a bug
-            case 4:
+            case 3:
                 showBugDialog();
                 break;
             // Get in touch
-            case 5:
+            case 4:
                 showContactDialog();
                 break;
             // Logout
-            case 6:
+            case 5:
                 logOut();
                 break;
         }
@@ -203,23 +199,6 @@ public class SettingsFragment extends ListFragment {
         dialog.setContentView(R.layout.dialog_faq);
         dialog.setTitle(R.string.settings_dialog_faq_title);
         Button button = (Button) dialog.findViewById(R.id.dialog_faq_button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
-
-    /** Shows RAQ dialog */
-    private void showRaqDialog() {
-        final Dialog dialog = new Dialog(mMainActivity);
-        dialog.setContentView(R.layout.dialog_raq);
-        dialog.setTitle(R.string.settings_dialog_raq_title);
-        Button button = (Button) dialog.findViewById(R.id.dialog_raq_button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

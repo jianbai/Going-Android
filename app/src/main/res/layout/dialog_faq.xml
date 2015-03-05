@@ -125,6 +125,28 @@
                     android:textSize="@dimen/abc_text_size_small_material" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/thin_padding"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/faq_question_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_dialog_faq_question_5"
+                    android:textSize="@dimen/abc_text_size_small_material"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/faq_answer_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_dialog_faq_answer_5"
+                    android:textSize="@dimen/abc_text_size_small_material" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

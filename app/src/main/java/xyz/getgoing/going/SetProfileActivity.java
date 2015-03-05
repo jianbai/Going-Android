@@ -39,6 +39,7 @@ public class SetProfileActivity extends ActionBarActivity {
     private Boolean mNoGender;
     private Boolean mNoAge;
     private Boolean mNoHometown;
+    private int mAge;
     private ParseUser mCurrentUser;
 
     /** Displays appropriate views after checking which user fields are missing from Parse */
@@ -136,13 +137,22 @@ public class SetProfileActivity extends ActionBarActivity {
                         updateUserGender();
                     }
                     if (mNoAge) {
-                        updateUserAge();
+                        try {
+                            updateUserAge();
+                        } catch (ParseException e) {
+                            showErrorDialog(R.string.set_profile_dialog_invalid_age_message);
+                            hideProgressSpinner();
+                        }
                     }
                     if (mNoHometown) {
                         updateUserHometown();
                     }
 
-                    saveToParse();
+                    if (mNoAge) {
+                        if (mAge > 17) saveToParse();
+                    } else {
+                        saveToParse();
+                    }
                 }
             }
         });
@@ -155,14 +165,10 @@ public class SetProfileActivity extends ActionBarActivity {
     }
 
     /** Adds age input to ParseUser */
-    private void updateUserAge() {
+    private void updateUserAge() throws ParseException {
         String birthday = mBirthdayEditText.getText().toString();
-        try {
-            String age = calculateAge(birthday);
-            mCurrentUser.put(ParseConstants.KEY_AGE, age);
-        } catch (ParseException e) {
-            showErrorDialog(R.string.set_profile_dialog_invalid_age_message);
-        }
+        String age = calculateAge(birthday);
+        mCurrentUser.put(ParseConstants.KEY_AGE, age);
         mCurrentUser.put(ParseConstants.KEY_BIRTHDAY, birthday);
     }
 
@@ -200,9 +206,11 @@ public class SetProfileActivity extends ActionBarActivity {
         }
 
         // Calculate difference in years, then subtract 1 if birthday has not yet passed this year
-        int age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
+        mAge = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
 
-        return String.valueOf(age);
+        if (mAge < 17) throw new ParseException("invalid age", 0);
+
+        return String.valueOf(mAge);
     }
 
     /** Returns an AlertDialog for picking user gender */

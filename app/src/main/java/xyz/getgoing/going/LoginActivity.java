@@ -127,7 +127,7 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
                 // Handles result of login
                 if (parseUser == null) {
                     // Login failed
-                    Toast.makeText(LoginActivity.this, "user is null", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     showLoginErrorDialog();
                     hideProgressSpinner();
                 } else if (parseUser.isNew()) {
@@ -179,7 +179,7 @@ public class LoginActivity extends FragmentActivity implements ViewPager.OnPageC
                                 }
                             });
                         } else if (response.getError() != null) {
-                            Toast.makeText(LoginActivity.this, "me request error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, response.getError().getErrorMessage(), Toast.LENGTH_SHORT).show();
                             showLoginErrorDialog();
                             hideProgressSpinner();
                         }

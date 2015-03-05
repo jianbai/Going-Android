@@ -13,17 +13,17 @@
     LOGIN
     -->
     <string name="login_title">Log in</string>
-    <string name="login_dialog_error_message">Something went wrong : ( That\'s okay, make sure your network connection is ok and try again!</string>
-    <string name="login_tutorial_0">Free this weekend?\nPress "Go" and Going will match you with 3 people around you. Chat with your matches in the app and make plans to go somewhere cool!</string>
-    <string name="login_tutorial_1">Matches disappear when the weekend ends. Choose who you want to keep in touch with by adding them to your friends list.</string>
-    <string name="login_tutorial_2">Go again next weekend to make new matches and meet more people!</string>
+    <string name="login_dialog_error_message">Something went wrong : ( Verify your network connection and try again!</string>
+    <string name="login_tutorial_0">Free this weekend? Match up with 3 people around you.</string>
+    <string name="login_tutorial_1">Matches disappear when the weekend ends. Choose who you want to keep in touch with and add them as friends.</string>
+    <string name="login_tutorial_2">Go again next weekend to meet more people!</string>
     <string name="login_tutorial_3">We don’t use any photos, and we don’t post anything to Facebook.\n\nWe ask for your birthday and hometown to fill out your profile.\n\nWe use location services and Facebook login to make sure you get matched with real people around you.\n\nFinally, Go is for people who want to meet people, so we ask for your friends who use the app so you don’t get matched with people you already know!</string>
 
     <!--
     SET PROFILE
     -->
     <string name="set_profile_title">Set up your profile</string>
-    <string name="set_profile_text">Hey there! Going matches you with cool people around you based on age and gender. That\'s why we ask everyone to set up a full profile before they use the app. If that\'s okay with you, please fill in the missing fields below before getting started!</string>
+    <string name="set_profile_text">Set up your profile below!</string>
     <string name="set_profile_birthday_hint">When were you born?</string>
     <string name="set_profile_hometown_hint">Where are you from?</string>
     <string name="set_profile_gender_hint">What gender do you identify with?</string>
@@ -59,22 +59,16 @@
     <string name="settings_dialog_faq_answer_3">Matches disappear every week so you can make new matches and meet more people.</string>
     <string name="settings_dialog_faq_question_4">How do I add friends?</string>
     <string name="settings_dialog_faq_answer_4">When your matches disappear, you\'ll be prompted to choose who you want to keep as friends.</string>
-    <!-- RAQ -->
-    <string name="settings_dialog_raq_title">RAQs</string>
-    <string name="settings_dialog_raq_question_0">Why groups of 4?</string>
-    <string name="settings_dialog_raq_answer_0">Because 4 is a magical number.</string>
-    <string name="settings_dialog_raq_question_1">Why can’t I choose my matches?</string>
-    <string name="settings_dialog_raq_answer_1">Going is a place where unlikely friendships are made. You set your preferences based on age and gender, and chance takes care of the rest!</string>
-    <string name="settings_dialog_raq_question_2">Who are you people? Why are you doing this?</string>
-    <string name="settings_dialog_raq_answer_2">We are concerned citizens who miss the times when you didn\'t need an excuse to hang out with strangers and make new friends. So we imagined a big orange button that summoned new people and made it into this app.</string>
+    <string name="settings_dialog_faq_question_5">Why can\'t I choose my matches?</string>
+    <string name="settings_dialog_faq_answer_5">Going is a place where unlikely friendships are made. You set your preferences based on age and gender, and chance takes care of the rest!</string>
     <!-- Bug -->
     <string name="settings_dialog_bug_title">Report a bug</string>
-    <string name="settings_dialog_bug_message">We are totally just getting started! And we’re far from perfect, so if you found a bug, you’d be doing us a huge favor by letting us know below — we’ll buy you a drink!</string>
+    <string name="settings_dialog_bug_message">Found a bug? Let us know.</string>
     <string name="settings_dialog_bug_report_button">Report</string>
     <string name="settings_dialog_bug_hint">What\'s going on?</string>
     <!-- Contact -->
-    <string name="settings_dialog_contact_title">Dear Going:</string>
-    <string name="settings_dialog_contact_message">Thoughts? Feelings? Hunches? Cool stories? Get in touch and send us a message, we’d love to hear from you : )</string>
+    <string name="settings_dialog_contact_title">Get in touch</string>
+    <string name="settings_dialog_contact_message">Thoughts? Send us a message.</string>
     <string name="settings_dialog_contact_hint">Sup</string>
     <string name="settings_dialog_send_button">Send</string>
 
@@ -86,12 +80,12 @@
     <string name="this_weekend_help">How does Going work?</string>
     <string name="this_weekend_dialog_help_title">How Going Works</string>
     <string name="this_weekend_dialog_help_free">Free this weekend?</string>
-    <string name="this_weekend_dialog_help_title_0">1 :: Go</string>
+    <string name="this_weekend_dialog_help_title_0">1 :: Match up</string>
     <string name="this_weekend_dialog_help_message_0">Press "Go" and Going will match you with 3 people around you based on your age and gender preferences.</string>
-    <string name="this_weekend_dialog_help_title_1">2 :: Go out</string>
+    <string name="this_weekend_dialog_help_title_1">2 :: Meet up</string>
     <string name="this_weekend_dialog_help_message_1">Chat with your matches in the app and make plans to go somewhere cool! Matches disappear when the weekend ends.</string>
-    <string name="this_weekend_dialog_help_title_2">3 :: Go again</string>
-    <string name="this_weekend_dialog_help_message_2">Choose who you want to keep in touch with by adding them to your friends list. Go again next weekend to meet more people!</string>
+    <string name="this_weekend_dialog_help_title_2">3 :: Make friends</string>
+    <string name="this_weekend_dialog_help_message_2">Choose who you want to keep in touch with and add them as friends. Go again next weekend to meet more people!</string>
     <string name="this_weekend_dialog_help_more">More questions? Check out the FAQ in the Settings tab.</string>
     <string name="this_weekend_dialog_match_title">Match made!</string>
     <string name="this_weekend_searching">Searching…</string>
@@ -151,9 +145,8 @@
         <item>Age preferences</item>
         <item>Gender preferences</item>
         <item>FAQ</item>
-        <item>RAQ</item>
-        <item>I found a bug!</item>
-        <item>Dear Going:</item>
+        <item>Report a bug</item>
+        <item>Get in touch</item>
         <item>Log out</item>
     </string-array>
 
